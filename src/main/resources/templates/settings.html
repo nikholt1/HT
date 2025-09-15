@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Refract Settings</title>
+    <link rel="stylesheet" th:href="@{/stylesTemplate.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+<body>
+
+
+<section class="settingsSection">
+    <h1>Welcome back <span th:text="${userName}"></span></h1>
+
+
+    <p class="current-path" th:text="${videoPath}"></p>
+
+    <form class="settings-form" th:action="@{/videos/updateFolder}" method="post">
+        <input type="text" name="folderPath" placeholder="Enter new folder path"/>
+        <button type="submit">Update Folder</button>
+    </form>
+
+    <form class="settings-form" th:action="@{/videos/updateUserName}" method="post">
+        <input type="text" name="Username" placeholder="Enter new Username"/>
+        <button type="submit">Update Username</button>
+    </form>
+
+</section>
+
+
+
+<div class="devices-image-container">
+    <h3 class="devices-text">Watch anything you want</h3>
+    <p class="devices-subtext">on any device you want</p>
+    <img class="devicesImg" th:src="@{/images/imagesTemplates/devices.png}" alt="Devices">
+    <p class="devices-subtext">As long as it has a browser, you are good to go!</p>
+</div>
+
+</body>
+</html>

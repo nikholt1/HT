@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Refract Browser</title>
+    <link rel="stylesheet" th:href="@{/stylesTemplate.css}">
+    <script type="text/javascript" src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+<body>
+<nav>
+    <a class="navItem" th:href="@{/videos/settings}">Settings</a>
+    <form id="search-form" class="search-form" onsubmit="return false;">
+        <input type="text" id="search-input" placeholder="Search..." autocomplete="off">
+    </form>
+</nav>
+
+<!-- Full-screen overlay for results -->
+<div id="search-overlay" class="search-overlay" style="display: none;">
+    <div id="search-results" class="search-results"></div>
+</div>
+
+<!-- Default section: only shows at root /videos/browser -->
+<section th:if="${currentPath == ''}" class="HeroSection">
+
+
+    <img class="refrac-image" th:src="@{/images/imagesTemplates/Refractio-removebg-preview.png}" alt="Refractio">
+    <h2 class="welcome">Welcome to Refract</h2>
+    <p class="welcomeParagraph">Stream, cast or simply watch anything you have stored</p>
+</section>
+
+<section th:if="${currentPath == 'Horror'}" class="HeroSection horror"
+         th:data-video-path="${previewVideoPath}" onclick="playPreviewVideo(this)">
+
+    <!-- Video background -->
+    <div th:if="${previewVideoPath != null}" class="hero-video-wrapper">
+        <video autoplay muted loop playsinline>
+            <source th:src="@{/videos/stream(filePath=${previewVideoPath})}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="video-gradient"></div>
+    </div>
+
+    <!-- Foreground content -->
+    <div class="hero-content">
+
+
+        <h2 class="hero-title" th:text="${previewVideoName != null ? previewVideoName : currentPath + ' Movies'}"></h2>
+        <p class="hero-subtitle">Watch now</p>
+    </div>
+</section>
+
+
+
+
+
+
+<section th:if="${currentPath == 'Adventure'}" class="HeroSection Adventure"
+         th:data-video-path="${previewVideoPath}" onclick="playPreviewVideo(this)">
+
+    <!-- Video background -->
+    <div th:if="${previewVideoPath != null}" class="hero-video-wrapper">
+        <video autoplay muted loop playsinline>
+            <source th:src="@{/videos/stream(filePath=${previewVideoPath})}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="video-gradient"></div>
+    </div>
+
+    <!-- Foreground content -->
+    <div class="hero-content">
+
+        <h2 class="hero-title" th:text="${previewVideoName != null ? previewVideoName : currentPath + ' Movies'}"></h2>
+        <p class="hero-subtitle">Watch now</p>
+    </div>
+</section>
+<section th:if="${currentPath == 'Thriller'}" class="HeroSection Thriller"
+         th:data-video-path="${previewVideoPath}" onclick="playPreviewVideo(this)">
+    <div th:if="${previewVideoPath != null}" class="hero-video-wrapper">
+        <video autoplay muted loop playsinline>
+            <source th:src="@{/videos/stream(filePath=${previewVideoPath})}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="video-gradient"></div>
+    </div>
+    <div class="hero-content">
+        <h2 class="hero-title" th:text="${previewVideoName != null ? previewVideoName : currentPath + ' Movies'}"></h2>
+        <p class="hero-subtitle">Watch now</p>
+    </div>
+</section>
+
+<section th:if="${currentPath == 'Comedy'}" class="HeroSection Comedy"
+         th:data-video-path="${previewVideoPath}" onclick="playPreviewVideo(this)">
+    <div th:if="${previewVideoPath != null}" class="hero-video-wrapper">
+        <video autoplay muted loop playsinline>
+            <source th:src="@{/videos/stream(filePath=${previewVideoPath})}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="video-gradient"></div>
+    </div>
+    <div class="hero-content">
+        <h2 class="hero-title" th:text="${previewVideoName != null ? previewVideoName : currentPath + ' Movies'}"></h2>
+        <p class="hero-subtitle">Watch now</p>
+    </div>
+</section>
+
+<section th:if="${currentPath == 'Crime'}" class="HeroSection Crime"
+         th:data-video-path="${previewVideoPath}" onclick="playPreviewVideo(this)">
+    <div th:if="${previewVideoPath != null}" class="hero-video-wrapper">
+        <video autoplay muted loop playsinline>
+            <source th:src="@{/videos/stream(filePath=${previewVideoPath})}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="video-gradient"></div>
+    </div>
+    <div class="hero-content">
+        <h2 class="hero-title" th:text="${previewVideoName != null ? previewVideoName : currentPath + ' Movies'}"></h2>
+        <p class="hero-subtitle">Watch now</p>
+    </div>
+</section>
+
+<section th:if="${currentPath == 'Documentary'}" class="HeroSection Documentary"
+         th:data-video-path="${previewVideoPath}" onclick="playPreviewVideo(this)">
+    <div th:if="${previewVideoPath != null}" class="hero-video-wrapper">
+        <video autoplay muted loop playsinline>
+            <source th:src="@{/videos/stream(filePath=${previewVideoPath})}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="video-gradient"></div>
+    </div>
+    <div class="hero-content">
+        <h2 class="hero-title" th:text="${previewVideoName != null ? previewVideoName : currentPath + ' Movies'}"></h2>
+        <p class="hero-subtitle">Watch now</p>
+    </div>
+</section>
+
+<section th:if="${currentPath == 'Action'}" class="HeroSection Action"
+         th:data-video-path="${previewVideoPath}" onclick="playPreviewVideo(this)">
+    <div th:if="${previewVideoPath != null}" class="hero-video-wrapper">
+        <video autoplay muted loop playsinline>
+            <source th:src="@{/videos/stream(filePath=${previewVideoPath})}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="video-gradient"></div>
+    </div>
+    <div class="hero-content">
+        <h2 class="hero-title" th:text="${previewVideoName != null ? previewVideoName : currentPath + ' Movies'}"></h2>
+        <p class="hero-subtitle">Watch now</p>
+    </div>
+</section>
+
+<section th:if="${currentPath == 'Drama'}" class="HeroSection Drama"
+         th:data-video-path="${previewVideoPath}" onclick="playPreviewVideo(this)">
+    <div th:if="${previewVideoPath != null}" class="hero-video-wrapper">
+        <video autoplay muted loop playsinline>
+            <source th:src="@{/videos/stream(filePath=${previewVideoPath})}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="video-gradient"></div>
+    </div>
+    <div class="hero-content">
+        <h2 class="hero-title" th:text="${previewVideoName != null ? previewVideoName : currentPath + ' Movies'}"></h2>
+        <p class="hero-subtitle">Watch now</p>
+    </div>
+</section>
+
+<section th:if="${currentPath == 'Home Videos'}" class="HeroSection HomeVideos"
+         th:data-video-path="${previewVideoPath}" onclick="playPreviewVideo(this)">
+    <div th:if="${previewVideoPath != null}" class="hero-video-wrapper">
+        <video autoplay muted loop playsinline>
+            <source th:src="@{/videos/stream(filePath=${previewVideoPath})}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="video-gradient"></div>
+    </div>
+    <div class="hero-content">
+        <h2 class="hero-title" th:text="${previewVideoName != null ? previewVideoName : currentPath + ' Movies'}"></h2>
+        <p class="hero-subtitle">Watch now</p>
+    </div>
+</section>
+
+<section th:if="${currentPath == 'Reality'}" class="HeroSection Reality"
+         th:data-video-path="${previewVideoPath}" onclick="playPreviewVideo(this)">
+    <div th:if="${previewVideoPath != null}" class="hero-video-wrapper">
+        <video autoplay muted loop playsinline>
+            <source th:src="@{/videos/stream(filePath=${previewVideoPath})}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="video-gradient"></div>
+    </div>
+    <div class="hero-content">
+        <h2 class="hero-title" th:text="${previewVideoName != null ? previewVideoName : currentPath + ' Movies'}"></h2>
+        <p class="hero-subtitle">Watch now</p>
+    </div>
+</section>
+
+<section th:if="${currentPath == 'Romance'}" class="HeroSection Romance"
+         th:data-video-path="${previewVideoPath}" onclick="playPreviewVideo(this)">
+    <div th:if="${previewVideoPath != null}" class="hero-video-wrapper">
+        <video autoplay muted loop playsinline>
+            <source th:src="@{/videos/stream(filePath=${previewVideoPath})}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="video-gradient"></div>
+    </div>
+    <div class="hero-content">
+        <h2 class="hero-title" th:text="${previewVideoName != null ? previewVideoName : currentPath + ' Movies'}"></h2>
+        <p class="hero-subtitle">Watch now</p>
+    </div>
+</section>
+
+<section th:if="${currentPath == 'Sci-Fi'}" class="HeroSection SciFi"
+         th:data-video-path="${previewVideoPath}" onclick="playPreviewVideo(this)">
+    <div th:if="${previewVideoPath != null}" class="hero-video-wrapper">
+        <video autoplay muted loop playsinline>
+            <source th:src="@{/videos/stream(filePath=${previewVideoPath})}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="video-gradient"></div>
+    </div>
+    <div class="hero-content">
+        <h2 class="hero-title" th:text="${previewVideoName != null ? previewVideoName : currentPath + ' Movies'}"></h2>
+        <p class="hero-subtitle">Watch now</p>
+    </div>
+</section>
+
+
+
+
+<!-- Default section for unrecognized path -->
+<section th:if="${currentPath != ''
+    and currentPath != 'Horror'
+    and currentPath != 'Thriller'
+    and currentPath != 'Comedy'
+    and currentPath != 'Crime'
+    and currentPath != 'Documentary'
+    and currentPath != 'Adventure'
+    and currentPath != 'Action'
+    and currentPath != 'Drama'
+    and currentPath != 'Home Videos'
+    and currentPath != 'Reality'
+    and currentPath != 'Romance'
+    and currentPath != 'Sci-Fi'}" class="HeroSection default">
+
+    <h2>Enjoy Your Videos</h2>
+</section>
+
+
+
+
+<section class="collectionSection">
+    <div class="collection">
+        <ul class="grid">
+            <!-- Message if empty -->
+            <li th:if="${items.isEmpty()}" class="empty-message">
+                There are no movies here yet
+            </li>
+
+            <!-- Loop over items -->
+            <li th:each="item : ${items}" th:classappend="${item.endsWith('/')} ? 'folder' : 'file'">
+                <span th:with="itemPath=${currentPath != '' ? currentPath + '/' + #strings.substring(item,0,item.endsWith('/') ? item.length()-1 : item.length()) : #strings.substring(item,0,item.endsWith('/') ? item.length()-1 : item.length())}">
+                    <!-- Folder -->
+            <a th:if="${item.endsWith('/')}" th:href="@{/videos/browser(path=${itemPath})}">
+                <div class="image-container">
+                    <img th:if="${item.startsWith('Horror')}" th:src="@{/images/imagesTemplates/horror.png}" alt="Horror Image">
+                    <img th:if="${item.startsWith('Crime')}" th:src="@{/images/imagesTemplates/crime.png}" alt="Crime Image">
+                    <img th:if="${item.startsWith('Action')}" th:src="@{/images/imagesTemplates/action.png}" alt="Action Image">
+                    <img th:if="${item.startsWith('Adventure')}" th:src="@{/images/imagesTemplates/Adventure.png}" alt="Adventure Image">
+                    <img th:if="${item.startsWith('Comedy')}" th:src="@{/images/imagesTemplates/comedy.png}" alt="Comedy Image">
+                    <img th:if="${item.startsWith('Documentary')}" th:src="@{/images/imagesTemplates/documentary.png}" alt="Documentary Image">
+                    <img th:if="${item.startsWith('Thriller')}" th:src="@{/images/imagesTemplates/thriller.png}" alt="Thriller Image">
+                    <img th:if="${item.startsWith('Drama')}" th:src="@{/images/imagesTemplates/drama.png}" alt="Drama Image">
+                    <img th:if="${item.startsWith('Home Videos')}" th:src="@{/images/imagesTemplates/home_videos.png}" alt="Home Videos Image">
+                    <img th:if="${item.startsWith('Reality')}" th:src="@{/images/imagesTemplates/reality.png}" alt="Reality Image">
+                    <img th:if="${item.startsWith('Romance')}" th:src="@{/images/imagesTemplates/romance.png}" alt="Romance Image">
+                    <img th:if="${item.startsWith('Sci-Fi')}" th:src="@{/images/imagesTemplates/scifi.png}" alt="Sci-Fi Image">
+
+                    <img th:unless="
+                        ${item.startsWith('Horror')
+                        or item.startsWith('Thriller')
+                        or item.startsWith('Crime')
+                        or item.startsWith('Documentary')
+                        or item.startsWith('Action')
+                        or item.startsWith('Comedy')
+                        or item.startsWith('Adventure')
+                        or item.startsWith('Drama')
+                        or item.startsWith('Home Videos')
+                        or item.startsWith('Reality')
+                        or item.startsWith('Romance')
+                        or item.startsWith('Sci-Fi')}"
+                         th:src="@{/images/imagesTemplates/selection.png}" alt="Default Image">
+
+                    <span class="image-label" th:text="${item}"></span>
+                </div>
+            </a>
+
+
+                    <!-- File -->
+                    <a th:if="${!item.endsWith('/')}" th:href="@{/videos/stream(filePath=${itemPath})}">
+                        <div class="image-container">
+                            <img th:src="@{/images/imagesTemplates/popcorn.png}" alt="File Image">
+                            <span class="image-label" th:text="${item}"></span>
+                        </div>
+                    </a>
+
+                    <button type="button" class="cast-button"
+                            th:if="${!item.endsWith('/')}"
+                            th:data-url="@{/videos/stream(filePath=${itemPath})}">
+                        <span class="material-icons">cast</span>
+                    </button>
+                </span>
+            </li>
+        </ul>
+    </div>
+</section>
+
+
+<script>
+
+    const searchInput = document.getElementById('search-input');
+    const searchOverlay = document.getElementById('search-overlay');
+    const searchResults = document.getElementById('search-results');
+
+    let debounceTimeout;
+
+    searchInput.addEventListener('input', () => {
+        clearTimeout(debounceTimeout);
+        debounceTimeout = setTimeout(performSearch, 200); // debounce for typing
+    });
+
+    searchInput.addEventListener('focus', () => {
+        searchOverlay.style.display = 'block';
+    });
+
+    searchInput.addEventListener('blur', () => {
+        setTimeout(() => searchOverlay.style.display = 'none', 200); // hide after click
+    });
+
+    function performSearch() {
+        const query = searchInput.value.trim();
+        if (!query) {
+            searchResults.innerHTML = '';
+            return;
+        }
+
+        fetch(`/videos/search?query=${encodeURIComponent(query)}`)
+            .then(response => response.json())
+            .then(results => {
+                searchResults.innerHTML = '';
+
+                results.forEach(item => {
+                    const link = document.createElement('a');
+                    link.textContent = item.name;
+                    link.classList.add('search-item');
+
+                    if(item.type === 'folder') {
+                        link.href = `/videos/browser?path=${encodeURIComponent(item.path)}`;
+                    } else if(item.type === 'video') {
+                        link.href = `/videos/stream?filePath=${encodeURIComponent(item.path)}`;
+                    }
+
+                    searchResults.appendChild(link);
+                });
+            })
+            .catch(err => console.error('Search error:', err));
+    }
+
+    function playPreviewVideo(section) {
+        const videoPath = section.getAttribute('data-video-path');
+        if (!videoPath) return;
+
+        // redirect to streaming page (replace with your desired URL)
+        window.location.href = `/videos/stream?filePath=${encodeURIComponent(videoPath)}`;
+    }
+
+    window['__onGCastApiAvailable'] = function(isAvailable) {
+        if (isAvailable) {
+            initializeCastApi();
+        }
+    };
+
+    function initializeCastApi() {
+        cast.framework.CastContext.getInstance().setOptions({
+            receiverApplicationId: chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID,
+            autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED
+        });
+
+        document.querySelectorAll('.cast-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const url = button.getAttribute('data-url');
+                const castSession = cast.framework.CastContext.getInstance().getCurrentSession();
+                if (!castSession) {
+                    console.log("No cast session yet. Open the cast selector first.");
+                    return;
+                }
+                const mediaInfo = new chrome.cast.media.MediaInfo(url, 'video/mp4');
+                const request = new chrome.cast.media.LoadRequest(mediaInfo);
+
+                castSession.loadMedia(request).then(
+                    () => console.log('Casting started!'),
+                    (err) => console.error('Cast error', err)
+                );
+            });
+        });
+    }
+
+    document.querySelectorAll('.cast-button').forEach(btn => {
+        btn.addEventListener('click', () => {
+            btn.classList.toggle('active');
+        });
+    });
+
+    const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+    if (!isMobile) {
+        document.querySelectorAll('.cast-button').forEach(btn => btn.remove());
+    }
+
+
+    const isAndroid = /Android/i.test(navigator.userAgent);
+    const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+
+    if (!isAndroid) {
+        document.querySelectorAll('.cast-button').forEach(btn => btn.remove());
+    }
+
+    const video = document.getElementById('previewVideo');
+    if (video) {
+        video.addEventListener('loadedmetadata', () => {
+            // Start at 40% of the video duration
+            video.currentTime = video.duration * 0.4;
+        });
+    }
+
+</script>
+
+</body>
+</html>

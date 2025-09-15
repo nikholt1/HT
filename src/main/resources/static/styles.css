@@ -1,0 +1,229 @@
+li {
+    list-style: none;
+
+}
+body {
+    background-color: black;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    overflow-x: hidden; /* only hide sideways scrollbars */
+    overflow-y: auto;   /* allow vertical scrolling */
+}
+
+
+
+.HeroSection {
+    position: relative;   /* stays in the flow; use fixed if you want it always visible */
+    top: 0;               /* sticks to the top */
+    left: 0;              /* aligns with left edge */
+    width: 100%;         /* full viewport width */
+    height: 50vh;         /* adjust as needed */
+    margin-top: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 20px;/* remove default spacing */
+    padding: 0;           /* remove inner spacing */
+    overflow: hidden;
+    cursor: pointer;
+
+    background:
+            linear-gradient(
+                    to right,
+                    black 0%,
+                    black 5%,
+                    rgba(0, 0, 0, 0.84) 20%,
+                    transparent 100%
+            ),
+            url('images/imagesTemplates/remote.png') center/cover no-repeat;
+
+    animation: fadeIn 1s ease forwards;
+}
+
+.hero-bg-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.video-gradient {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;           /* Matches video height */
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 2rem;
+    margin-bottom: 20px;
+}
+
+
+/* remove gradient on hover */
+.HeroSection:hover {
+    background:
+            linear-gradient(
+                    to right,
+                    black 0%,
+                    black 0%,
+                    rgba(0, 0, 0, 0.84) 1%,
+                    transparent 100%
+            ),
+            url('images/imagesTemplates/remote.png') center/cover no-repeat;
+
+    /* smooth fade */}
+
+
+.welcome {
+    margin-top: -50px;
+    margin-left: 25px;
+    opacity: 0.9;
+}
+.welcomeParagraph {
+    margin-top: -20px;
+    margin-left: 25px;
+    opacity: 0.9;
+}
+.navItem {
+    text-decoration: none;
+    color: white;
+    opacity: 0.9;
+}
+.navItem:hover{
+    opacity: 1;
+    cursor: pointer;
+}
+nav {
+    display: flex;
+    gap: 20px; /* spacing between items */
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+
+
+.refrac-image {
+    max-width: 150px;
+    margin-left: 20px;
+    margin-top: 50px;
+    opacity: 0.8;
+}
+.refrac-image:hover {
+    opacity: 0.99;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+@media (max-width: 600px) {
+    .collection ul.grid li img {
+        height: 100px;
+    }
+}
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;      /* start invisible */
+    }
+    to {
+        opacity: 1;      /* fade to fully visible */
+    }
+}
+
+
+h1 {
+    text-align: center;
+}
+
+.collection ul.grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.collection ul.grid li {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    gap: 5px;
+
+    flex: 1 1 200px;   /* grow, shrink, base size = 200px */
+    max-width: 300px;  /* don’t get too huge */
+    min-width: 200px;
+    min-height: 100px;
+    /* don’t get too tiny */
+
+    aspect-ratio: 3 / 4; /* width : height (e.g. portrait shape) */
+
+    opacity: 0;
+    animation: fadeIn 1s ease 0.5s forwards;
+}
+
+
+.collection ul.grid li a {
+    display: flex;            /* stack image + text vertically */
+    flex-direction: column;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.collection ul.grid li img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    flex-shrink: 0;
+    opacity: 1;
+}
+
+.collection ul.grid li img:hover {
+    opacity: 0.2;
+    cursor: pointer;
+}
+
+.collection ul.grid li a span {
+    display: block;           /* text included in flow */
+    margin-top: 5px;
+    width: 100%;
+    color: white;
+    text-align: center;
+    background: none;         /* optional, can add semi-transparent bg */
+    padding: 0;
+    border-radius: 0;
+}
+
+.cast-button {
+    background-color: transparent;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 200px;
+}
+
+.cast-button.active {
+    color: red; /* stays red while active */
+}
+
+
+
+
+
+
