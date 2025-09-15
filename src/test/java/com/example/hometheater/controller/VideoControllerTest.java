@@ -1,7 +1,6 @@
 package com.example.hometheater.controller;
 
 
-
 import com.example.hometheater.service.VideoService;
 import org.junit.jupiter.api.*;
 import org.mockito.Mockito;
@@ -30,20 +29,26 @@ class VideoControllerTest {
     @MockitoBean
     private VideoService videoService;
 
-    private Path tempDir;
+    private Path videoFolder;
 
-    @BeforeEach
-    void setup() throws Exception {
-        tempDir = Files.createTempDirectory("videos");
-        when(videoService.getFolderPath()).thenReturn(tempDir.toString());
-        when(videoService.getUserName()).thenReturn("testUser");
+    @BeforeAll
+    static void setupResources() throws Exception {
+        // Ensure src/test/resources/videos exists
+        Path testFolder = Path.of("src/test/resources/videos");
+        Files.createDirectories(testFolder);
+        Path dummyVideo = testFolder.resolve("dummy.mp4");
+        if (!Files.exists(dummyVideo)) {
+            try (FileOutputStream fos = new FileOutputStream(dummyVideo.toFile())) {
+                fos.write(new byte[1024]); // 1 KB dummy content
+            }
+        }
     }
 
-    @AfterEach
-    void cleanup() throws Exception {
-        Files.walk(tempDir)
-                .map(Path::toFile)
-                .forEach(File::delete);
+    @BeforeEach
+    void setup() {
+        videoFolder = Path.of("src/test/resources/videos");
+        when(videoService.getFolderPath()).thenReturn(videoFolder.toString());
+        when(videoService.getUserName()).thenReturn("testUser");
     }
 
     @Test
@@ -60,34 +65,39 @@ class VideoControllerTest {
     @Test
     @Tag("videoFileDependent")
     void browseVideos_withVideoFile() throws Exception {
-        Path videoFile = Files.createFile(tempDir.resolve("test.mp4"));
+        Path videoFile = videoFolder.resolve("test.mp4");
+        if (!Files.exists(videoFile)) {
+            Files.createFile(videoFile);
+        }
+
         mockMvc.perform(get("/videos/browser"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("browser"))
                 .andExpect(model().attributeExists("previewVideoPath"))
                 .andExpect(model().attributeExists("previewVideoName"));
-        Files.deleteIfExists(videoFile);
     }
 
     @Test
     @Tag("videoFileDependent")
     void streamVideo() throws Exception {
-        File file = tempDir.resolve("sample.mp4").toFile();
-        try (FileOutputStream fos = new FileOutputStream(file)) {
-            fos.write(new byte[1024]);
+        Path filePath = videoFolder.resolve("sample.mp4");
+        if (!Files.exists(filePath)) {
+            try (FileOutputStream fos = new FileOutputStream(filePath.toFile())) {
+                fos.write(new byte[1024]);
+            }
         }
+
         mockMvc.perform(get("/videos/stream")
                         .param("filePath", "sample.mp4"))
                 .andExpect(status().isOk())
                 .andExpect(header().string("Accept-Ranges", "bytes"))
                 .andExpect(content().contentType(MediaType.APPLICATION_OCTET_STREAM));
-        file.delete();
     }
 
     @Test
     void setFolder_valid() throws Exception {
         mockMvc.perform(post("/videos/setFolder")
-                        .param("folderPath", tempDir.toString()))
+                        .param("folderPath", videoFolder.toString()))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Folder updated to")));
     }
@@ -113,7 +123,7 @@ class VideoControllerTest {
     void updateFolder_success() throws Exception {
         when(videoService.updateFolderPath(Mockito.anyString())).thenReturn(true);
         mockMvc.perform(post("/videos/updateFolder")
-                        .param("folderPath", tempDir.toString()))
+                        .param("folderPath", videoFolder.toString()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/videos/settings"));
     }
@@ -122,7 +132,7 @@ class VideoControllerTest {
     void updateFolder_failure() throws Exception {
         when(videoService.updateFolderPath(Mockito.anyString())).thenReturn(false);
         mockMvc.perform(post("/videos/updateFolder")
-                        .param("folderPath", tempDir.toString()))
+                        .param("folderPath", videoFolder.toString()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/videos/browser?error=true"));
     }
@@ -147,13 +157,14 @@ class VideoControllerTest {
 
     @Test
     void search_found() throws Exception {
-        Path file = Files.createFile(tempDir.resolve("findme.mp4"));
+        Path file = videoFolder.resolve("findme.mp4");
+        if (!Files.exists(file)) Files.createFile(file);
+
         mockMvc.perform(get("/videos/search")
                         .param("query", "findme"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].name").value("findme.mp4"))
                 .andExpect(jsonPath("$[0].type").value("video"));
-        Files.deleteIfExists(file);
     }
 
     @Test
