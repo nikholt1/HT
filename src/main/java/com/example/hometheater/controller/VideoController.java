@@ -204,20 +204,21 @@ public class VideoController {
 
 
     @PostMapping("/updateFolder")
-    public String updateFolder(@RequestParam String folderPath) {
-        videoService.updateFolderPath(folderPath);
+    public String updateFolder(@RequestParam String folderPath, Model model) {
         boolean success = videoService.updateFolderPath(folderPath);
-
-        if (success) {
-            return "redirect:/videos/settings";
-        } else {
-            return "redirect:/videos/browser?error=true";
+        model.addAttribute("userName", videoService.getUserName());
+        model.addAttribute("videoPath", videoService.getFolderPath());
+        if (!success) {
+            model.addAttribute("errorMessage", "Folder is invalid or forbidden");
+            model.addAttribute("folderPath", folderPath);
+            return "settings";
         }
+        return "redirect:/videos/settings"; // success
     }
     @PostMapping("/updateUserName")
     public String updateUserName(@RequestParam("Username") String userName) {
         boolean success = videoService.updateUserName(userName);
-        // Redirect back to the main browser page (adjust URL as needed)
+
         if (success) {
             return "redirect:/videos/settings";
         } else {
@@ -249,6 +250,11 @@ public class VideoController {
     }
 
 
+    @GetMapping("{errorMessage}/error")
+    public String error(@PathVariable String errorMessage, Model model) {
+        model.addAttribute("errorMessage", errorMessage);
+        return "error";
+    }
 
 
 

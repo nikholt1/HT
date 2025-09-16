@@ -9,7 +9,9 @@
 </head>
 <body>
 
-
+<nav>
+    <a class="navItem" th:href="@{/videos/browser}">Browser</a>
+</nav>
 <section class="settingsSection">
     <h1>Welcome back <span th:text="${userName}"></span></h1>
 
@@ -17,7 +19,10 @@
     <p class="current-path" th:text="${videoPath}"></p>
 
     <form class="settings-form" th:action="@{/videos/updateFolder}" method="post">
-        <input type="text" name="folderPath" placeholder="Enter new folder path"/>
+        <span th:if="${errorMessage}" th:text="${errorMessage}"></span>
+        <input type="text" name="folderPath" placeholder="Enter new Folderpath" />
+
+
         <button type="submit">Update Folder</button>
     </form>
 
