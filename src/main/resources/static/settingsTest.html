@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Refract Settings</title>
-    <link rel="stylesheet" th:href="@{/settingsStyles.css}">
+    <link rel="stylesheet" href="settingsStyles.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -41,7 +41,7 @@
     <div class="devices-image-container">
         <h3 class="devices-text">Watch anything you want</h3>
         <p class="devices-subtext">on any device you want</p>
-        <img class="devicesImg" th:src="@{/images/imagesTemplates/devices.png}" alt="Devices">
+        <img class="devicesImg" src="images/imagesTemplates/devices.png">
         <p class="devices-subtext">As long as it has a browser, you are good to go!</p>
     </div>
 
@@ -55,21 +55,21 @@
         <h3>Hello <span th:text="${userName}">username</span></h3>
         <strong>This is how it works</strong>
         <p id="startingServerDesc">Starting the server on a specific computer: <br>
-            1. When the program is installed, the user should set it to the startup parameters <br>
-            2. In the startup program, if a monitor is connected, the user should see the serverside desktop application <br>
-            3. In the application the user should see the current IPv4 and the URL that the rest of the devices should connect to <br>
-            4. In the desktop application the user should be able to specify the path to the videos they prefer
-            <br>  The user should also be able to specify the path in the browser at the given URL under /videos/settings</p>
+        1. When the program is installed, the user should set it to the startup parameters <br>
+        2. In the startup program, if a monitor is connected, the user should see the serverside desktop application <br>
+        3. In the application the user should see the current IPv4 and the URL that the rest of the devices should connect to <br>
+        4. In the desktop application the user should be able to specify the path to the videos they prefer
+        <br>  The user should also be able to specify the path in the browser at the given URL under /videos/settings</p>
         <strong id="browserWorksDesc">How the browser works</strong>
         <p>1. The browser takes the specified path and looks for all folders and videos categorized in those folders <br>
-            2. Refract supplies a "generate folders" in the desktop application within the specified folder with categories and pictures for them <br>
-            3. If the user wishes to make their own categories (folder) they can do so in the specified folder <br>
-            4. Subcategories or series seasons etc. can be specified as the user wishes by configuring a folder path as they please</p>
+        2. Refract supplies a "generate folders" in the desktop application within the specified folder with categories and pictures for them <br>
+        3. If the user wishes to make their own categories (folder) they can do so in the specified folder <br>
+        4. Subcategories or series seasons etc. can be specified as the user wishes by configuring a folder path as they please</p>
 
         <strong id="settingsMenuDesc">Settings menu</strong>
         <p>1. The user is able to change the folder path at the top of the settings page <br>
-            2. The program should check for secure folders, to protect the host computers vital folders <br>
-            3. The user should also be able to change the username for the account</p>
+        2. The program should check for secure folders, to protect the host computers vital folders <br>
+        3. The user should also be able to change the username for the account</p>
 
         <strong id="streamingToAppleDesc">Streaming to AppleTV</strong>
         <p>
