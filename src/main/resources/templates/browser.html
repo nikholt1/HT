@@ -2,7 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Refract Browser</title>
+    <title th:text="${currentPath == '' ? 'Refract Browser - Home' : currentPath + ' Movies | Refract Browser'}"></title>
+    <meta name="description"
+          th:content="${currentPath == '' ? 'Browse and stream your videos with Refract Browser.' :
+                     'Watch ' + currentPath + ' movies and videos online with Refract Browser.'}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/stylesTemplate.css}">
     <script type="text/javascript" src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -32,6 +36,10 @@
     <p class="welcomeParagraph">Stream, cast or simply watch anything you have stored</p>
 </section>
 
+
+
+
+<section class="devicesSection">
 <section th:if="${currentPath == 'Horror'}" class="HeroSection horror"
          th:data-video-path="${previewVideoPath}" onclick="playPreviewVideo(this)">
 
@@ -247,7 +255,6 @@
 
     <h2>Enjoy Your Videos</h2>
 </section>
-
 
 
 
