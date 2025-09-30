@@ -37,6 +37,13 @@ nav {
 
     margin-bottom: 20px;
 }
+.barMagentaImage {
+    width: 101%;
+}
+.barMagentaImageReverse {
+    rotate: 180deg;
+    width: 101%;
+}
 
 
 .devices-image-container {

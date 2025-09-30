@@ -11,34 +11,26 @@ body {
     overflow-y: auto;   /* allow vertical scrolling */
 }
 
-
+.barMagentaImage {
+    width: 101%;
+}
 
 .HeroSection {
-    position: relative;   /* stays in the flow; use fixed if you want it always visible */
-    top: 0;               /* sticks to the top */
-    left: 0;              /* aligns with left edge */
-    width: 100%;         /* full viewport width */
-    height: 50vh;         /* adjust as needed */
-    margin-top: 0;
-    margin-left: 0;
-    margin-right: 0;
-    margin-bottom: 20px;/* remove default spacing */
-    padding: 0;           /* remove inner spacing */
+    position: relative;
+    width: 100%;
+    height: 50vh;            /* section height */
     overflow: hidden;
     cursor: pointer;
 
-    background:
-            linear-gradient(
-                    to right,
-                    black 0%,
-                    black 5%,
-                    rgba(0, 0, 0, 0.84) 20%,
-                    transparent 100%
-            ),
-            url('images/imagesTemplates/remote.png') center/cover no-repeat;
+    background: linear-gradient(
+            to bottom,
+            rgba(0,0,0,0) 60%,   /* transparent until halfway */ rgba(0, 0, 0, 0.48) 75%, /* fade builds up */ rgb(0, 0, 0) 100% /* solid dark at bottom */
+    ),
+    url('images/imagesTemplates/moviesBackground.jpg');
 
     animation: fadeIn 1s ease forwards;
 }
+
 
 .hero-bg-video {
     position: absolute;
