@@ -75,6 +75,16 @@ Table unfinished_movies {
 
 Ref: users.main_user_id > main_user.main_user_id
 Ref: unfinished_movies.user_id > users.user_id
+```
+
+## Final Words
+
+The system follows 3rd Normal Form (3NF) because each table stores only relevant data:  
+- All columns are atomic.  
+- Non-key data depends on the entire primary key.  
+- There are no transitive dependencies between non-key columns.  
+
+This ensures minimal redundancy, clear relationships, and consistent movie progress tracking per profile.
 
 
 <!-- Database Setup section END -->
