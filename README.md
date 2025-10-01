@@ -1,3 +1,10 @@
+[Go to Database Setup](#database-setup)
+
+
+
+
+<!-- Database Setup section -->
+
 # Database Setup
 
 This database is designed to manage a single main account and multiple user profiles, each with their own unfinished movies.
@@ -68,3 +75,6 @@ Table unfinished_movies {
 
 Ref: users.main_user_id > main_user.main_user_id
 Ref: unfinished_movies.user_id > users.user_id
+
+
+<!-- Database Setup section END -->
