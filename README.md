@@ -51,18 +51,20 @@ Table main_user {
 
 Table users {
   user_id integer [pk]
+  main_user_id integer 
   username varchar
 }
 
 Table unfinished_movies {
-  user_id integer [ref: > users.user_id]
+  user_id integer 
   video_path varchar
   last_watched timestamp
   watched_seconds integer
 
   indexes {
-    (user_id, video_path) [pk]
+    (user_id, video_path) [pk] 
   }
 }
 
+Ref: users.main_user_id > main_user.main_user_id
 Ref: unfinished_movies.user_id > users.user_id
