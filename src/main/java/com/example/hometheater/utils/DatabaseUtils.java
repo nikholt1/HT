@@ -90,4 +90,10 @@ public class DatabaseUtils {
                 1 // example main_user_id
         );
     }
+
+    public void deleteUser(String username) throws SQLException {
+        String sql = "DELETE FROM users WHERE username = ?";
+        jdbcTemplate.update(sql, username);
+    }
+
 }

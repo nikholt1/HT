@@ -1,4 +1,4 @@
-package com.example.hometheater.service.databaseTest_h2;
+package com.example.hometheater.databaseTest_h2;
 
 
 // H2 test is a lightweight in-memory database provided as a Maven dependency, that allows us to create a
