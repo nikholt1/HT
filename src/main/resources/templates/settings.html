@@ -11,9 +11,26 @@
 </head>
 <body>
 
-<nav>
-    <a class="navItem" th:href="@{/videos/browser}">Browser</a>
+<nav class="navbar">
+    <!-- Left links -->
+    <div class="nav-left">
+        <a class="navItem" th:href="@{/videos/browser}">Browser</a>
+        <!-- <a class="navItem" th:href="@{/videos/settings}">Settings</a> -->
+    </div>
+
+    <!-- Right profile dropdown -->
+    <div class="profile-dropdown">
+        <img th:src="@{'/' + ${currentUser.profilePicturePath}}" alt="Profile Picture"
+             class="profile-pic" id="profilePic">
+
+        <div class="dropdown-menu" id="dropdownMenu">
+            <a th:href="@{/}">Switch Profile</a>
+            <a th:href="@{/videos/settings}">Settings</a>
+            <a th:href="@{/logout}">Logout</a>
+        </div>
+    </div>
 </nav>
+
 <section class="settingsSection">
     <h1>Welcome back <span th:text="${userName}"></span></h1>
 
@@ -109,4 +126,23 @@
 
 
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const profilePic = document.getElementById("profilePic");
+        const dropdown = document.getElementById("dropdownMenu");
+
+        if (profilePic && dropdown) {
+            profilePic.addEventListener("click", (e) => {
+                e.stopPropagation();
+                dropdown.style.display =
+                    dropdown.style.display === "block" ? "none" : "block";
+            });
+
+            document.addEventListener("click", () => {
+                dropdown.style.display = "none";
+            });
+        }
+    });
+</script>
+
 </html>

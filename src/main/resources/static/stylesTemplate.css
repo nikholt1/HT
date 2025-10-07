@@ -88,22 +88,101 @@ body {
     margin-left: 25px;
     opacity: 0.9;
 }
-.navItem {
-    text-decoration: none;
-    color: white;
-    opacity: 0.9;
+/* Make navbar stick to top and edges */
+body, html {
+    margin: 0;
+    padding: 0;
 }
-.navItem:hover{
-    opacity: 1;
-    cursor: pointer;
-}
-nav {
+
+.navbar {
     display: flex;
-    gap: 20px; /* spacing between items */
-    margin-top: 20px;
-    margin-left: 20px;
-    margin-bottom: 20px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #111;
+    color: #fff; /* stick to top */
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    box-sizing: border-box;
 }
+
+/* Align Settings + Search */
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Search input style */
+.search-form input {
+    background-color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 6px 10px;
+    color: #fff;
+    outline: none;
+    width: 180px;
+    transition: width 0.3s ease;
+}
+
+.search-form input:focus {
+    width: 240px;
+    background-color: #333;
+}
+
+.navItem {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.profile-dropdown {
+    position: relative;
+}
+
+.profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    object-fit: cover;
+    border: 2px solid #444;
+    transition: border-color 0.2s;
+}
+
+.profile-pic:hover {
+    border-color: #777;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 50px;
+    background-color: #222;
+    border-radius: 10px;
+    overflow: hidden;
+    min-width: 160px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    z-index: 1000;
+}
+
+.dpdItem {
+    display: block;
+    color: #ddd;
+    font-weight: normal;
+    padding: 10px 15px;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+.dropdown-menu a:hover {
+    background-color: #333;
+}
+
+
 
 .refrac-image {
     max-width: 150px;
@@ -253,4 +332,77 @@ h1 {
 
 
 
+
+
+
+/* Profiles */
+.profiles_wrapper {
+    display: flex;
+    justify-content: center; /* horizontal center */
+    align-items: center;     /* vertical center */
+    height: 100vh;           /* full viewport height */
+}
+
+/* Container for all profiles */
+.profiles_container {
+    text-align: center;
+}
+
+/* Message when no profiles exist */
+.no-profiles {
+    margin-bottom: 20px;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+/* Profile card styling */
+.profiles_box {
+    display: inline-block;
+    margin: 10px;
+    text-align: center;
+    cursor: pointer;       /* clickable */
+    transition: transform 0.2s; /* optional hover effect */
+}
+
+.profiles_box:hover {
+    transform: scale(1.05); /* slight zoom on hover */
+}
+
+/* Profile image styling */
+.profile-img {
+    width: 40%;
+    height: 40%;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Username text under profile image */
+.username {
+    margin-top: 5px;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+}
+
+/* Add profile button container */
+.add-profile-container {
+    margin-top: 20px;
+}
+
+/* Add profile button styling */
+.add-profile-btn {
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #4a90e2;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+}
+.add-profile-btn:hover {
+    background: #357ab7;
+}
 

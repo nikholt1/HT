@@ -1,10 +1,12 @@
 package com.example.hometheater.repository;
 
+import com.example.hometheater.utils.DatabaseUtils;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 
@@ -12,9 +14,12 @@ import java.util.Scanner;
 public class VideoRepository {
 
 
+    private final DatabaseUtils databaseUtils;
     public String filePath = "src/main/java/com/example/hometheater/repository/settings.conf";
 
-    public VideoRepository() {}
+    public VideoRepository(DatabaseUtils databaseUtils) {
+        this.databaseUtils = databaseUtils;
+    }
 
 
     public String getFolderPath() {
@@ -125,6 +130,9 @@ public class VideoRepository {
         }
 
         return updated;
+    }
+    public void deleteUser(String username) throws SQLException {
+        databaseUtils.deleteUser(username);
     }
 
 }

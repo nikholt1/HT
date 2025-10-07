@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+
+
+    <meta charset="UTF-8">
+    <title>Refract profiles</title>
+
+    <link rel="stylesheet" th:href="@{/stylesTemplate.css}">
+</head>
+<body>
+
+<div class="profiles_wrapper">
+
+    <div class="profiles_container">
+
+        <p th:if="${#lists.isEmpty(users)}" class="no-profiles">
+            No profiles yet.
+        </p>
+
+        <!-- Profile cards -->
+        <a th:each="user : ${users}"
+           th:href="@{'/profiles/select'(userId=${user.userId})}"
+           class="profiles_box">
+            <img th:src="@{${user.profilePicturePath}}" alt="Profile Picture" class="profile-img"/>
+            <div class="username" th:text="${user.username}">Username</div>
+        </a>
+
+        <!-- Add profile button -->
+        <div class="add-profile-container">
+            <button onclick="window.location.href='/profiles/add'" class="add-profile-btn">Add New Profile</button>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+</body>
+</html>

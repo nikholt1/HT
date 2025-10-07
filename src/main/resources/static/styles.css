@@ -219,3 +219,30 @@ h1 {
 
 
 
+
+
+/* profiles */
+
+/* Make the container take full viewport height and center content */
+.profiles_container {
+    display: grid;
+    grid-auto-flow: column;       /* Arrange items in a row */
+    gap: 20px;                    /* Space between boxes */
+    justify-content: center;      /* Center horizontally */
+    align-items: center;          /* Center vertically */
+    height: 100vh;                /* Full viewport height */
+}
+
+/* Style for the boxes */
+.pofiles_box {
+    width: 150px;
+    height: 150px;
+    background-color: #4CAF50;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
