@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+
+    <meta charset="UTF-8">
+    <title>Add Profile</title>
+</head>
+<body>
+<form th:action="@{/profiles/addUser}" th:object="${user}" method="post">
+    <label for="username">Username:</label>
+    <input type="text" id="username" th:field="*{username}" required/>
+
+    <br/><br/>
+
+    <label for="profilePicture">Choose a profile picture:</label>
+    <select id="profilePicture" th:field="*{profilePicturePath}">
+        <option th:each="img : ${images}" th:value="${img}" th:text="${img}"></option>
+    </select>
+
+    <br/><br/>
+
+    <button type="submit">Add Profile</button>
+</form>
+</body>
+</html>

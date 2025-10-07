@@ -1,6 +1,8 @@
 package com.example.hometheater.controller;
 
+import com.example.hometheater.models.ProfileUser;
 import com.example.hometheater.service.VideoService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.*;
@@ -29,8 +31,22 @@ public class VideoController {
         this.videoFolder = videoService.getFolderPath();
     }
 
+    @ModelAttribute("currentUser")
+    public ProfileUser addCurrentUserToModel(HttpSession session) {
+        return (ProfileUser) session.getAttribute("selectedUser");
+    }
+
     @GetMapping("/browser")
-    public String browseVideos(@RequestParam(required = false) String path, Model model) throws IOException {
+    public String browseVideos(@RequestParam(required = false) String path, Model model, HttpSession session) throws IOException {
+        ProfileUser currentUser = (ProfileUser) session.getAttribute("selectedUser");
+        if (currentUser == null) {
+            return "redirect:/"; // go back to profile selection
+        }
+
+        model.addAttribute("currentUser", currentUser);
+
+        System.out.println(currentUser.getProfilePicturePath());
+
         Path folderPath = Paths.get(videoFolder);
         if (path != null && !path.isBlank()) {
             folderPath = folderPath.resolve(path).normalize();
@@ -95,6 +111,21 @@ public class VideoController {
         return "browser";
     }
 
+    @PostMapping("/updateProgress")
+    @ResponseBody
+    public ResponseEntity<Void> updateProgress(@RequestParam String filePath,
+                                               @RequestParam int seconds,
+                                               HttpSession session) {
+        ProfileUser currentUser = (ProfileUser) session.getAttribute("selectedUser");
+        if (currentUser == null) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
+        // Example: store progress in your service or DB
+//        videoService.saveProgress(currentUser.getUserId(), filePath, seconds);
+
+        return ResponseEntity.ok().build();
+    }
 
 
     @GetMapping("/stream")
@@ -192,14 +223,20 @@ public class VideoController {
 
 
     @GetMapping("/settings")
-    public String settingsMenu(Model model) {
-        String username = videoService.getUserName();
+    public String settingsMenu(Model model, HttpSession session) {
+        ProfileUser currentUser = (ProfileUser) session.getAttribute("selectedUser");
+        if (currentUser == null) {
+            return "redirect:/profiles"; // No user selected → go back to profile selection
+        }
 
+        // Add user info to model
+        model.addAttribute("currentUser", currentUser);
+        model.addAttribute("userName", currentUser.getUsername()); // Optional alias for convenience
         model.addAttribute("videoPath", videoService.getFolderPath());
-        model.addAttribute("userName", videoService.getUserName());
 
         return "settings";
     }
+
 
 
 

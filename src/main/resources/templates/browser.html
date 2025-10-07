@@ -15,11 +15,26 @@
 
 </head>
 <body>
-<nav>
-    <a class="navItem" th:href="@{/videos/settings}">Settings</a>
-    <form id="search-form" class="search-form" onsubmit="return false;">
-        <input type="text" id="search-input" placeholder="Search..." autocomplete="off">
-    </form>
+<nav class="navbar">
+    <div class="nav-left">
+        <a class="navItem" th:href="@{/videos/settings}">Settings</a>
+
+        <form id="search-form" class="search-form" onsubmit="return false;">
+            <input type="text" id="search-input" placeholder="Search..." autocomplete="off">
+        </form>
+    </div>
+
+    <!-- Profile Dropdown -->
+    <div class="profile-dropdown">
+        <img th:src="@{'/' + ${currentUser.profilePicturePath}}" alt="Profile Picture"
+             class="profile-pic" id="profilePic">
+
+        <div class="dropdown-menu" id="dropdownMenu">
+            <a class="dpdItem" th:href="@{/}">Switch Profile</a>
+            <a class="dpdItem" th:href="@{/videos/settings}">Settings</a>
+            <a class="dpdItem" th:href="@{/logout}">Logout</a>
+        </div>
+    </div>
 </nav>
 
 <!-- Full-screen overlay for results -->
@@ -442,6 +457,23 @@
             video.currentTime = video.duration * 0.4;
         });
     }
+    document.addEventListener("DOMContentLoaded", () => {
+        const profilePic = document.getElementById("profilePic");
+        const dropdown = document.getElementById("dropdownMenu");
+
+        if (profilePic && dropdown) {
+            profilePic.addEventListener("click", (e) => {
+                e.stopPropagation();
+                dropdown.style.display =
+                    dropdown.style.display === "block" ? "none" : "block";
+            });
+
+            document.addEventListener("click", () => {
+                dropdown.style.display = "none";
+            });
+        }
+    });
+
 
 </script>
 

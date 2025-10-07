@@ -236,7 +236,7 @@ public class DesktopApplicationController {
 
             // IP Label
             String ipv4 = desktopService.getIpv4Address();
-            String urlText = (ipv4 != null ? ipv4 : "Unavailable") + ":8080/videos/browser";
+            String urlText = (ipv4 != null ? ipv4 : "Unavailable") + ":8080";
             JLabel ipLabel = new JLabel("<html>Streaming service: <a href=''>" + urlText + "</a></html>");
             ipLabel.setFont(new Font("Segoe UI", Font.BOLD, 16));
             ipLabel.setForeground(Color.WHITE);

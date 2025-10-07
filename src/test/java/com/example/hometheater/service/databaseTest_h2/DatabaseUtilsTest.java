@@ -1,0 +1,68 @@
+package com.example.hometheater.service.databaseTest_h2;
+
+
+// H2 test is a lightweight in-memory database provided as a Maven dependency, that allows us to create a
+// temporary database instance, similar to a mock, for integration testing repositories or other components that rely on a database
+// this way, we can test the functionality of core components without affecting the production / working database for the program.
+//
+//
+// the application-test.properties file that configures our test environment, containing parameters for the H2 database.
+// This way we can control the H2 database and ensure that it stays available and in a consistent state throughout hte entire test lifecycle.
+// in the CI pipeline in the workflow on Github, will automatically run all unit test and integration tests given the specific triggers are activated.
+// that way, if the trigger for example is on a push or pull request, we can ensure that all integration tests are run without errors and are not failing.
+
+
+// The @ActiveProfiles dictates to use the application-test.properties profile file.
+// This test class builds the h2init.sql and since H2 is not tied to any specific SQL dialect, it allows us to mock the production database, the BEFORE_TEST_METHOD enum
+// in the annotation @sql with the classpath to the h2init.sql on the value of the executionPhase builds a fresh database on each test.
+
+
+// nikholt1 06/10/2025
+
+
+import com.example.hometheater.models.ProfileUser;
+import com.example.hometheater.utils.DatabaseUtils;
+import org.junit.jupiter.api.Test;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_METHOD;
+@SpringBootTest
+@ActiveProfiles("test")
+@Sql(scripts = "classpath:h2init.sql", executionPhase = BEFORE_TEST_METHOD)
+public class DatabaseUtilsTest {
+
+    @Autowired
+    private DatabaseUtils repo;
+
+
+    // Create
+    @Test
+    public void addUserTest() throws SQLException {
+        repo.addUser(new ProfileUser(1, "testUserName", "testPath/to/test"));
+        var list =  repo.getUsers();
+        for (ProfileUser u : list) {
+            if (u.getUsername().equals("testUserName")) {
+                assertThat(u).isNotNull();
+                // the images/profileImages gets added in the addUser method
+                assertThat(u.getProfilePicturePath()).isEqualTo("images/profileImages/testPath/to/test");
+            }
+        }
+    }
+
+    //Read
+    @Test
+    public void getAllUsersTest() throws SQLException {
+        List<ProfileUser> profileUsers = repo.getUsers();
+        assertThat(profileUsers).isNotNull();
+        assertThat(profileUsers.size()).isEqualTo(4);
+        assertThat(profileUsers.get(0).getUsername()).isEqualTo("testUser1");
+        assertThat(profileUsers.get(1).getUsername()).isEqualTo("testUser2");
+    }
+}
