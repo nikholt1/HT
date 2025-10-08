@@ -86,7 +86,7 @@ The system follows 3rd Normal Form (3NF) because each table stores only relevant
 - This ensures minimal redundancy, clear relationships, and consistent movie progress tracking per profile.
 
 
-# Database: notes
+## Database: notes
 - Implemented
   user_profile_picture_path varchar(255)
 
