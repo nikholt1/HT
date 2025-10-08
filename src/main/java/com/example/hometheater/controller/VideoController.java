@@ -1,6 +1,7 @@
 package com.example.hometheater.controller;
 
 import com.example.hometheater.models.ProfileUser;
+import com.example.hometheater.service.updateService.UpdateChecker;
 import com.example.hometheater.service.VideoService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.core.io.InputStreamResource;
@@ -24,11 +25,19 @@ public class VideoController {
 
     private final VideoService videoService;
     private String videoFolder;
+    private UpdateChecker updateChecker;
 
 
-    public VideoController(VideoService videoService) {
+    public VideoController(VideoService videoService, UpdateChecker updateChecker) {
         this.videoService = videoService;
         this.videoFolder = videoService.getFolderPath();
+        this.updateChecker = updateChecker;
+        if (updateChecker.isUpdateAvailable()) {
+            System.out.println("[SYSTEM] A new version is available");
+
+        } else {
+            System.out.println("SYSTEM] You are running the latest version");
+        }
     }
 
     @ModelAttribute("currentUser")

@@ -58,7 +58,7 @@ public class DatabaseUtils {
 
         try {
             int updated = jdbcTemplate.update(sql, "Admin", "admin");
-            System.out.println("Insert successful via JDBC");
+            System.out.println("[SYSTEM] Insert successful via JDBC");
             return updated > 0;
         } catch (Exception e) {
             e.printStackTrace();
