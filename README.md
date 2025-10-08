@@ -87,10 +87,7 @@ The system follows 3rd Normal Form (3NF) because each table stores only relevant
 
 
 ## Database: notes
-- Implemented
-  user_profile_picture_path varchar(255)
-
-into database for profile picture handling per user.
+- Implemented user_profile_picture_path varchar(255) into database for profile picture handling per user.
 08/10/2025
 
 <!-- Database Setup section END -->
