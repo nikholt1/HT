@@ -1,0 +1,97 @@
+/* login.css */
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background: url('static/images/imagesTemplates/moviesBackground.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.login-section {
+    display: flex;
+    justify-content: center; /* center horizontally */
+    align-items: center;     /* center vertically */
+    min-height: 100vh;       /* full viewport height */
+    background-size: cover;
+    background-position: center;
+}
+
+.login-wrapper {
+    margin-top: -200px;
+    display: flex;
+    flex-direction: column;  /* stack items vertically */
+    align-items: center;     /* center all children horizontally */
+}
+
+.logo-container {
+    margin-bottom: 20px; /* space between logo and form */
+}
+
+.login-logo {
+    max-width: 300px;
+    width: 100%;
+    height: auto;
+}
+
+.login-container {
+    background-color: rgba(9, 9, 9, 0); /* Slightly transparent white */
+    padding: 40px 60px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0);
+    text-align: center;
+    min-width: 800px;
+}
+
+.login-container h1 {
+    margin-bottom: 20px;
+    font-size: 28px;
+    color: #ffffff;
+}
+
+.login-container label {
+    display: block;
+    margin-top: 10px;
+    text-align: left;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.login-container input {
+    width: 80%;
+    padding: 12px;
+    margin-top: 5px;
+    background: #333;
+    font-size: 1rem;/* dark background */
+    color: #fff;
+    border-radius: 8px; /* white text */
+    border: none;
+    box-sizing: border-box;
+    margin-bottom: 30px;
+}
+
+.login-container button {
+    display: block;          /* ensures it starts on a new line */
+    width: 50%;              /* adjust width as desired */
+    margin: 0 auto 0 auto;   /* centers the button horizontally */
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #4a90e2;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+}
+
+
+.login-container button:hover {
+    background: #357ab7;
+}
+
+.login-container p {
+    margin-top: 15px;
+    color: red;
+    font-size: 14px;
+}
