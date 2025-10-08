@@ -2,6 +2,7 @@ package com.example.hometheater;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,6 +13,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 
 @Component
+@Profile("!test")
 public class DatabaseInitializer implements CommandLineRunner {
 
     @Value("${spring.datasource.url}")
