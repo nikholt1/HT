@@ -192,7 +192,7 @@ public class DesktopApplicationController {
             rightPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
 // Load the image
-// 🔑 Helper class to offset icons vertically
+
             class OffsetIcon extends ImageIcon {
                 private final int yOffset;
 
@@ -301,7 +301,6 @@ public class DesktopApplicationController {
             leftSplit.setDividerSize(3);
             leftSplit.setOpaque(false);
 
-// --- Split pane: directly between left and right ---
             JSplitPane mainSplit = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftPanel, rightPanel);
             mainSplit.setDividerLocation(180); // adjust width of left panel
             mainSplit.setDividerSize(3);

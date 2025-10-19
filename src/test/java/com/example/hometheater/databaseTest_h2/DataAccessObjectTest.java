@@ -21,7 +21,7 @@ package com.example.hometheater.databaseTest_h2;
 
 
 import com.example.hometheater.models.ProfileUser;
-import com.example.hometheater.utils.DatabaseUtils;
+import com.example.hometheater.utils.DataAccessObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.context.ActiveProfiles;
@@ -34,17 +34,16 @@ import java.sql.SQLException;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_METHOD;
 
 @SpringBootTest
 @ActiveProfiles("test")
 @Sql(
         scripts = "classpath:h2init.sql",
         executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD
-)public class DatabaseUtilsTest {
+)public class DataAccessObjectTest {
 
     @Autowired
-    private DatabaseUtils repo;
+    private DataAccessObject repo;
     @Autowired
     DataSource dataSource;
 

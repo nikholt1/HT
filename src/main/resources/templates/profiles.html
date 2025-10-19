@@ -8,11 +8,14 @@
 
     <meta charset="UTF-8">
     <title>Refract profiles</title>
+    <link rel="icon" type="image/png" th:href="@{/images/imagesTemplates/R.png}">
 
     <link rel="stylesheet" th:href="@{/stylesTemplate.css}">
 </head>
 <body>
-
+<div class="add-profile-container">
+    <button onclick="window.location.href='/profiles/manageAccount'" class="add-profile-btn">Manage Account</button>
+</div>
 <div class="profiles_wrapper">
 
     <div class="profiles_container">
@@ -27,6 +30,7 @@
            class="profiles_box">
             <img th:src="@{${user.profilePicturePath}}" alt="Profile Picture" class="profile-img"/>
             <div class="username" th:text="${user.username}">Username</div>
+
         </a>
 
         <!-- Add profile button -->

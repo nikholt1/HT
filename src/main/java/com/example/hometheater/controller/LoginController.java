@@ -14,7 +14,7 @@ public class LoginController {
     @GetMapping("/login")
     public String loginPage(Model model) {
         model.addAttribute("backgroundImageUrl", backgroundUrl);
-        return "login"; // Thymeleaf template name
+        return "login";
     }
 }
 

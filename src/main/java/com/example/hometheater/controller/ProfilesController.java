@@ -2,6 +2,7 @@ package com.example.hometheater.controller;
 
 
 import com.example.hometheater.models.ProfileUser;
+import com.example.hometheater.service.MainUserService;
 import com.example.hometheater.service.ProfileUserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.context.annotation.Profile;
@@ -16,9 +17,11 @@ import java.util.List;
 
 @Controller
 public class ProfilesController {
+    private final MainUserService mainUserService;
     public ProfileUserService profileUserService;
-    public ProfilesController(ProfileUserService profileUserService) {
+    public ProfilesController(ProfileUserService profileUserService, MainUserService mainUserService) {
         this.profileUserService = profileUserService;
+        this.mainUserService = mainUserService;
     }
 
 
@@ -27,9 +30,8 @@ public class ProfilesController {
         List<ProfileUser> users = profileUserService.getAllUsers();
         model.addAttribute("users", users);
         for (ProfileUser profileUser : users) {
-            System.out.println(profileUser.getProfilePicturePath());
-            System.out.println(profileUser.getUsername());
-            System.out.println(profileUser.getUserId());
+            System.out.println("[SYSTEM] User found in endpoint / " + profileUser.getUsername() + "\n" + profileUser.getProfilePicturePath() + "\n user_id: " + profileUser.getUserId());
+
         }
         return "profiles"; // Thymeleaf template: profile.html
     }
@@ -62,13 +64,46 @@ public class ProfilesController {
                 selectedUser = profileUser;
             }
         }
-        System.out.println("Selected User: " + selectedUser.getUsername() + selectedUser.getUserId());
+        System.out.println("[SYSTEM] Selected User: " + selectedUser.getUsername() + selectedUser.getUserId());
 
         if (selectedUser != null) {
             session.setAttribute("selectedUser", selectedUser);
         }
         return "redirect:/videos/browser";
     }
+    @GetMapping("/profiles/manageAccount")
+    public String manageAccountProfiles(Model model, HttpSession session) throws SQLException{
+        model.addAttribute("users", profileUserService.getAllUsers());
+        model.addAttribute("main_user_details", mainUserService.getMainUser());
+
+        return "manage_account";
+    }
+    @GetMapping("/profiles/deleteUser")
+    public String deleteUser(@RequestParam("userId") int userId ) {
+        System.out.println("user delete user id " + userId);
+        return "redirect:/profiles/manageAccount";
+    }
+
+    @PostMapping("/profiles/changePassword")
+    public String changePassword(
+            @RequestParam("username") String username,
+            @RequestParam("currentPassword") String currentPassword,
+            @RequestParam("newPassword") String newPassword,
+            Model model) {
+
+        System.out.println("Changing password for " + username + " from " + currentPassword + " To " + newPassword);
+        // 4. Show success message
+        model.addAttribute("message", "Password successfully updated!");
+        return "redirect:/profiles/manageAccount";
+    }
+
+    @PostMapping("/profiles/changeMainUserName")
+    public String changeMainUserName(@RequestParam("newMainUserName") String newUserName) {
+        System.out.println("new Username = " + newUserName);
+        return "redirect:/profiles/manageAccount";
+
+    }
+
 
 }
 

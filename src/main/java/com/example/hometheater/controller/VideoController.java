@@ -36,7 +36,7 @@ public class VideoController {
             System.out.println("[SYSTEM] A new version is available");
 
         } else {
-            System.out.println("SYSTEM] You are running the latest version");
+            System.out.println("[SYSTEM] You are running the latest version");
         }
     }
 
@@ -48,13 +48,14 @@ public class VideoController {
     @GetMapping("/browser")
     public String browseVideos(@RequestParam(required = false) String path, Model model, HttpSession session) throws IOException {
         ProfileUser currentUser = (ProfileUser) session.getAttribute("selectedUser");
+
         if (currentUser == null) {
-            return "redirect:/"; // go back to profile selection
+            return "redirect:/";
         }
 
         model.addAttribute("currentUser", currentUser);
 
-        System.out.println(currentUser.getProfilePicturePath());
+        System.out.println("[SYSTEM] User " + currentUser.getUsername() + " Navigated to endpoint /browser");
 
         Path folderPath = Paths.get(videoFolder);
         if (path != null && !path.isBlank()) {
@@ -130,7 +131,6 @@ public class VideoController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
 
-        // Example: store progress in your service or DB
 //        videoService.saveProgress(currentUser.getUserId(), filePath, seconds);
 
         return ResponseEntity.ok().build();
@@ -140,10 +140,11 @@ public class VideoController {
     @GetMapping("/stream")
     public ResponseEntity<Resource> streamVideo(
             @RequestParam String filePath,
-            @RequestHeader(value = "Range", required = false) String rangeHeader) throws IOException {
+            @RequestHeader(value = "Range", required = false) String rangeHeader, HttpSession session) throws IOException {
 
         Path videoPath = Paths.get(videoFolder).resolve(filePath).normalize();
-
+        ProfileUser currentUser = (ProfileUser) session.getAttribute("selectedUser");
+        System.out.println("[SYSTEM] User " + currentUser.getUsername() + " Started streaming " + filePath);
 
         if (!videoPath.startsWith(Paths.get(videoFolder)) || !Files.exists(videoPath) || !Files.isRegularFile(videoPath)) {
             return ResponseEntity.notFound().build();
@@ -209,27 +210,6 @@ public class VideoController {
             Paths.get("C:\\ProgramData")
     );
 
-//    @PostMapping("/setFolder")
-//    public ResponseEntity<String> setFolder(@RequestParam String folderPath) {
-//        Path path = Paths.get(folderPath).normalize().toAbsolutePath();
-//
-//        // Must exist and be a directory
-//        if (!Files.exists(path) || !Files.isDirectory(path)) {
-//            return ResponseEntity.badRequest().body("Folder does not exist or is not a directory.");
-//        }
-//
-//        // Block known system folders
-//        for (Path forbidden : FORBIDDEN_PATHS) {
-//            if (path.startsWith(forbidden)) {
-//                return ResponseEntity.status(HttpStatus.FORBIDDEN)
-//                        .body("Access to system directories is not allowed.");
-//            }
-//        }
-//
-//        this.videoFolder = path.toString();
-//        return ResponseEntity.ok("Folder updated to: " + path);
-//    }
-
 
     @GetMapping("/settings")
     public String settingsMenu(Model model, HttpSession session) {
@@ -237,6 +217,7 @@ public class VideoController {
         if (currentUser == null) {
             return "redirect:/profiles"; // No user selected → go back to profile selection
         }
+        System.out.println("[SYSTEM] User " + currentUser.getUsername() + " Navigated to endpoint /settings");
 
         // Add user info to model
         model.addAttribute("currentUser", currentUser);
@@ -250,34 +231,48 @@ public class VideoController {
 
 
     @PostMapping("/updateFolder")
-    public String updateFolder(@RequestParam String folderPath, Model model) {
+    public String updateFolder(@RequestParam String folderPath, Model model, HttpSession session) {
+        ProfileUser currentUser = (ProfileUser) session.getAttribute("selectedUser");
+
         boolean success = videoService.updateFolderPath(folderPath);
         model.addAttribute("userName", videoService.getUserName());
         model.addAttribute("videoPath", videoService.getFolderPath());
         if (!success) {
             model.addAttribute("errorMessage", "Folder is invalid or forbidden");
             model.addAttribute("folderPath", folderPath);
+            System.out.println("[SYSTEM] User " + currentUser + " Failed to update folderpath");
             return "settings";
         }
+        System.out.println("[SYSTEM] User " + currentUser.getUsername() + " Updated folderpath to " + folderPath);
         return "redirect:/videos/settings"; // success
     }
     @PostMapping("/updateUserName")
-    public String updateUserName(@RequestParam("Username") String userName) {
-        boolean success = videoService.updateUserName(userName);
+    public String updateUserName(@RequestParam("Username") String newUserName, HttpSession session) {
+        ProfileUser currentUser = (ProfileUser) session.getAttribute("selectedUser");
+        if (currentUser == null) {
+            System.out.println("Error No user found in session");
+
+        }
+        System.out.println("[SYSTEM] Trying to update" + currentUser.getUsername() + " to " + newUserName);
+        boolean success = videoService.updateUserName(currentUser.getUserId(), newUserName);
 
         if (success) {
+            System.out.println("[SYSTEM] Username successfully updated to " + currentUser.getUsername());
             return "redirect:/videos/settings";
         } else {
+            System.out.println("[SYSTEM] Error while updating username");
             return "redirect:/videos/browser?error=true";
         }
     }
 
     @GetMapping("/search")
     @ResponseBody
-    public ResponseEntity<List<Map<String, String>>> search(@RequestParam String query) {
+    public ResponseEntity<List<Map<String, String>>> search(@RequestParam String query, HttpSession session) {
         List<Map<String, String>> results = new ArrayList<>();
         Path rootFolder = Paths.get(videoFolder);
+        ProfileUser currentUser = (ProfileUser) session.getAttribute("selectedUser");
 
+        System.out.println("[SYSTEM] User " + currentUser.getUsername() + " Navigated to search for String query " + query);
         try (Stream<Path> paths = Files.walk(rootFolder)) {
             paths.filter(p -> p.getFileName().toString().toLowerCase().contains(query.toLowerCase()))
                     .forEach(p -> {
@@ -303,6 +298,11 @@ public class VideoController {
     }
 
 
+    @PostMapping("/videos/deleteUser")
+    public String deleteUser(@RequestParam("user") String user) {
+
+        return "redirect:/";
+    }
 
 
 
