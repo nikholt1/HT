@@ -55,13 +55,15 @@ import static org.assertj.core.api.Assertions.assertThat;
     // Create
     @Test
     public void addUserTest() throws SQLException {
-        repo.addUser(new ProfileUser(1, "testUserName", "testPath/to/test"));
+        repo.addUser(new ProfileUser(1, "testUserName", "testimg.jpg"));
         var list =  repo.getUsers();
         for (ProfileUser u : list) {
             if (u.getUsername().equals("testUserName")) {
                 assertThat(u).isNotNull();
                 // the images/profileImages gets added in the addUser method
-                assertThat(u.getProfilePicturePath()).isEqualTo("images/profileImages/testPath/to/test");
+                assertThat(u.getProfilePicturePath()).isEqualTo("testimg.jpg");
+                // will be handled by springboot webconfig configuration for the dynamic image update from
+                // outside of JAR file.
             }
         }
     }
