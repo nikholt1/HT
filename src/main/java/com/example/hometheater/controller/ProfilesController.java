@@ -5,6 +5,7 @@ import com.example.hometheater.models.ProfileUser;
 import com.example.hometheater.service.MainUserService;
 import com.example.hometheater.service.ProfileUserService;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,7 +25,8 @@ public class ProfilesController {
         this.mainUserService = mainUserService;
     }
 
-
+//    @Value("${login.background.url}")
+//    private String manage_accounts_background_url;
     @GetMapping("/")
     public String profile(Model model) throws SQLException {
         List<ProfileUser> users = profileUserService.getAllUsers();
@@ -75,7 +77,7 @@ public class ProfilesController {
     public String manageAccountProfiles(Model model, HttpSession session) throws SQLException{
         model.addAttribute("users", profileUserService.getAllUsers());
         model.addAttribute("main_user_details", mainUserService.getMainUser());
-
+//        model.addAttribute("backgroundURL", manage_accounts_background_url);
         return "manage_account";
     }
     @GetMapping("/profiles/deleteUser")

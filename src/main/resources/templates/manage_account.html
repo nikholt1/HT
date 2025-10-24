@@ -3,43 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <title>Manage Account</title>
-    <link rel="stylesheet" th:href="@{/stylesTemplate.css}">
+    <link rel="stylesheet" th:href="@{/manage_account_styles.css}">
     <script type="text/javascript" src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" th:href="@{/images/imagesTemplates/R.png}">
+    <link rel="icon" type="image/png" th:href="@{https://raw.githubusercontent.com/nikholt1/HTasset/refs/heads/main/storedAssets/R.png}">
 </head>
 <body>
+
+<section class="barMagenta">
+    <!-- <img class="barMagentaImage" th:src="@{/images/imagesTemplates/barMagentaLight.jpg}"> -->
+    <img class="barMagentaImage" th:src="@{https://raw.githubusercontent.com/nikholt1/HTasset/refs/heads/main/browser/barMagenta.png}">
+
+</section>
     <h1>Manage Account and Profiles</h1>
     <h2>Main User Account</h2>
-    <div class="login-container">
+
+    <div class="passwordChanger-container">
         <p th:text="${main_user_details.getUsername()}"></p>
+
         <form th:action="@{/profiles/changeMainUserName}" method="post">
             <input type="text" name="newMainUserName" id="changeUsername" required placeholder="Change username" />
-
             <button type="submit">Change Username</button>
         </form>
+
         <form th:action="@{/profiles/changePassword}" method="post">
             <input type="text" name="username" id="username" required placeholder="Enter Username" />
             <input type="password" name="currentPassword" id="currentPassword" required placeholder="Enter Current Password" />
             <input type="password" name="newPassword" id="newPassword" required placeholder="Enter New Password" />
-
             <button type="submit">Change Password</button>
         </form>
     </div>
 
-
-    <a th:each="user : ${users}" class="profiles_box">
-        <img th:src="@{${user.profilePicturePath}}" alt="Profile Picture" class="profile-img"/>
-        <div class="username" th:text="${user.username}">Username</div>
-
-        <div class="add-profile-container">
-            <a th:href="@{/profiles/deleteUser(userId=${user.userId})}" class="add-profile-btn">
-                Delete User
-            </a>
+    <div class="profiles-container">
+        <div th:each="user : ${users}" class="profiles_box">
+            <img th:src="@{${user.profilePicturePath}}" alt="Profile Picture" class="profile-img"/>
+            <span class="username" th:text="${user.username}">Username</span>
+            <a th:href="@{/profiles/deleteUser(userId=${user.userId})}" class="delete-profile-btn">Delete User</a>
         </div>
-    </a>
+    </div>
+
+<section class="barMagenta">
+    <img class="barMagentaImageReverse" th:src="@{/images/imagesTemplates/barMagentaLight.jpg}">
+
+</section>
+
+
 
 </body>
 </html>

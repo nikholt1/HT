@@ -374,8 +374,12 @@ h1 {
 
 /* Profile image styling */
 .profile-img {
-    width: 40%;
-    height: 40%;
+    width: 20vw;       /* relative to viewport */
+    height: 20vw;      /* keeps square shape */
+    max-width: 120px;  /* prevents huge images on desktop */
+    max-height: 120px;
+    min-width: 80px;   /* prevents tiny images on phones */
+    min-height: 80px;
     border-radius: 50%;
     object-fit: cover;
     display: block;
@@ -409,6 +413,8 @@ h1 {
 .add-profile-btn:hover {
     background: #357ab7;
 }
+
+
 
 
 

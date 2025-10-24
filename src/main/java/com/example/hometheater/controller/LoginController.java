@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class LoginController {
 
-    @Value("${login.background.url}")
-    private String backgroundUrl;
+//    @Value("${login.background.url}")
+//    private String backgroundUrl;
 
     @GetMapping("/login")
     public String loginPage(Model model) {
-        model.addAttribute("backgroundImageUrl", backgroundUrl);
+//        model.addAttribute("backgroundImageUrl", backgroundUrl);
         return "login";
     }
 }
