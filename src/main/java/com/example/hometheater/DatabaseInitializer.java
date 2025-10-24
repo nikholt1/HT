@@ -1,5 +1,7 @@
 package com.example.hometheater;
 
+import com.example.hometheater.utils.DataAccessObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
@@ -16,11 +18,19 @@ import java.sql.ResultSet;
 @Profile("!test")
 public class DatabaseInitializer implements CommandLineRunner {
 
+    @Autowired
+    private DataAccessObject dataAccessObject;
+
     @Value("${spring.datasource.url}")
     private String dbUrl;
 
+    @Autowired
+    private DatafolderResourcesInitializer DRI;
+
     @Override
     public void run(String... args) {
+
+
 
         String dbPath = dbUrl.replace("jdbc:sqlite:", "");
 
@@ -74,6 +84,10 @@ public class DatabaseInitializer implements CommandLineRunner {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        insertMainUserAfterCheck();
+        insertDefualtUserAfterCheck();
+        DRI.start();
     }
 
     private void checkAndCreateTable(Connection conn, Statement stmt, String tableName, String createSQL) throws SQLException {
@@ -86,5 +100,13 @@ public class DatabaseInitializer implements CommandLineRunner {
                 System.out.println("[SYSTEM] Table created: " + tableName);
             }
         }
+    }
+
+    private void insertMainUserAfterCheck() {
+        dataAccessObject.mainUserFirstInitializer();
+
+    }
+    private void insertDefualtUserAfterCheck() {
+        dataAccessObject.defaultSubUserInitializer();
     }
 }

@@ -1,6 +1,6 @@
 package com.example.hometheater.repository;
 
-import com.example.hometheater.utils.DatabaseUtils;
+import com.example.hometheater.utils.DataAccessObject;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
@@ -14,11 +14,11 @@ import java.util.Scanner;
 public class VideoRepository {
 
 
-    private final DatabaseUtils databaseUtils;
+    private final DataAccessObject dataAccessObject;
     public String filePath = "src/main/java/com/example/hometheater/repository/settings.conf";
 
-    public VideoRepository(DatabaseUtils databaseUtils) {
-        this.databaseUtils = databaseUtils;
+    public VideoRepository(DataAccessObject dataAccessObject) {
+        this.dataAccessObject = dataAccessObject;
     }
 
 
@@ -101,38 +101,52 @@ public class VideoRepository {
         return null;
     }
 
-    public boolean updateUserName(String name) {
-        File configFile = new File(filePath);
-        StringBuilder updatedContent = new StringBuilder();
-        boolean updated = false;
-
-        try (Scanner scanner = new Scanner(configFile)) {
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                if (line.startsWith("userName=")) {
-                    // Replace the old folderPath with the new one
-                    line = "userName=\"" + name + "\"";
-                    updated = true;
-                }
-                updatedContent.append(line).append(System.lineSeparator());
-            }
-        } catch (FileNotFoundException e) {
+    public boolean updateUserName(int user_Id, String newUsername) {
+        try {
+            dataAccessObject.updateUserUsername(user_Id, newUsername);
+            return true;
+        } catch (SQLException e) {
             e.printStackTrace();
             return false;
+
         }
 
-        // Write updated content back to the file
-        try (PrintWriter writer = new PrintWriter(configFile)) {
-            writer.print(updatedContent.toString());
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return false;
-        }
-
-        return updated;
     }
+
+//    public boolean updateUserName(String name) {
+//        File configFile = new File(filePath);
+//        StringBuilder updatedContent = new StringBuilder();
+//        boolean updated = false;
+//
+//        try (Scanner scanner = new Scanner(configFile)) {
+//            while (scanner.hasNextLine()) {
+//                String line = scanner.nextLine();
+//                if (line.startsWith("userName=")) {
+//                    // Replace the old folderPath with the new one
+//                    line = "userName=\"" + name + "\"";
+//                    updated = true;
+//                }
+//                updatedContent.append(line).append(System.lineSeparator());
+//            }
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//            return false;
+//        }
+//
+//        // Write updated content back to the file
+//        try (PrintWriter writer = new PrintWriter(configFile)) {
+//            writer.print(updatedContent.toString());
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//            return false;
+//        }
+//
+//        return updated;
+//    }
     public void deleteUser(String username) throws SQLException {
-        databaseUtils.deleteUser(username);
+        dataAccessObject.deleteUser(username);
     }
+
+
 
 }

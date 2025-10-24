@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.SQLException;
 import java.util.List;
 
 
@@ -59,7 +60,7 @@ public class VideoService {
             }
 
             this.folderPath = path.toString();
-            System.out.println("Folder successfully updated to: " + this.folderPath);
+            System.out.println("[SYSTEM] Folder successfully updated to: " + this.folderPath);
             try {
                 videoRepository.updateFolderPath(this.folderPath);
                 return true;
@@ -80,8 +81,9 @@ public class VideoService {
     public String getUserName() {
         return videoRepository.getUserName();
     }
-    public boolean updateUserName(String newName) {
-        return videoRepository.updateUserName(newName);
+    public boolean updateUserName(int user_Id, String newUsername) {
+        return videoRepository.updateUserName(user_Id, newUsername);
+
     }
 
 

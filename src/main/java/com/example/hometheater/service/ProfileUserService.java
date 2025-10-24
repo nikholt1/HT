@@ -1,7 +1,7 @@
 package com.example.hometheater.service;
 
 import com.example.hometheater.models.ProfileUser;
-import com.example.hometheater.utils.DatabaseUtils;
+import com.example.hometheater.utils.DataAccessObject;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
@@ -9,14 +9,14 @@ import java.util.List;
 
 @Service
 public class ProfileUserService {
-    public DatabaseUtils databaseUtils;
-    public ProfileUserService(DatabaseUtils databaseUtils) {
-        this.databaseUtils = databaseUtils;
+    public DataAccessObject dataAccessObject;
+    public ProfileUserService(DataAccessObject dataAccessObject) {
+        this.dataAccessObject = dataAccessObject;
     }
 
     public void addUser(ProfileUser profilerUser) {
         try {
-            databaseUtils.addUser(profilerUser);
+            dataAccessObject.addUser(profilerUser);
         } catch (SQLException ex) {
             System.out.println("Error adding user");
         }
@@ -24,6 +24,6 @@ public class ProfileUserService {
     }
 
     public List<ProfileUser> getAllUsers() throws SQLException {
-        return databaseUtils.getUsers();
+        return dataAccessObject.getUsers();
     }
 }

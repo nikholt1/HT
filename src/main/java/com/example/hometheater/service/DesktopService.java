@@ -54,13 +54,13 @@ public class DesktopService {
             for (Path forbidden : FORBIDDEN_PATHS) {
                 Path forbiddenNormalized = forbidden.toAbsolutePath().normalize();
                 if (path.startsWith(forbiddenNormalized)) {
-                    System.out.println("Attempt to set forbidden folder: " + path);
+                    System.out.println("[SYSTEM] Attempt to set forbidden folder: " + path);
                     return false;
                 }
             }
 
             this.folderPath = path.toString();
-            System.out.println("Folder successfully updated to: " + this.folderPath);
+            System.out.println("[SYSTEM] Folder successfully updated to: " + this.folderPath);
             try {
                 desktopRepository.updateFolderPath(this.folderPath);
                 return true;

@@ -12,6 +12,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" th:href="@{https://raw.githubusercontent.com/nikholt1/HTasset/refs/heads/main/storedAssets/R.png}">
 
 </head>
 <body>
@@ -26,7 +27,7 @@
 
     <!-- Profile Dropdown -->
     <div class="profile-dropdown">
-        <img th:src="@{'/' + ${currentUser.profilePicturePath}}" alt="Profile Picture"
+        <img th:src="@{${currentUser.profilePicturePath}}" alt="Profile Picture"
              class="profile-pic" id="profilePic">
 
         <div class="dropdown-menu" id="dropdownMenu">
@@ -46,7 +47,7 @@
 <section th:if="${currentPath == ''}" class="HeroSection">
 
 
-    <img class="refrac-image" th:src="@{/images/imagesTemplates/Refractio-removebg-preview.png}" alt="Refractio">
+    <img class="refrac-image" th:src="@{https://raw.githubusercontent.com/nikholt1/HTasset/refs/heads/main/loginImage/logo.png}" alt="Refractio">
     <h2 class="welcome">Welcome to Refract</h2>
     <p class="welcomeParagraph">Stream, cast or simply watch anything you have stored</p>
 </section>
@@ -290,7 +291,7 @@
                     <img th:if="${item.startsWith('Horror')}" th:src="@{/images/imagesTemplates/horror.png}" alt="Horror Image">
                     <img th:if="${item.startsWith('Crime')}" th:src="@{/images/imagesTemplates/crime.png}" alt="Crime Image">
                     <img th:if="${item.startsWith('Action')}" th:src="@{/images/imagesTemplates/action.png}" alt="Action Image">
-                    <img th:if="${item.startsWith('Adventure')}" th:src="@{/images/imagesTemplates/Adventure.png}" alt="Adventure Image">
+                    <img th:if="${item.startsWith('Adventure')}" th:src="@{/images/imagesTemplates/adventure.png}" alt="Adventure Image">
                     <img th:if="${item.startsWith('Comedy')}" th:src="@{/images/imagesTemplates/comedy.png}" alt="Comedy Image">
                     <img th:if="${item.startsWith('Documentary')}" th:src="@{/images/imagesTemplates/documentary.png}" alt="Documentary Image">
                     <img th:if="${item.startsWith('Thriller')}" th:src="@{/images/imagesTemplates/thriller.png}" alt="Thriller Image">
