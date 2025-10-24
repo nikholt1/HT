@@ -18,7 +18,7 @@
     </div>
 
     <div class="profile-dropdown">
-        <img th:src="@{${currentUser.profilePicturePath}}" alt="Profile Picture"
+        <img th:src="@{${'/profileImages/' + currentUser.profilePicturePath}}" alt="Profile Picture"
              class="profile-pic" id="profilePic">
 
         <div class="dropdown-menu" id="dropdownMenu">

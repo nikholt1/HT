@@ -38,14 +38,14 @@
 
     <div class="profiles-container">
         <div th:each="user : ${users}" class="profiles_box">
-            <img th:src="@{${user.profilePicturePath}}" alt="Profile Picture" class="profile-img"/>
+            <img th:src="@{'/profileImages/' + ${user.profilePicturePath}}" alt="Profile Picture" class="profile-img"/>
             <span class="username" th:text="${user.username}">Username</span>
             <a th:href="@{/profiles/deleteUser(userId=${user.userId})}" class="delete-profile-btn">Delete User</a>
         </div>
     </div>
 
 <section class="barMagenta">
-    <img class="barMagentaImageReverse" th:src="@{/images/imagesTemplates/barMagentaLight.jpg}">
+    <img class="barMagentaImageReverse" th:src="@{https://raw.githubusercontent.com/nikholt1/HTasset/refs/heads/main/browser/barMagenta.png}">
 
 </section>
 

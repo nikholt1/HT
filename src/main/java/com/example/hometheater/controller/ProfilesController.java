@@ -35,19 +35,29 @@ public class ProfilesController {
             System.out.println("[SYSTEM] User found in endpoint / " + profileUser.getUsername() + "\n" + profileUser.getProfilePicturePath() + "\n user_id: " + profileUser.getUserId());
 
         }
-        return "profiles"; // Thymeleaf template: profile.html
+        return "profiles";
     }
 
     @GetMapping("/profiles/add")
     public String profileAdd(Model model) throws SQLException {
         model.addAttribute("user", new ProfileUser());
 
-        // List all images in static folder
-        File folder = new File("src/main/resources/static/images/profileImages");
+        File folder = new File("../data/profileImages");
         String[] images = folder.list((dir, name) -> name.endsWith(".jpg") || name.endsWith(".png"));
+
+        // Print the found image paths
+        if (images != null) {
+            for (String image : images) {
+                System.out.println("Found image: " + folder.getAbsolutePath() + "/" + image);
+            }
+        } else {
+            System.out.println("No images found in folder: " + folder.getAbsolutePath());
+        }
+
         model.addAttribute("images", images);
         return "profile_add";
     }
+
 
 
     @PostMapping("/profiles/addUser")

@@ -165,7 +165,7 @@ public class DataAccessObject {
 
         jdbcTemplate.update(sql,
                 profileuser.getUsername(),
-                "/images/profileImages/" + profileuser.getProfilePicturePath(),
+                profileuser.getProfilePicturePath(),
                 1
         );
     }

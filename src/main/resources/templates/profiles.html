@@ -26,7 +26,7 @@
         <a th:each="user : ${users}"
            th:href="@{'/profiles/select'(userId=${user.userId})}"
            class="profiles_box">
-            <img th:src="@{${user.profilePicturePath}}" alt="Profile Picture" class="profile-img"/>
+            <img th:src="@{'/profileImages/' + ${user.profilePicturePath}}" alt="Profile Picture" class="profile-img"/>
             <div class="username" th:text="${user.username}">Username</div>
 
         </a>
