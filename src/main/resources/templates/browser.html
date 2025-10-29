@@ -285,7 +285,7 @@
             <!-- Loop over items -->
             <li th:each="item : ${items}" th:classappend="${item.endsWith('/')} ? 'folder' : 'file'">
                 <span th:with="itemPath=${currentPath != '' ? currentPath + '/' + #strings.substring(item,0,item.endsWith('/') ? item.length()-1 : item.length()) : #strings.substring(item,0,item.endsWith('/') ? item.length()-1 : item.length())}">
-                    <!-- Folder -->
+                    <!-- Folder
             <a th:if="${item.endsWith('/')}" th:href="@{/videos/browser(path=${itemPath})}">
                 <div class="image-container">
                     <img th:if="${item.startsWith('Horror')}" th:src="@{/images/imagesTemplates/horror.png}" alt="Horror Image">
@@ -320,14 +320,62 @@
                 </div>
             </a>
 
+            -->
+                    <!-- First condition -->
+            <a th:if="${item.endsWith('/')
+                       and !#strings.trim(item).endsWith('.jpg')
+                       and !#strings.trim(item).endsWith('.png')}"
+               th:href="@{/videos/browser(path=${itemPath})}">
+                <div class="image-container">
+                    <img th:src="@{/videos/images/{category}/{category}.png(category=${#strings.substringBefore(item, '/')})}"
+                         onerror="this.onerror=null; this.src='/videos/images/default.png';"
+                         th:alt="${#strings.substringBefore(item, '/')} + ' Image'">
+                    <span class="image-label" th:text="${item}"></span>
+                </div>
+            </a>
 
-                    <!-- File -->
-                    <a th:if="${!item.endsWith('/')}" th:href="@{/videos/stream(filePath=${itemPath})}">
-                        <div class="image-container">
-                            <img th:src="@{/images/imagesTemplates/popcorn.png}" alt="File Image">
-                            <span class="image-label" th:text="${item}"></span>
-                        </div>
-                    </a>
+
+                                <!-- Else if condition -->
+            <a th:if="${!item.endsWith('/')
+                       and #strings.trim(item).endsWith('.mp4')
+                       and !#strings.trim(item).endsWith('.jpg')
+                       and !#strings.trim(item).endsWith('.png')}"
+               th:href="@{/videos/stream(filePath=${itemPath})}">
+                <div class="image-container">
+                    <img th:src="${'/videos/images/' + itemPath.replace('\\','/').substring(0, itemPath.lastIndexOf('.') != -1 ? itemPath.lastIndexOf('.') : itemPath.length()) + '.png'}"
+                         onerror="this.parentNode.style.display='none';"
+                         th:alt="${item.contains('.') ? item.substring(0, item.lastIndexOf('.')) : item} + ' Image'">
+                    <span class="image-label" th:text="${item}"></span>
+                </div>
+            </a>
+
+
+
+
+                    <!-- Else condition -->
+
+
+
+                <!--
+                <a th:each="item : ${items}"
+                   th:if="${!item.endsWith('/')
+                          and !item.toLowerCase().endsWith('.jpg')
+                          and !item.toLowerCase().endsWith('.png')}"
+                   th:href="@{/videos/stream(filePath=${itemPath})}">
+
+                    <img th:src="${'/videos/images/' + itemPath.replace('\\','/').substring(0, itemPath.lastIndexOf('.') != -1 ? itemPath.lastIndexOf('.') : itemPath.length()) + '.png'}"
+                         onerror="this.onerror=null; this.src='/videos/images/default.png';"
+                         th:alt="${item.contains('.') ? item.substring(0, item.lastIndexOf('.')) : item} + ' Image'">
+
+                    <span th:text="${item}"></span>
+                </a>
+                -->
+
+
+
+
+
+
 
                     <button type="button" class="cast-button"
                             th:if="${!item.endsWith('/')}"
