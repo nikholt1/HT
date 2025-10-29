@@ -38,7 +38,7 @@ public class DatafolderResourcesInitializer {
 
             // Video categories
             String[] categories = {
-                    "Horror", "Sci-Fi", "Documentary", "Home Videos",
+                    "Horror", "Sci-Fi", "Documentary", "Home-Videos",
                     "Adventure", "Thriller", "Comedy", "Crime",
                     "Action", "Drama", "Reality", "Romance"
             };

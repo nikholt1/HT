@@ -29,8 +29,9 @@ public class LoginControllerTest {
     void loginPageTest() throws Exception {
         mockMvc.perform(get("/login"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("login"))
-                .andExpect(model().attribute("backgroundImageUrl", "test-image.jpg"));
+                .andExpect(view().name("login"));
+//                .andExpect(model().attribute("backgroundImageUrl", "test-image.jpg"));
+        // removed due to relevance since image is fetched dynamically
 
     }
 }

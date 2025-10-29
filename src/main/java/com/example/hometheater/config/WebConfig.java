@@ -9,8 +9,13 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        // Map /profileImages/** URL to ../data/profileImages/ folder
+
+        // Serve profile images from external folder
         registry.addResourceHandler("/profileImages/**")
                 .addResourceLocations("file:../data/profileImages/");
+
+        // Serve video category images from external folder
+        registry.addResourceHandler("/videos/images/**")
+                .addResourceLocations("file:../data/videos/");
     }
 }
