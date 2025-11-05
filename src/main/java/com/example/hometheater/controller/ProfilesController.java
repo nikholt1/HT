@@ -88,9 +88,15 @@ public class ProfilesController {
 //        model.addAttribute("backgroundURL", manage_accounts_background_url);
         return "manage_account";
     }
-    @GetMapping("/profiles/deleteUser")
-    public String deleteUser(@RequestParam("userId") int userId ) {
-        System.out.println("user delete user id " + userId);
+    @GetMapping("/profiles/deleteUser/{username}")
+    public String deleteUser(@PathVariable String username ) {
+        System.out.println("[SYSTEM] delete user hit " + username);
+        try {
+            profileUserService.deleteUser(username);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return "redirect:/profiles/manageAccount";
     }
 

@@ -1,0 +1,1078 @@
+:root {
+    --text-verySmall: 14px;
+    --text-small: 17px;  /* ~14px */
+    --text-medium: 30px;     /* ~16px */
+    --text-large: 1.25rem;   /* ~20px */
+
+    --background-color: black;
+    --color: white;
+}
+
+
+li {
+    list-style: none;
+
+}
+html, body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--color);
+    font-family: 'Poppins', sans-serif;
+
+    overflow-x: hidden; /* only hide sideways scrollbars */
+    overflow-y: auto;   /* allow vertical scrolling */
+}
+
+
+
+
+.HeroSection {
+    position: relative;
+    width: 100vw;
+    height: 80vh;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: 0;
+}
+
+
+
+.hero-image,
+.hero-video {
+    position: absolute;      /* fill the hero section */
+    top: 50%;                /* center vertically */
+    left: 50%;               /* center horizontally */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;       /* fill container, crop excess */
+    object-position: center; /* keep center in view */
+    transform: translate(-50%, -50%); /* truly center the media */
+}
+
+
+/* Gradient overlay on top of hero media */
+.gradient-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        /* Dark on the left, clear on the right */
+            linear-gradient(
+                    to right,
+                    rgba(0, 0, 0, 0.91) 0%,
+                    rgba(0, 0, 0, 0.6) 15%,
+                    rgba(0, 0, 0, 0.3) 35%,
+                    rgba(0, 0, 0, 0.1) 60%,
+                    rgba(0, 0, 0, 0) 100%
+            ),
+                /* Top-to-bottom gradient */
+            linear-gradient(
+                    to bottom,
+                    rgba(0, 0, 0, 0) 55%,
+                    rgba(0, 0, 0, 0.55) 75%,
+                    rgb(0, 0, 0) 100%
+            );
+    z-index: 1; /* above video/image, below content */
+    pointer-events: none;
+}
+
+.HeroSection {
+    position: relative;
+    width: 100vw;
+    height: 80vh;
+    z-index: 0; /* base stacking */
+}
+.navbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    background-color: transparent;
+    color: var(--color);
+    z-index: 1001;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.hero-left-content {
+    position: absolute;
+    top: 100px;
+    left: 50px;
+    z-index: 2; /* above gradient */
+    color: var(--color);
+    max-width: 600px; /* (example: complete your property) */
+}
+
+
+.hero-logo {
+    width: 150px;
+
+}
+
+.hero-description {
+    font-size: var(--text-small);
+    max-width: 100%;
+}
+
+/* Foreground video content */
+.hero-video-content {
+    position: absolute;
+    top: 25%; /* roughly around middle, slightly above center */
+    left: 50px; /* keep same horizontal position */
+    transform: translateY(-50%); /* centers the element vertically based on its own height */
+    z-index: 2;
+    color: var(--color);
+}
+
+.hero-title {
+    font-size: var(--text-small);
+}
+
+.hero-subtitle {
+    font-size: var(--text-small);
+    opacity: 0.9;
+}
+
+
+/* Align Settings + Search */
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* space between Help and profile picture */
+}
+.help-btn {
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #4a90e2;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+}
+
+.help-btn:hover {
+    background: #357ab7;
+}
+
+/* Search input style */
+.search-form input {
+    background-color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 6px 10px;
+    color: var(--color);
+    outline: none;
+    width: 180px;
+    transition: width 0.3s ease;
+}
+
+.search-form input:focus {
+    width: 240px;
+    background-color: #333;
+}
+
+.navItem {
+    color: var(--color);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.profile-dropdown {
+    position: relative;
+}
+
+.profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    object-fit: cover;
+    border: 2px solid #444;
+    transition: border-color 0.2s;
+}
+
+.profile-pic:hover {
+    border-color: #777;
+}
+
+.dropdown-menu {
+    display: none;
+    padding-top: 100px;
+    padding-right: 20px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100vh;
+    width: 50vw;
+    overflow: hidden;
+    min-width: 160px;
+    z-index: 1000;
+
+    background: linear-gradient(
+            to left,
+            rgba(0, 0, 0, 1) 0%,
+            rgba(0, 0, 0, 1) 60%,
+            rgba(0, 0, 0, 0) 100%
+    );
+}
+
+.dpdItem {
+    display: block;
+    color: var(--color);
+    font-size: var(--text-small);
+    font-weight: bold;
+    padding-right: 10px;
+    margin-top: 10px;
+    text-decoration: none;
+    text-align: right;
+    transition: background 0.2s;
+}
+.dpdItemLogOut {
+    display: block;
+    color: #ff0000;
+    font-size: var(--text-small);
+    font-weight: bold;
+    padding-right: 10px;
+    margin-top: 10px;
+    text-decoration: none;
+    text-align: right;
+    transition: background 0.2s;
+}
+.dpdItemUserName {
+    display: block;
+    color: #4a90e2;
+    font-size: var(--text-small);
+    font-weight: bold;
+    padding-right: 10px;
+    padding-bottom: 20px;
+    text-decoration: none;
+    text-align: right;
+    transition: background 0.2s;
+}
+
+.dropdown-menu a:hover {
+    color: #a6a6a6;
+}
+
+
+/* Full-screen overlay */
+.search-overlay {
+    position: fixed; /* stays in place while scrolling */
+    left: 0;
+    width: 100vw;           /* full viewport width */
+    height: 100vh;          /* full viewport height */
+    background: linear-gradient(
+            to right,
+            rgba(0, 0, 0, 1) 0%,
+            rgba(0, 0, 0, 1) 40%,
+            rgba(0, 0, 0, 0) 100%
+    );
+    z-index: 1000;          /* on top of all other content */
+    display: flex;
+    flex-direction: column; /* stack items vertically */
+    align-items: center;    /* center items horizontally */
+    padding-top: 70px;      /* top spacing */
+    overflow-y: auto;       /* scroll if too many results */
+}
+
+/* Container for results (optional) */
+#search-results {
+    width: 90%;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column; /* stack items vertically */
+    gap: 10px;              /* space between items */
+}
+
+/* Individual search items */
+.search-item {
+    display: block;
+    padding: 15px 20px;
+    background-color: #333;
+    color: #fff;
+    text-decoration: none;
+    font-size: var(--text-small);
+    border-radius: 6px;
+    transition: background-color 0.2s;
+}
+
+.search-item:hover {
+    background-color: #4c4c4c;
+}
+
+
+
+
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;      /* start invisible */
+    }
+    to {
+        opacity: 1;      /* fade to fully visible */
+    }
+}
+
+
+.collectionSection {
+    position: relative;       /* for arrows to overlay */
+    width: 100%;
+    height: 50vh;
+    padding: 20px 0;
+    overflow: hidden;
+    background-image: url("https://raw.githubusercontent.com/nikholt1/HTasset/refs/heads/main/storedAssets/colorWarpTop.png");
+}
+.collection {
+    overflow-x: auto;         /* scrolling container */
+    white-space: nowrap;
+    padding: 0 40px;          /* space for arrows */
+
+    /* Hide scrollbar in all browsers */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;     /* Firefox */
+}
+
+.collection::-webkit-scrollbar {
+    display: none;             /* Chrome, Safari, Opera */
+}
+.collection ul.grid {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 15px;
+    padding: 0 20px;
+    margin: 0;
+    list-style: none;
+}
+
+.collection ul.grid li {
+    display: inline-block;
+    vertical-align: top;
+    width: 212px;      /* fixed width */
+    height: 325px;     /* fixed height */
+    text-align: center;
+    cursor: pointer;
+    flex: 0 0 auto;
+}
+
+.image-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 0;
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;  /* stack image and label */
+}
+
+.image-container img {
+    width: 100%;
+    height: calc(100% - 25px);  /* leave space for label */
+    object-fit: cover;
+    display: block;
+}
+
+.image-container:hover {
+    transform: scale(1.05);
+}
+
+.image-label {
+    position: absolute;
+    bottom: 0;            /* put label on bottom edge of image */
+    left: 0;
+    width: 100%;
+    height: 25px;
+    line-height: 25px;
+    font-size: var(--text-small);
+    color: var(--color);
+    text-align: center;
+}
+
+.collection-header {
+    color: var(--color);
+    font-size: var(--text-small);
+    font-weight: bold;
+    margin: 10px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    padding: 5px 10px;
+}
+
+.empty-message {
+    color: var(--color);
+    font-size: var(--text-small);
+    text-align: center;
+    width: 100%;
+    padding: 20px 0;
+}
+.cast-button {
+    margin-top: 5px;
+    background-color: transparent;
+    color: var(--color);
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.cast-button:hover {
+    color: #ff5555;
+}
+
+/* Scrollbar styling */
+.collectionSection::-webkit-scrollbar {
+    height: 8px;
+}
+
+.collectionSection::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.collectionSection::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.2);
+    border-radius: 4px;
+}
+
+.collectionSection::-webkit-scrollbar-thumb:hover {
+    background: rgba(255,255,255,0.4);
+}
+.scroll-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    z-index: 100;
+    user-select: none;
+}
+
+.scroll-btn.left {
+    left: 10px;
+}
+
+.scroll-btn.right {
+    right: 10px;
+}
+
+.scroll-btn:hover {
+    background-color: rgba(0,0,0,0.8);
+}
+@media (max-width: 600px) {
+    .collection ul.grid li img {
+        height: 325px;
+    }
+    .hero-left-content {
+        max-width: 60%;
+    }
+    .navItem {
+        display: none;
+    }
+    .help-btn {
+        display: none;
+    }
+    .scroll-btn {
+         display: none;
+     }
+
+}
+
+
+
+
+
+.settingsSection {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;       /* viewport width */
+    height: 90vh;      /* viewport height */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    /* stronger gradient overlay */
+    background: linear-gradient(
+            to bottom,
+            rgba(0,0,0,0) 60%,   /* transparent until halfway */ rgba(0, 0, 0, 0.48) 75%, /* fade builds up */ rgb(0, 0, 0) 100% /* solid dark at bottom */
+    ),
+    url('https://raw.githubusercontent.com/nikholt1/HTasset/refs/heads/main/storedAssets/spaceCity.png');
+    background-size: cover;
+
+    background-position: center;
+    background-repeat: no-repeat;
+
+    color: #fff;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+
+.arrowToFooter {
+    text-align: center;          /* center all text horizontally */
+    padding: 60px 30px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.arrowToFooter span {
+    display: inline-block;
+    font-size: 80px;             /* make arrow large */
+    padding: 20px;               /* space around the arrow */
+    vertical-align: middle;
+}
+.barMagentaImage {
+    width: 101%;
+}
+.barMagentaImageReverse {
+    rotate: 180deg;
+    width: 101%;
+}
+
+.devicesSection {
+    display: flex;
+    justify-content: center; /* horizontally center */
+    align-items: center;     /* vertically center */
+    min-height: 100vh;       /* full viewport height */
+    padding: 40px;           /* padding around the content */
+    box-sizing: border-box;  /* include padding in width/height */
+    text-align: center;      /* center text inside */
+}
+
+.devices-image-container {
+    max-width: 600px; /* limit the content width */
+    width: 100%;
+}
+
+.devices-image-container h1,
+.devices-image-container h3,
+.devices-image-container p,
+.devices-image-container form {
+    margin: 20px 0;
+}
+.devices-image-container .settings-form {
+    align-self: center; /* for flex parent alignment */
+}
+
+
+.devicesImg {
+    max-width: 100%;
+    height: auto;
+    margin: 20px 0;
+}
+
+.current-path {
+    word-wrap: break-word;   /* older standard */
+    overflow-wrap: break-word; /* modern standard */
+    word-break: break-all;   /* break long words if necessary */
+    max-width: 100%;         /* stay within container */
+    text-align: center;       /* optional: center text */
+}
+.settings-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    margin: 0 auto; /* centers the form horizontally */
+    text-align: center; /* centers text inside inputs/buttons */
+}
+
+
+.settings-form input {
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    background: #333;
+    color: #fff;
+    transition: background 0.2s;
+}
+
+.settings-form input:focus {
+    background: #444;
+}
+
+.settings-form button {
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #4a90e2;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+}
+
+.settings-form button:hover {
+    background: #357ab7;
+}
+
+.settings-form button:active {
+    transform: scale(0.98);
+}
+
+
+.descriptionSection {
+    display: flex;               /* make it a flex container */
+    flex-direction: column;      /* stack children vertically */
+    justify-content: center;     /* center vertically */
+    align-items: center;         /* center horizontally */
+    height: 100%;
+    width: 100%;/* full viewport height */
+    text-align: center;
+    margin-top: 300px;
+    /*  background: linear-gradient(to top, rgba(171, 6, 6, 0.4), rgba(0, 0, 0, 0));/* optional, centers text inside children */
+}
+
+.descriptionDiv {
+    text-align: left;
+    padding: 20px;
+}
+
+.footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: 50vh;
+    margin: 0;
+    padding: 20px; /* already set */
+    box-sizing: border-box;
+
+    /* gradient overlay + background image */
+    background: linear-gradient(
+            to top,
+            rgba(0,0,0,0) 60%,
+            rgba(0, 0, 0, 0.48) 75%,
+            rgb(0, 0, 0) 100%
+    ),
+    url('https://raw.githubusercontent.com/nikholt1/HTasset/refs/heads/main/storedAssets/spaceCity.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    color: #fff;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between; /* left and right sides pushed apart */
+    width: 100%;  /* make container full width */
+    max-width: 1200px; /* optional: keeps content from stretching too far on large screens */
+    margin: 0 auto;    /* center container if using max-width */
+}
+
+.footer-left, .footer-right {
+    display: flex;
+    flex-direction: column; /* stack lines vertically */
+}
+
+.footer-left p, .footer-right p {
+    margin: 4px 0; /* spacing between lines */
+}
+.footer-left {
+    max-width: 30vw;
+}
+.footer-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* pushes content to bottom of container */
+    gap: 8px; /* optional: space between rows */
+}
+
+.footer-right p {
+    display: flex;
+    align-items: center; /* vertically align image + text */
+    gap: 8px; /* horizontal space between icon and text */
+    margin: 0; /* remove default paragraph spacing */
+}
+
+.footer-right img {
+    max-width: 32px; /* consistent small icon size */
+    height: auto;
+}
+
+
+.portfolioLogo {
+    max-width: 70px;
+}
+
+.footerLinks {
+    text-decoration: none;
+    color: var(--color);
+}
+.footerLinksPortfolio {
+    text-decoration: none;
+    color: red;
+    font-weight: bold;
+}
+
+.githubLogo {
+    color:var(--color);
+}
+
+
+
+
+/* Profiles */
+.profiles_wrapper {
+    display: flex;
+    justify-content: center; /* horizontal center */
+    align-items: center;     /* vertical center */
+    height: 100vh;           /* full viewport height */
+}
+
+/* Container for all profiles */
+.profiles_container {
+    text-align: center;
+}
+
+/* Message when no profiles exist */
+.no-profiles {
+    margin-bottom: 20px;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+/* Profile card styling */
+.profiles_box {
+    display: inline-block;
+    margin: 10px;
+    text-align: center;
+    cursor: pointer;       /* clickable */
+    transition: transform 0.2s; /* optional hover effect */
+}
+
+.profiles_box:hover {
+    transform: scale(1.05); /* slight zoom on hover */
+}
+
+/* Profile image styling */
+.profile-img {
+    width: 20vw;       /* relative to viewport */
+    height: 20vw;      /* keeps square shape */
+    max-width: 210px;  /* prevents huge images on desktop */
+    max-height: 210px;
+    min-width: 80px;   /* prevents tiny images on phones */
+    min-height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Username text under profile image */
+.username {
+    margin-top: 5px;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+}
+
+/* Add profile button container */
+.add-profile-container {
+    margin-top: 20px;
+}
+
+/* Add profile button styling */
+.add-profile-btn {
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #4a90e2;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+}
+.add-profile-btn:hover {
+    background: #357ab7;
+}
+
+/* Manage profiles*/
+.manageAccountSection {
+    margin-top: 150px;
+    padding: 60px 30px;
+    flex-direction: column;   /* stack items vertically */
+    justify-content: center;  /* center vertically */
+    align-items: center;      /* center horizontally */
+    text-align: center;
+}
+/* Scope everything to inside .manageAccountSection */
+.manageAccountSection h1,
+.manageAccountSection h2 {
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.manageAccountSection h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #f9fafb;
+}
+
+.manageAccountSection h2 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #d1d5db;
+}
+
+/* Container for forms inside manageAccountSection */
+.manageAccountSection .passwordChanger-container {
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    text-align: left;
+}
+
+.manageAccountSection .passwordChanger-container p {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    color: #f3f4f6;
+}
+
+.manageAccountSection form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-top: 1.5rem;
+}
+
+.manageAccountSection input[type="text"],
+.manageAccountSection input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    background: #333;
+    font-size: 1rem;
+    color: #fff;
+    border-radius: 8px;
+    border: none;
+    box-sizing: border-box;
+    margin-bottom: 30px;
+}
+
+.manageAccountSection button {
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #009f6d;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+}
+
+.manageAccountSection button:hover {
+    background: #016344;
+}
+
+.manageAccountSection .profiles-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.manageAccountSection .profiles_box {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background: #333;
+    padding: 1rem;
+    border-radius: 1rem;
+
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.manageAccountSection .profiles_box:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.7);
+}
+
+.manageAccountSection .profile-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 1rem;
+    border: 2px solid #374151;
+}
+
+.manageAccountSection .username {
+    flex-grow: 1;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #f9fafb;
+}
+
+.manageAccountSection .delete-profile-btn {
+    background-color: #ef4444;
+    color: #f9fafb;
+    padding: 0.5rem 0.9rem;
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: background 0.2s ease;
+}
+
+.manageAccountSection .delete-profile-btn:hover {
+    background-color: #dc2626;
+}
+
+/* Add User Form Container */
+.manageAccountSection .addUser-container {
+    max-width: 500px;
+
+    margin: 2rem auto;
+    padding: 2rem;
+    border-radius: 1rem;
+
+}
+
+.manageAccountSection .addUser-container h2 {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #f9fafb;
+    margin-bottom: 1.5rem;
+}
+
+.manageAccountSection .addUser-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.manageAccountSection .addUser-container input[type="text"],
+.manageAccountSection .addUser-container select {
+    width: 100%;
+    padding: 12px;
+    background: #333;
+    color: #fff;
+    border-radius: 8px;
+    border: none;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.manageAccountSection .addUser-container select {
+    width: 100%;
+    border-radius: 8px;
+    background-color: #1e1e1e;
+    color: #fff;
+    border: 1px solid #333;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 8px;
+    box-sizing: border-box;
+
+    /* Make it look like a scrollable list */
+    height: auto;
+    overflow-y: auto;
+}
+
+.manageAccountSection .addUser-container select option {
+    background-color: #292929;
+    color: #fff;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.manageAccountSection .addUser-container select option:hover {
+    background-color: #3b82f6;
+}
+
+.manageAccountSection .addUser-container select option:checked {
+    background-color: #2563eb;
+    color: #fff;
+}
+
+/* Optional scrollbar styling (WebKit browsers) */
+.manageAccountSection .addUser-container select::-webkit-scrollbar {
+    width: 8px;
+}
+.manageAccountSection .addUser-container select::-webkit-scrollbar-thumb {
+    background-color: #4a4a4a;
+    border-radius: 4px;
+}
+.manageAccountSection .addUser-container select::-webkit-scrollbar-thumb:hover {
+    background-color: #6b6b6b;
+}
+
+
+.manageAccountSection .addUser-container label {
+    font-size: 1rem;
+    color: #d1d5db;
+}
+
+.manageAccountSection .addUser-container button {
+    width: 50%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #009f6d;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+}
+
+.manageAccountSection .addUser-container button:hover {
+    background: #016344;
+}
+.addNewUserForm {
+    text-align: left;
+}
+.chooseProfilePictureDiv {
+    background: #333;
+    padding: 10px 10px;
+    border-radius: 20px;
+}
+
+
+@media (max-width: 600px) {
+    .collection ul.grid li img {
+        height: 325px;
+    }
+    .hero-left-content {
+        max-width: 60%;
+    }
+    .navItem {
+        display: none;
+    }
+    .help-btn {
+        display: none;
+    }
+    .scroll-btn {
+        display: none;
+    }
+
+}

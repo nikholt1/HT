@@ -1,12 +1,14 @@
 /* login.css */
 
+/* ===== Base styles ===== */
 body, html {
     margin: 0;
     padding: 0;
     height: 100%;
     font-family: Arial, sans-serif;
     background-color: black;
-    background: url('https://github.com/nikholt1/HTasset/blob/main/loginImage/loginImage.jpg') no-repeat center center fixed;
+    background: url('https://github.com/nikholt1/HTasset/blob/main/loginImage/loginImage.jpg?raw=true')
+    no-repeat center center fixed;
     background-size: cover;
 }
 
@@ -14,7 +16,7 @@ body, html {
     display: flex;
     justify-content: center; /* center horizontally */
     align-items: center;     /* center vertically */
-    min-height: 100vh;       /* full viewport height */
+    min-height: 100vh;
     background-size: cover;
     background-position: center;
 }
@@ -22,12 +24,12 @@ body, html {
 .login-wrapper {
     margin-top: -200px;
     display: flex;
-    flex-direction: column;  /* stack items vertically */
-    align-items: center;     /* center all children horizontally */
+    flex-direction: column;
+    align-items: center;
 }
 
 .logo-container {
-    margin-bottom: 20px; /* space between logo and form */
+    margin-bottom: 20px;
 }
 
 .login-logo {
@@ -37,10 +39,8 @@ body, html {
 }
 
 .login-container {
-    background-color: rgba(9, 9, 9, 0); /* Slightly transparent white */
     padding: 40px 60px;
     border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0);
     text-align: center;
     min-width: 800px;
 }
@@ -64,28 +64,27 @@ body, html {
     padding: 12px;
     margin-top: 5px;
     background: #333;
-    font-size: 1rem;/* dark background */
+    font-size: 20px;
     color: #fff;
-    border-radius: 8px; /* white text */
+    border-radius: 8px;
     border: none;
     box-sizing: border-box;
     margin-bottom: 30px;
 }
 
 .login-container button {
-    display: block;          /* ensures it starts on a new line */
-    width: 50%;              /* adjust width as desired */
-    margin: 0 auto 0 auto;   /* centers the button horizontally */
+    display: block;
+    width: 50%;
+    margin: 0 auto;
     padding: 12px;
     border: none;
     border-radius: 8px;
     background: #4a90e2;
     color: #fff;
-    font-size: 1rem;
+    font-size: 20px;
     cursor: pointer;
     transition: background 0.2s, transform 0.1s;
 }
-
 
 .login-container button:hover {
     background: #357ab7;
@@ -94,5 +93,80 @@ body, html {
 .login-container p {
     margin-top: 15px;
     color: red;
-    font-size: 14px;
+    font-size: 20px;
+}
+
+/* ===== Responsive adjustments ===== */
+
+/* Tablets and small laptops */
+@media (max-width: 1024px) {
+    .login-container {
+        min-width: 600px;
+        padding: 30px 40px;
+    }
+
+    .login-container h1 {
+        font-size: 24px;
+    }
+
+    .login-logo {
+        max-width: 250px;
+    }
+}
+
+/* Large phones and small tablets */
+@media (max-width: 768px) {
+    .login-wrapper {
+        margin-top: -100px;
+    }
+
+    .login-container {
+        min-width: 90%;
+        padding: 25px 30px;
+    }
+
+    .login-container input {
+        width: 100%;
+    }
+
+    .login-container button {
+        width: 100%;
+    }
+
+    .login-logo {
+        max-width: 200px;
+    }
+}
+
+/* Small phones (portrait) */
+@media (max-width: 480px) {
+    .login-wrapper {
+        margin-top: 0;
+    }
+
+    .login-container {
+        min-width: 90%;
+        padding: 20px;
+        border-radius: 8px;
+    }
+
+    .login-container h1 {
+        font-size: 20px;
+    }
+
+    .login-container input,
+    .login-container button {
+        width: 100%;
+        font-size: 0.9rem;
+    }
+
+    .login-logo {
+        max-width: 150px;
+    }
+}
+@media (max-width: 768px) {
+    .login-container {
+        width: 90%;       /* use relative width instead of fixed min-width */
+        min-width: unset; /* remove the hard minimum width */
+    }
 }

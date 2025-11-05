@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Refract Settings</title>
-    <link rel="stylesheet" th:href="@{/settingsStyles.css}">
+    <link rel="stylesheet" th:href="@{/main.css}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,42 +15,53 @@
 <nav class="navbar">
     <div class="nav-left">
         <a class="navItem" th:href="@{/videos/browser}">Browser</a>
+        <a class="navItem" th:href="@{/profiles/add}">Manage Users</a>
+        <a class="navItem" th:href="@{/profiles/manageAccount}">Add New User</a>
     </div>
 
-    <div class="profile-dropdown">
-        <img th:src="@{${'/profileImages/' + currentUser.profilePicturePath}}" alt="Profile Picture"
-             class="profile-pic" id="profilePic">
+    <div class="nav-right">
+        <a th:href="@{/videos/settings#help}">
+            <button class="help-btn" id="helpBtn">Help</button>
+        </a>
 
-        <div class="dropdown-menu" id="dropdownMenu">
-            <a th:href="@{/}">Switch Profile</a>
-            <a th:href="@{/videos/settings}">Settings</a>
-            <a th:href="@{/logout}">Logout</a>
+
+        <div class="profile-dropdown">
+            <img th:src="@{${'/profileImages/' + currentUser.profilePicturePath}}"
+                 alt="Profile Picture"
+                 class="profile-pic" id="profilePic">
         </div>
     </div>
 </nav>
 
+<!-- Dropdown placed outside nav -->
+<div class="dropdown-menu" id="dropdownMenu">
+    <a class="dpdItemUserName" th:text="${userName}"></a>
+    <a class="dpdItem" th:href="@{/}">Change Profile</a>
+    <a class="dpdItem" th:href="@{/profiles/manageAccount}">Manage users</a>
+    <a class="dpdItem" th:href="@{/profiles/add}">Add new user</a>
+    <a class="dpdItem" th:href="@{/videos/settings}">Settings</a>
+    <a class="dpdItemLogOut" th:href="@{/logout}">Logout</a>
+</div>
+
+
+
+
 <section class="settingsSection">
-    <h1>Welcome back <span th:text="${userName}"></span></h1>
+    <div class="hero-left-content" th:if="${previewVideoPath == null}">
+        <h1>The Future Stays Local</h1>
+        <p>On refract you are the master of your content.</p>
+        <br><br>
+        <h1>Here in the settings menu</h1>
+        <p>
+            you can manage the folder where your videos are placed, you have the opportunity to direct the system to find other folders that are customized by different people.
 
+            Changing the username of the current user can also be done in here.
 
-    <p class="current-path" th:text="${videoPath}"></p>
-
-    <form class="settings-form" th:action="@{/videos/updateFolder}" method="post">
-        <span th:if="${errorMessage}" th:text="${errorMessage}"></span>
-        <input type="text" name="folderPath" placeholder="Enter new Folderpath" />
-
-
-        <button type="submit">Update Folder</button>
-    </form>
-
-    <form class="settings-form" th:action="@{/videos/updateUserName}" method="post">
-        <input type="text" name="Username" placeholder="Enter new Username"/>
-        <button type="submit">Update Username</button>
-    </form>
+            Otherwise you can read about the setup of the system and the disclaimers of the application.</p>
+    </div>
 
 </section>
 
-</section>
 <section class="barMagenta">
     <!-- <img class="barMagentaImage" th:src="@{/images/imagesTemplates/barMagentaLight.jpg}"> -->
     <img class="barMagentaImage" th:src="@{https://raw.githubusercontent.com/nikholt1/HTasset/refs/heads/main/browser/barMagenta.png}">
@@ -59,7 +70,28 @@
 
 <section class="devicesSection">
 
+
+
     <div class="devices-image-container">
+        <h1>Welcome back <span th:text="${userName}"></span></h1>
+
+
+        <p class="current-path" th:text="${videoPath}"></p>
+
+        <form class="settings-form" th:action="@{/videos/updateFolder}" method="post">
+            <span th:if="${errorMessage}" th:text="${errorMessage}"></span>
+            <input type="text" name="folderPath" placeholder="Enter new Folderpath" />
+
+
+            <button type="submit">Update Folder</button>
+        </form>
+
+        <form class="settings-form" th:action="@{/videos/updateUserName}" method="post">
+            <input type="text" name="Username" placeholder="Enter new Username"/>
+            <button type="submit">Update Username</button>
+        </form>
+        <br><br><br><br>
+
         <h3 class="devices-text">Watch anything you want</h3>
         <p class="devices-subtext">on any device you want</p>
         <img class="devicesImg" th:src="@{/images/imagesTemplates/devices.png}" alt="Devices">
@@ -71,7 +103,7 @@
 
 
 
-<section class="descriptionSection">
+<section class="descriptionSection" id="help">
     <div class="descriptionDiv">
         <h3>Hello <span th:text="${userName}">username</span></h3>
         <strong>This is how it works</strong>
@@ -115,12 +147,32 @@
 
 
 </section>
+<section class="arrowToFooter">
+    <p>To read about the project to understand more about how the program functions you can visit:</p>
+    <span>▼</span>
 
-<section class="barMagenta">
-    <img class="barMagentaImageReverse" th:src="@{/images/imagesTemplates/barMagentaLight.jpg}">
+</section>
+<img class="barMagentaImageReverse" th:src="@{/images/imagesTemplates/barMagentaLight.jpg}">
+<section class="footer">
     <footer>
-        <p> fefe</p>
+        <div class="footer-container">
+            <!-- Left side -->
+            <div class="footer-left">
+                <img class="hero-logo" src="https://raw.githubusercontent.com/nikholt1/HTasset/refs/heads/main/loginImage/logo.png">
+                <p>Visit the project here: <a class="footerLinksPortfolio" href="niklasholtlau.web.app/R.html">niklasholtlau.web.app/R.html</a></p>
+                <p>Go ahead and visit my github, linked in or my portfolio website, which contains a lot more about who i am, and my other projects</p>
+            </div>
 
+            <!-- Right side -->
+            <div class="footer-right">
+                <p><img src="https://cdn-icons-png.flaticon.com/512/2111/2111432.png">
+                    <a class="footerLinks" href="https://github.com/nikholt1" about="_blank">nikholt1</a></p>
+                <p><img src="https://cdn-icons-png.flaticon.com/512/3536/3536505.png">
+                    <a class="footerLinks" href="https://www.linkedin.com/in/niklas-holt-l%C3%A4u-0b06542a4/" about="_blank">Niklas Holt Läu</a></p>
+                <p><img class="portfolioLogo" src="https://raw.githubusercontent.com/nikholt1/HTasset/refs/heads/main/storedAssets/blob.png" >
+                    <a class="footerLinks" href="https://niklasholtlau.web.app/R.html" about="_blank">Portfolio Website</a></p>
+            </div>
+        </div>
     </footer>
 </section>
 
