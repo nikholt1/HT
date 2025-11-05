@@ -108,14 +108,19 @@ public class ProfilesController {
             Model model) {
 
         System.out.println("Changing password for " + username + " from " + currentPassword + " To " + newPassword);
-        // 4. Show success message
+
         model.addAttribute("message", "Password successfully updated!");
         return "redirect:/profiles/manageAccount";
     }
 
     @PostMapping("/profiles/changeMainUserName")
     public String changeMainUserName(@RequestParam("newMainUserName") String newUserName) {
-        System.out.println("new Username = " + newUserName);
+//        try {
+////            mainUserService.updateMainUsername(newUserName);
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
         return "redirect:/profiles/manageAccount";
 
     }

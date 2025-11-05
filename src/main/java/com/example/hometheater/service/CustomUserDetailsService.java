@@ -19,9 +19,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println("[SYSTEM] main_user_id = " + mainUserService.getMainUserId());
         try {
-            String hashedPassword = mainUserService.getAdminPassword(username);
+            String hashedPassword = mainUserService.getAdminPassword(username); // <-- pass username
             if (hashedPassword == null) {
                 throw new UsernameNotFoundException("[SYSTEM] User not found: " + username);
             }
@@ -35,5 +34,6 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new RuntimeException(e);
         }
     }
+
 }
 
