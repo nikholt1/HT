@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <head>
+        <meta charset="UTF-8">
+        <title th:text="${currentPath == '' ? 'Refract Browser - Home' : currentPath + ' Movies | Refract Browser'}"></title>
+        <meta name="description"
+              th:content="${currentPath == '' ? 'Browse and stream your videos with Refract Browser.' :
+                     'Watch ' + currentPath + ' movies and videos online with Refract Browser.'}">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" th:href="@{/main.css}">
+        <script type="text/javascript" src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/png" th:href="@{https://raw.githubusercontent.com/nikholt1/HTasset/refs/heads/main/storedAssets/R.png}">
+
+
+    </head>
+</head>
+<body>
+<nav class="navbar">
+    <div class="nav-left">
+        <a class="navItem" th:href="@{/videos/settings}">Settings</a>
+
+        <form id="search-form" class="search-form" onsubmit="return false;">
+            <input type="text" id="search-input" placeholder="Search..." autocomplete="off">
+        </form>
+    </div>
+
+
+    <div class="nav-right">
+        <button class="redirButton">Help</button>
+
+        <div class="profile-dropdown">
+            <img th:src="@{${'/profileImages/' + currentUser.profilePicturePath}}"
+                 alt="Profile Picture"
+                 class="profile-pic"
+                 id="profilePic">
+
+            <div class="dropdown-menu" id="dropdownMenu">
+                <a class="dpdItem" th:href="@{/}">Switch Profile</a>
+                <a class="dpdItem" th:href="@{/videos/settings}">Settings</a>
+                <a class="dpdItem" th:href="@{/logout}">Logout</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- Full-screen overlay for results -->
+<div id="search-overlay" class="search-overlay" style="display: none;">
+    <div id="search-results" class="search-results"></div>
+</div>
+<section class="HeroSection" th:data-video-path="${previewVideoPath}" th:if="${previewVideoPath != null}" onclick="playPreviewVideo(this)">
+    <!-- Video background -->
+    <div class="hero-video-wrapper">
+        <video autoplay muted loop playsinline>
+            <source th:src="@{/videos/stream(filePath=${previewVideoPath})}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="video-gradient"></div>
+    </div>
+
+    <!-- Foreground content -->
+    <div class="hero-content">
+        <h2 class="hero-title" th:text="${previewVideoName != null ? previewVideoName : currentPath + ' Movies'}"></h2>
+        <p class="hero-subtitle">Watch now</p>
+    </div>
+</section>
+
+<div class="collection">
+    <!-- Folders -->
+    <p class="collection-header">Folders</p>
+    <div class="slider-wrapper">
+        <button class="arrow left" onclick="scrollSlider(this.parentElement, -1)">&#10094;</button>
+        <div class="slider folders-slider">
+            <ul class="grid">
+                <li th:each="item : ${items}" th:if="${item.endsWith('/')}">
+                    <span th:with="itemPath=${currentPath != '' ? currentPath + '/' + #strings.substring(item,0,item.length()-1) : #strings.substring(item,0,item.length()-1)}">
+                        <a th:href="@{/videos/browser(path=${itemPath})}">
+                            <div class="image-container">
+                                <img th:src="@{/videos/images/{category}/{category}.png(category=${#strings.substringBefore(item, '/')})}"
+                                     onerror="this.onerror=null; this.src='/videos/images/default.png';"
+                                     th:alt="${item}">
+                                <span class="image-label" th:text="${item}"></span>
+                            </div>
+                        </a>
+                    </span>
+                </li>
+            </ul>
+        </div>
+        <button class="arrow right" onclick="scrollSlider(this.parentElement, 1)">&#10095;</button>
+    </div>
+
+    <!-- Videos -->
+    <p class="collection-header">Videos</p>
+    <div class="slider-wrapper">
+        <button class="arrow left" onclick="scrollSlider(this.parentElement, -1)">&#10094;</button>
+        <div class="slider videos-slider">
+            <ul class="grid">
+                <li th:each="item : ${items}" th:if="${!item.endsWith('/') and (item.endsWith('.mp4') or item.endsWith('.mkv') or item.endsWith('.avi'))}">
+                    <span th:with="itemPath=${currentPath != '' ? currentPath + '/' + item : item}">
+                        <a th:href="@{/videos/stream(filePath=${itemPath})}">
+                            <div class="image-container">
+                                <img th:src="@{/videos/images/{path}.png(path=${itemPath.replaceAll('\\\\','/').replaceAll('\\..+$','')})}"
+                                     onerror="this.parentNode.style.display='none';"
+                                     th:alt="${item}">
+                                <span class="image-label" th:text="${item}"></span>
+                            </div>
+                        </a>
+                    </span>
+                </li>
+            </ul>
+        </div>
+        <button class="arrow right" onclick="scrollSlider(this.parentElement, 1)">&#10095;</button>
+    </div>
+</div>
+
+<img class="ColorWarpImageLower" th:src="@{https://raw.githubusercontent.com/nikholt1/HTasset/refs/heads/main/storedAssets/colorWarpTop.png}">
+<script>
+
+    const searchInput = document.getElementById('search-input');
+    const searchOverlay = document.getElementById('search-overlay');
+    const searchResults = document.getElementById('search-results');
+
+    let debounceTimeout;
+
+    searchInput.addEventListener('input', () => {
+        clearTimeout(debounceTimeout);
+        debounceTimeout = setTimeout(performSearch, 200); // debounce for typing
+    });
+
+    searchInput.addEventListener('focus', () => {
+        searchOverlay.style.display = 'block';
+    });
+
+    searchInput.addEventListener('blur', () => {
+        setTimeout(() => searchOverlay.style.display = 'none', 200); // hide after click
+    });
+
+    function performSearch() {
+        const query = searchInput.value.trim();
+        if (!query) {
+            searchResults.innerHTML = '';
+            return;
+        }
+
+        fetch(`/videos/search?query=${encodeURIComponent(query)}`)
+            .then(response => response.json())
+            .then(results => {
+                searchResults.innerHTML = '';
+
+                results.forEach(item => {
+                    const link = document.createElement('a');
+                    link.textContent = item.name;
+                    link.classList.add('search-item');
+
+                    if(item.type === 'folder') {
+                        link.href = `/videos/browser?path=${encodeURIComponent(item.path)}`;
+                    } else if(item.type === 'video') {
+                        link.href = `/videos/stream?filePath=${encodeURIComponent(item.path)}`;
+                    }
+
+                    searchResults.appendChild(link);
+                });
+            })
+            .catch(err => console.error('Search error:', err));
+    }
+
+    function playPreviewVideo(section) {
+        const videoPath = section.getAttribute('data-video-path');
+        if (!videoPath) return;
+
+        // redirect to streaming page (replace with your desired URL)
+        window.location.href = `/videos/stream?filePath=${encodeURIComponent(videoPath)}`;
+    }
+
+    window['__onGCastApiAvailable'] = function(isAvailable) {
+        if (isAvailable) {
+            initializeCastApi();
+        }
+    };
+
+    function initializeCastApi() {
+        cast.framework.CastContext.getInstance().setOptions({
+            receiverApplicationId: chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID,
+            autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED
+        });
+
+        document.querySelectorAll('.cast-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const url = button.getAttribute('data-url');
+                const castSession = cast.framework.CastContext.getInstance().getCurrentSession();
+                if (!castSession) {
+                    console.log("No cast session yet. Open the cast selector first.");
+                    return;
+                }
+                const mediaInfo = new chrome.cast.media.MediaInfo(url, 'video/mp4');
+                const request = new chrome.cast.media.LoadRequest(mediaInfo);
+
+                castSession.loadMedia(request).then(
+                    () => console.log('Casting started!'),
+                    (err) => console.error('Cast error', err)
+                );
+            });
+        });
+    }
+
+    document.querySelectorAll('.cast-button').forEach(btn => {
+        btn.addEventListener('click', () => {
+            btn.classList.toggle('active');
+        });
+    });
+
+    const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+    if (!isMobile) {
+        document.querySelectorAll('.cast-button').forEach(btn => btn.remove());
+    }
+
+
+    const isAndroid = /Android/i.test(navigator.userAgent);
+    const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+
+    if (!isAndroid) {
+        document.querySelectorAll('.cast-button').forEach(btn => btn.remove());
+    }
+
+    const video = document.getElementById('previewVideo');
+    if (video) {
+        video.addEventListener('loadedmetadata', () => {
+            // Start at 40% of the video duration
+            video.currentTime = video.duration * 0.4;
+        });
+    }
+    document.addEventListener("DOMContentLoaded", () => {
+        const profilePic = document.getElementById("profilePic");
+        const dropdown = document.getElementById("dropdownMenu");
+
+        if (profilePic && dropdown) {
+            profilePic.addEventListener("click", (e) => {
+                e.stopPropagation();
+                dropdown.style.display =
+                    dropdown.style.display === "block" ? "none" : "block";
+            });
+
+            document.addEventListener("click", () => {
+                dropdown.style.display = "none";
+            });
+        }
+    });
+
+
+
+</script>
+<script>
+    function scrollSlider(wrapper, direction) {
+        const slider = wrapper.querySelector('.slider');
+        const itemWidth = slider.querySelector('li').offsetWidth + 15; // item width + gap
+        slider.scrollBy({
+            left: direction * itemWidth,
+            behavior: 'smooth'
+        });
+    }
+</script>
+
+</body>
+</html>

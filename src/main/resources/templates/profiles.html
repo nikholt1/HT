@@ -9,11 +9,37 @@
     <meta charset="UTF-8">
     <title>Refract profiles</title>
     <link rel="icon" type="image/png" th:href="@{https://raw.githubusercontent.com/nikholt1/HTasset/refs/heads/main/storedAssets/R.png}">
-
-    <link rel="stylesheet" th:href="@{/stylesTemplate.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/main.css}">
 </head>
 <body>
+<nav class="navbar">
+    <div class="nav-left">
+        <a class="navItem" th:href="@{/profiles/manageAccount}">Manage Users</a>
+        <a class="navItem" th:href="@{/profiles/add}">Add User</a>
 
+    </div>
+
+    <div class="nav-right">
+        <a th:href="@{/videos/settings#help}">
+            <button class="help-btn" id="helpBtn">Help</button>
+        </a>
+
+        <div class="profile-dropdown">
+            <img th:src="@{https://raw.githubusercontent.com/nikholt1/HTasset/refs/heads/main/storedAssets/R.png}"
+                 alt="Profile Picture"
+                 class="profile-pic"
+                 id="profilePic">
+        </div>
+    </div>
+</nav>
+<div class="dropdown-menu" id="dropdownMenu">
+    <a class="dpdItemUserName" th:text="${userName}"></a>
+    <a class="dpdItem" th:href="@{/}">Change Profile</a>
+    <a class="dpdItem" th:href="@{/profiles/manageAccount}">Manage users</a>
+    <a class="dpdItem" th:href="@{/profiles/add}">Add new user</a>
+    <a class="dpdItemLogOut" th:href="@{/logout}">Logout</a>
+</div>
 <div class="profiles_wrapper">
 
     <div class="profiles_container">
@@ -50,4 +76,23 @@
 
 
 </body>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const profilePic = document.getElementById("profilePic");
+        const dropdown = document.getElementById("dropdownMenu");
+
+        if (profilePic && dropdown) {
+            profilePic.addEventListener("click", (e) => {
+                e.stopPropagation();
+                dropdown.style.display =
+                    dropdown.style.display === "block" ? "none" : "block";
+            });
+
+            document.addEventListener("click", () => {
+                dropdown.style.display = "none";
+            });
+        }
+    });
+</script>
 </html>

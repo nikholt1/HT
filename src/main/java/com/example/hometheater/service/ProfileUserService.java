@@ -22,7 +22,9 @@ public class ProfileUserService {
         }
 
     }
-
+    public void deleteUser(String username) throws SQLException{
+        dataAccessObject.deleteUser(username);
+    }
     public List<ProfileUser> getAllUsers() throws SQLException {
         return dataAccessObject.getUsers();
     }

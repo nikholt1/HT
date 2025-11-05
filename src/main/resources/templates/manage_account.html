@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Manage Account</title>
-    <link rel="stylesheet" th:href="@{/manage_account_styles.css}">
+    <link rel="stylesheet" th:href="@{/main.css}">
     <script type="text/javascript" src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -12,11 +12,35 @@
 </head>
 <body>
 
-<section class="barMagenta">
-    <!-- <img class="barMagentaImage" th:src="@{/images/imagesTemplates/barMagentaLight.jpg}"> -->
-    <img class="barMagentaImage" th:src="@{https://raw.githubusercontent.com/nikholt1/HTasset/refs/heads/main/browser/barMagenta.png}">
+<nav class="navbar">
+    <div class="nav-left">
+        <a class="navItem" th:href="@{/profiles/manageAccount}">Manage Users</a>
+        <a class="navItem" th:href="@{/profiles/add}">Add User</a>
 
-</section>
+    </div>
+
+    <div class="nav-right">
+        <a th:href="@{/videos/settings#help}">
+            <button class="help-btn" id="helpBtn">Help</button>
+        </a>
+
+        <div class="profile-dropdown">
+            <img th:src="@{https://raw.githubusercontent.com/nikholt1/HTasset/refs/heads/main/storedAssets/R.png}"
+                 alt="Profile Picture"
+                 class="profile-pic"
+                 id="profilePic">
+        </div>
+    </div>
+</nav>
+<div class="dropdown-menu" id="dropdownMenu">
+    <a class="dpdItemUserName" th:text="${userName}"></a>
+    <a class="dpdItem" th:href="@{/}">Change Profile</a>
+    <a class="dpdItem" th:href="@{/profiles/manageAccount}">Manage users</a>
+    <a class="dpdItem" th:href="@{/profiles/add}">Add new user</a>
+    <a class="dpdItemLogOut" th:href="@{/logout}">Logout</a>
+</div>
+
+<section class="manageAccountSection">
     <h1>Manage Account and Profiles</h1>
     <h2>Main User Account</h2>
 
@@ -24,32 +48,81 @@
         <p th:text="${main_user_details.getUsername()}"></p>
 
         <form th:action="@{/profiles/changeMainUserName}" method="post">
+            <h3>Change Main Username</h3>
             <input type="text" name="newMainUserName" id="changeUsername" required placeholder="Change username" />
             <button type="submit">Change Username</button>
         </form>
 
         <form th:action="@{/profiles/changePassword}" method="post">
+            <h3>Change password for Main User</h3>
             <input type="text" name="username" id="username" required placeholder="Enter Username" />
             <input type="password" name="currentPassword" id="currentPassword" required placeholder="Enter Current Password" />
             <input type="password" name="newPassword" id="newPassword" required placeholder="Enter New Password" />
             <button type="submit">Change Password</button>
         </form>
     </div>
+    <p>Changing the username or password is permanent</p>
 
     <div class="profiles-container">
         <div th:each="user : ${users}" class="profiles_box">
             <img th:src="@{'/profileImages/' + ${user.profilePicturePath}}" alt="Profile Picture" class="profile-img"/>
             <span class="username" th:text="${user.username}">Username</span>
-            <a th:href="@{/profiles/deleteUser(userId=${user.userId})}" class="delete-profile-btn">Delete User</a>
+            <a th:href="@{/profiles/deleteUser/{username}(username=${user.username})}" class="delete-profile-btn">Delete User</a>
         </div>
     </div>
+    <p>Deleting users is permanent, and removes all data of the specific user.</p>
 
-<section class="barMagenta">
-    <img class="barMagentaImageReverse" th:src="@{https://raw.githubusercontent.com/nikholt1/HTasset/refs/heads/main/browser/barMagenta.png}">
 
 </section>
 
+<section class="arrowToFooter">
+    <p>To read about the project to understand more about how the program functions you can visit:</p>
+    <span>▼</span>
+
+</section>
+<img class="barMagentaImageReverse" th:src="@{/images/imagesTemplates/barMagentaLight.jpg}">
+<section class="footer">
+    <footer>
+        <div class="footer-container">
+            <!-- Left side -->
+            <div class="footer-left">
+                <img class="hero-logo" src="https://raw.githubusercontent.com/nikholt1/HTasset/refs/heads/main/loginImage/logo.png">
+                <p>Visit the project here: <a class="footerLinksPortfolio" href="niklasholtlau.web.app/R.html">niklasholtlau.web.app/R.html</a></p>
+                <p>Go ahead and visit my github, linked in or my portfolio website, which contains a lot more about who i am, and my other projects</p>
+            </div>
+
+            <!-- Right side -->
+            <div class="footer-right">
+                <p><img class="githubLogo" src="https://cdn-icons-png.flaticon.com/512/2111/2111432.png">
+                    <a class="footerLinks" href="https://github.com/nikholt1" about="_blank">nikholt1</a></p>
+                <p><img src="https://cdn-icons-png.flaticon.com/512/3536/3536505.png">
+                    <a class="footerLinks" href="https://www.linkedin.com/in/niklas-holt-l%C3%A4u-0b06542a4/" about="_blank">Niklas Holt Läu</a></p>
+                <p><img class="portfolioLogo" src="https://raw.githubusercontent.com/nikholt1/HTasset/refs/heads/main/storedAssets/blob.png" >
+                    <a class="footerLinks" href="https://niklasholtlau.web.app/R.html" about="_blank">Portfolio Website</a></p>
+            </div>
+        </div>
+    </footer>
+</section>
 
 
 </body>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const profilePic = document.getElementById("profilePic");
+        const dropdown = document.getElementById("dropdownMenu");
+
+        if (profilePic && dropdown) {
+            profilePic.addEventListener("click", (e) => {
+                e.stopPropagation();
+                dropdown.style.display =
+                    dropdown.style.display === "block" ? "none" : "block";
+            });
+
+            document.addEventListener("click", () => {
+                dropdown.style.display = "none";
+            });
+        }
+    });
+</script>
 </html>

@@ -3,12 +3,8 @@ package com.example.hometheater.utils;
 import com.example.hometheater.config.SecurityConfig;
 import com.example.hometheater.models.MainUser;
 import com.example.hometheater.models.ProfileUser;
-import com.example.hometheater.service.ProfileUserService;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.sql.DatabaseMetaData;
-import java.sql.ResultSet;
 import java.util.List;
 
 
@@ -44,7 +40,7 @@ public class DataAccessObject {
             if (rs.next()) {
                 MainUser user = new MainUser();
                 user.setUsername(rs.getString("username"));
-                user.setPassword(rs.getString("password_hash"));
+                user.setPassword_hash(rs.getString("password_hash"));
                 return user;
             }
             return null;
@@ -174,6 +170,21 @@ public class DataAccessObject {
         String sql = "DELETE FROM users WHERE username = ?";
         jdbcTemplate.update(sql, username);
     }
+    public MainUser getMainUserByUsername(String username) {
+        String sql = "SELECT username, password_hash FROM main_user WHERE username = ?";
+
+        try {
+            MainUser mainUser = jdbcTemplate.queryForObject(
+                    sql,
+                    new Object[]{username},
+                    new org.springframework.jdbc.core.BeanPropertyRowMapper<>(MainUser.class)
+            );
+            System.out.println(mainUser.getUsername() + " " + mainUser.getPassword_hash());
+            return mainUser;
+        } catch (org.springframework.dao.EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
 
     public void updateUserUsername(int userId, String newUsername) throws SQLException {
         System.out.println("[SYSTEM] in DAO updateUserUserName with user_id " + userId + " To " + newUsername);
@@ -212,7 +223,7 @@ public class DataAccessObject {
         MainUser mainUser = getMainUsers();
         String username = mainUser.getUsername();
         if (mainUser != null && mainUser.getUsername().equals(username)) {
-            return mainUser.getPassword();
+            return mainUser.getPassword_hash();
         }
         return null;
     }

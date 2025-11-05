@@ -88,9 +88,15 @@ public class ProfilesController {
 //        model.addAttribute("backgroundURL", manage_accounts_background_url);
         return "manage_account";
     }
-    @GetMapping("/profiles/deleteUser")
-    public String deleteUser(@RequestParam("userId") int userId ) {
-        System.out.println("user delete user id " + userId);
+    @GetMapping("/profiles/deleteUser/{username}")
+    public String deleteUser(@PathVariable String username ) {
+        System.out.println("[SYSTEM] delete user hit " + username);
+        try {
+            profileUserService.deleteUser(username);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return "redirect:/profiles/manageAccount";
     }
 
@@ -102,14 +108,19 @@ public class ProfilesController {
             Model model) {
 
         System.out.println("Changing password for " + username + " from " + currentPassword + " To " + newPassword);
-        // 4. Show success message
+
         model.addAttribute("message", "Password successfully updated!");
         return "redirect:/profiles/manageAccount";
     }
 
     @PostMapping("/profiles/changeMainUserName")
     public String changeMainUserName(@RequestParam("newMainUserName") String newUserName) {
-        System.out.println("new Username = " + newUserName);
+//        try {
+////            mainUserService.updateMainUsername(newUserName);
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
         return "redirect:/profiles/manageAccount";
 
     }
