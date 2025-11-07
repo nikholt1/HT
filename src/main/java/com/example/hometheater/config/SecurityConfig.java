@@ -21,7 +21,6 @@ public class SecurityConfig {
         return passwordEncoder().encode(password);
     }
 
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         System.out.println("[SYSTEM] In filterChainMethod");

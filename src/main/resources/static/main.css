@@ -734,6 +734,35 @@ html, body {
 
 
 /* Profiles */
+
+.profilesSection {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;       /* viewport width */
+    height: 90vh;      /* viewport height */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    /* stronger gradient overlay */
+    background: linear-gradient(
+            to bottom,
+            rgba(0,0,0,0) 60%,   /* transparent until halfway */ rgba(0, 0, 0, 0.48) 75%, /* fade builds up */ rgb(0, 0, 0) 100% /* solid dark at bottom */
+    ),
+    url('https://raw.githubusercontent.com/nikholt1/HTasset/refs/heads/main/storedAssets/spacetoonDone2.png');
+    background-size: cover;
+
+    background-position: center;
+    background-repeat: no-repeat;
+
+    color: #fff;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+
+
 .profiles_wrapper {
     display: flex;
     justify-content: center; /* horizontal center */

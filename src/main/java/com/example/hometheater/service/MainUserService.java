@@ -1,5 +1,6 @@
 package com.example.hometheater.service;
 
+import com.example.hometheater.config.SecurityConfig;
 import com.example.hometheater.utils.DataAccessObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,8 +16,10 @@ public class MainUserService {
 
     @Autowired
     private final DataAccessObject dataAccessObject;
+    private final SecurityConfig securityConfig;
 
-    public MainUserService(DataAccessObject dataAccessObject) {
+    public MainUserService(DataAccessObject dataAccessObject, SecurityConfig securityConfig) {
+        this.securityConfig = securityConfig;
         this.dataAccessObject = dataAccessObject;
     }
 
@@ -35,9 +38,12 @@ public class MainUserService {
         return dataAccessObject.getMainUsers();
     }
 
+    public void changeUsername(String newUsername) throws SQLException {
+        dataAccessObject.changeMainUsername(newUsername);
+    }
+    public void changePassword(String newPassword) throws SQLException {
 
-    public void updatePassword() throws SQLException {
-        dataAccessObject.updateMainUserPassword();
+        dataAccessObject.updateMainUserPassword(securityConfig.getPassword(newPassword), getMainUser());
     }
 }
 
