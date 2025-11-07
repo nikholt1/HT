@@ -3,6 +3,7 @@ package com.example.hometheater.utils;
 import com.example.hometheater.config.SecurityConfig;
 import com.example.hometheater.models.MainUser;
 import com.example.hometheater.models.ProfileUser;
+import com.example.hometheater.service.MainUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class DataAccessObject {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
-
+    private MainUserService mainUserService;
 
 
     public DataAccessObject(JdbcTemplate jdbcTemplate) {
@@ -202,21 +203,23 @@ public class DataAccessObject {
         return main_user_id;
     }
 
-    public void updateMainUserPassword() {
-        String username = getMainUsers().getUsername();
-        String rawPassword = "admin";
-        String hashedPassword = securityConfig.getPassword(rawPassword);
+    public void updateMainUserPassword(String newPassword, MainUser mainUser) {
 
-        String sql = "UPDATE main_user SET password_hash = ? WHERE username = ?";
+        String sql = "UPDATE main_user SET password_hash = ? WHERE main_user_id = ?";
 
-        // Use DatabaseUtils JdbcTemplate for the update
-        int rowsUpdated = jdbcTemplate.update(sql, hashedPassword, username);
+        int rowsUpdated = jdbcTemplate.update(sql, newPassword, 1);
 
         if (rowsUpdated > 0) {
-            System.out.println("Password updated successfully for user: " + username);
+            System.out.println("Password updated successfully for user ID: " + 1);
         } else {
-            System.out.println("User not found: " + username);
+            System.out.println("User not found with ID: " + 1);
         }
+    }
+
+
+    public void changeMainUsername(String newUsername) {
+        String sql = "UPDATE main_user SET username = ? WHERE main_user_id = 1";
+        jdbcTemplate.update(sql, newUsername);
     }
 
     public String getMainUserPassword() {

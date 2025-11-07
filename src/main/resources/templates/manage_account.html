@@ -48,20 +48,28 @@
         <p th:text="${main_user_details.getUsername()}"></p>
 
         <form th:action="@{/profiles/changeMainUserName}" method="post">
-            <h3>Change Main Username</h3>
-            <input type="text" name="newMainUserName" id="changeUsername" required placeholder="Change username" />
-            <button type="submit">Change Username</button>
+            <label for="newMainUserName">New Username:</label>
+            <input type="text" id="newMainUserName" name="newMainUserName" required><br><br>
+            <button type="submit">Update Username</button>
         </form>
+        <p th:if="${Usernamemessage}" th:text="${Usernamemessage}" style="color: #009e6c; font-weight: bold;"></p>
 
         <form th:action="@{/profiles/changePassword}" method="post">
-            <h3>Change password for Main User</h3>
-            <input type="text" name="username" id="username" required placeholder="Enter Username" />
-            <input type="password" name="currentPassword" id="currentPassword" required placeholder="Enter Current Password" />
-            <input type="password" name="newPassword" id="newPassword" required placeholder="Enter New Password" />
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required><br><br>
+
+            <label for="newPassword">New Password:</label>
+            <input type="password" id="newPassword" name="newPassword" required><br><br>
+
             <button type="submit">Change Password</button>
         </form>
     </div>
+
     <p>Changing the username or password is permanent</p>
+
+    <!-- Success/Error Message -->
+    <p th:if="${message}" th:text="${message}" style="color: #009e6c; font-weight: bold;"></p>
+
 
     <div class="profiles-container">
         <div th:each="user : ${users}" class="profiles_box">

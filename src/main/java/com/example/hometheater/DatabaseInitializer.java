@@ -32,6 +32,7 @@ public class DatabaseInitializer implements CommandLineRunner {
 
 
 
+
         String dbPath = dbUrl.replace("jdbc:sqlite:", "");
 
         File dbFile = new File(dbPath);

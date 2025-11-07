@@ -1,6 +1,7 @@
 package com.example.hometheater.controller;
 
 
+import com.example.hometheater.models.MainUser;
 import com.example.hometheater.models.ProfileUser;
 import com.example.hometheater.service.MainUserService;
 import com.example.hometheater.service.ProfileUserService;
@@ -8,6 +9,8 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import com.example.hometheater.config.SecurityConfig;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
 import java.sql.SQLException;
@@ -18,9 +21,11 @@ import java.util.List;
 public class ProfilesController {
     private final MainUserService mainUserService;
     public ProfileUserService profileUserService;
-    public ProfilesController(ProfileUserService profileUserService, MainUserService mainUserService) {
+    private final SecurityConfig securityConfig;
+    public ProfilesController(ProfileUserService profileUserService, MainUserService mainUserService, SecurityConfig securityConfig) {
         this.profileUserService = profileUserService;
         this.mainUserService = mainUserService;
+        this.securityConfig = securityConfig;
     }
 
 //    @Value("${login.background.url}")
@@ -103,27 +108,34 @@ public class ProfilesController {
     @PostMapping("/profiles/changePassword")
     public String changePassword(
             @RequestParam("username") String username,
-            @RequestParam("currentPassword") String currentPassword,
             @RequestParam("newPassword") String newPassword,
-            Model model) {
+            RedirectAttributes redirectAttributes) { // <-- use RedirectAttributes
+        MainUser mainUser = mainUserService.getMainUser();
 
-        System.out.println("Changing password for " + username + " from " + currentPassword + " To " + newPassword);
+        try {
+            mainUserService.changePassword(newPassword);
+            redirectAttributes.addFlashAttribute("message", "Password successfully updated!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("message", "Error updating password, try something different");
+        }
 
-        model.addAttribute("message", "Password successfully updated!");
         return "redirect:/profiles/manageAccount";
     }
 
     @PostMapping("/profiles/changeMainUserName")
-    public String changeMainUserName(@RequestParam("newMainUserName") String newUserName) {
-//        try {
-////            mainUserService.updateMainUsername(newUserName);
-//
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
+    public String changeMainUserName(@RequestParam("newMainUserName") String newUserName,
+                                     RedirectAttributes redirectAttributes) {
+        try {
+            mainUserService.changeUsername(newUserName);
+            redirectAttributes.addFlashAttribute("Usernamemessage", "Username successfully updated!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("Usernamemessage", "Error updating username, try something different");
+        }
         return "redirect:/profiles/manageAccount";
-
     }
+
 
 
 }
