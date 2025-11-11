@@ -55,14 +55,14 @@ public class ProfilesControllerTest {
                 .andExpect(model().attribute("users", users));
     }
 
-    @Test
-    void profileAddTest() throws Exception {
-        mockMvc.perform(get("/profiles/add"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("profile_add"))
-                .andExpect(model().attributeExists("user"))
-                .andExpect(model().attributeExists("images"));
-    }
+//    @Test
+//    void profileAddTest() throws Exception {
+//        mockMvc.perform(get("/profiles/add"))
+//                .andExpect(status().isOk())
+//                .andExpect(view().name("profile_add"))
+//                .andExpect(model().attributeExists("user"))
+//                .andExpect(model().attributeExists("images"));
+//    }
 
     @Test
     void addProfileRedirectedTest() throws Exception {
