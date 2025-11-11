@@ -19,7 +19,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(controllers = LoginController.class)
 @ContextConfiguration(classes = HomeTheaterApplication.class)
 @AutoConfigureMockMvc(addFilters = false)
-@TestPropertySource(properties = "login.background.url=test-image.jpg")
 public class LoginControllerTest {
     @Autowired
     private MockMvc mockMvc;

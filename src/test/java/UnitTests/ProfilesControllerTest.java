@@ -2,8 +2,11 @@ package UnitTests;
 
 
 import com.example.hometheater.HomeTheaterApplication;
+import com.example.hometheater.config.SecurityConfig;
 import com.example.hometheater.controller.ProfilesController;
+import com.example.hometheater.models.MainUser;
 import com.example.hometheater.models.ProfileUser;
+import com.example.hometheater.service.MainUserService;
 import com.example.hometheater.service.ProfileUserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,22 +35,24 @@ public class ProfilesControllerTest {
     @MockitoBean
     private ProfileUserService profileUserService;
 
+    @MockitoBean
+    private MainUserService mainUserService;
+
+    @MockitoBean
+    private SecurityConfig securityConfig;
+
     @Test
     void profilePageShouldRenderUsers() throws Exception {
-
         List<ProfileUser> users = List.of(
                 new ProfileUser(1, "testUser1", "path/test1"),
                 new ProfileUser(2, "testUser2", "path/test2")
         );
         when(profileUserService.getAllUsers()).thenReturn(users);
 
-
         mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("profiles"))
                 .andExpect(model().attribute("users", users));
-
-
     }
 
     @Test
@@ -57,28 +62,20 @@ public class ProfilesControllerTest {
                 .andExpect(view().name("profile_add"))
                 .andExpect(model().attributeExists("user"))
                 .andExpect(model().attributeExists("images"));
-
     }
-
 
     @Test
     void addProfileRedirectedTest() throws Exception {
-         ProfileUser user = new ProfileUser();
-
-         mockMvc.perform(post("/profiles/addUser"))
-                 .andExpect(status().is3xxRedirection())
-                 .andExpect(redirectedUrl("/"));
-
+        mockMvc.perform(post("/profiles/addUser"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/"));
     }
-
 
     @Test
     void selectProfileShouldStoreUserInSessionAndRedirect() throws Exception {
-        // Arrange: create test users
         ProfileUser user1 = new ProfileUser(1, "Alice", "path/a.png");
         ProfileUser user2 = new ProfileUser(2, "Bob", "path/b.png");
         List<ProfileUser> users = List.of(user1, user2);
-
 
         when(profileUserService.getAllUsers()).thenReturn(users);
 
@@ -89,5 +86,26 @@ public class ProfilesControllerTest {
                 .andExpect(request().sessionAttribute("selectedUser", user2));
 
         verify(profileUserService).getAllUsers();
+    }
+
+    @Test
+    void manageAccountProfilesRendersCorrectView() throws Exception {
+        when(profileUserService.getAllUsers()).thenReturn(List.of());
+        when(mainUserService.getMainUser()).thenReturn(new MainUser());
+
+        mockMvc.perform(get("/profiles/manageAccount"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("manage_account"))
+                .andExpect(model().attributeExists("users"))
+                .andExpect(model().attributeExists("main_user_details"));
+    }
+
+    @Test
+    void deleteUserRedirectsToManageAccount() throws Exception {
+        mockMvc.perform(get("/profiles/deleteUser/testUser"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/profiles/manageAccount"));
+
+        verify(profileUserService).deleteUser("testUser");
     }
 }

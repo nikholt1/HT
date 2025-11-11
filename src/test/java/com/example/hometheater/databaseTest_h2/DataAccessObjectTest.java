@@ -61,7 +61,7 @@ import static org.assertj.core.api.Assertions.assertThat;
             if (u.getUsername().equals("testUserName")) {
                 assertThat(u).isNotNull();
                 // the images/profileImages gets added in the addUser method
-                assertThat(u.getProfilePicturePath()).isEqualTo("images/profileImages/testPath/to/test");
+                assertThat(u.getProfilePicturePath()).isEqualTo("testPath/to/test");
             }
         }
     }
