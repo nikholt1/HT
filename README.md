@@ -111,7 +111,7 @@ the user would have to follow the "retrieve username and password" guide, to fet
 ## Future Implementations
 
 
-## Database: notes
+## notes
 - Implemented user_profile_picture_path varchar(255) into database for profile picture handling per user.
 08/10/2025
 
