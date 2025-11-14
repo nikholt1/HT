@@ -77,6 +77,26 @@ default folders with the videos they want. To add a image to a specific video, t
 place an image with the exact same name as the video (video.jpg). From there the system will automatically update the backend to serve the video
 and place the cover of the video with the dedicated image to the frontend.
 
+**First login**
+* The first login happens in the URL that the desktop application specifies.
+* Here the default username and password for the first login is
+* Username: Admin
+* Password: admin
+* This can be changed, and user is encouraged to change at least the password
+
+**Creating a user**
+* Once the user has logged in for the first time, and configured the main user
+* The user can create a new profile, by pressing "add profile"
+* Here the user can fill out the form, for username and choose a image for the profile picture
+
+**Custom profile picture**
+* The user has the option to choose a custom profile picture
+* By navigating into the directory where the program has been installed
+* Navigating into the **"data"** folder
+* Navigating into the **"profileImages"** folder
+* Here the user can place any image, preferably .jpg and in the program choose the specific image as the profile image
+
+
 **To specify new path**
 * Log in to the program
 * Choose any profile
