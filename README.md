@@ -109,7 +109,12 @@ the user would have to follow the "retrieve username and password" guide, to fet
 
 
 ## Future Implementations
+* Resume and see watched videos
+  * I am currently working on the last table of the SQLite database, "unfinished_videos", The user should be able to resume a unfinished video, or the system should be able to recognize which movies have been watched.
 
+* Profile picture selection
+  * The user should be able to, when creating a new profile, see the images that they can choose from
+  * The user should be able to change profile picture and username for the profiles when they want to
 
 ## notes
 - Implemented user_profile_picture_path varchar(255) into database for profile picture handling per user.
