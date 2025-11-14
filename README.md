@@ -1,20 +1,55 @@
-[SWOT and Risk Analysis](https://github.com/nikholt1/HT/blob/master/analysis/HT%20SWOT%20analysis%20and%20Risk%20analysis.pdf)
+# Refract
 
-[Feasibility Study](https://github.com/nikholt1/HT/blob/master/analysis/HT%20Feasibility%20Study.pdf)
+Read about the full development process here:
+[Refract article](https://niklasholtlau.web.app/front.html)
 
-[Go to Database Setup](#database-setup)
+* [Go to Recent updates](#Recent-updates)
 
+## Table of contents
+* [SWOT and Risk Analysis](https://github.com/nikholt1/HT/blob/master/analysis/HT%20SWOT%20analysis%20and%20Risk%20analysis.pdf)
+* [Feasibility Study](https://github.com/nikholt1/HT/blob/master/analysis/HT%20Feasibility%20Study.pdf)
+* [Go to Database Setup](#database-setup)
+* [Go to Retrieve lost username and password guide](#Retreive-username-and-password-guide)
 
-
-   <!-- What the project does
+  
+<!--What the project does
     Why the project is useful
     How users can get started with the project
     Where users can get help with your project
     Who maintains and contributes to the project--> 
 
-# About
+## About
+This project is a locally run web-application, allowing users to view and stream videos from a locally stored
+host computer. The System is a desktop application that through Springboot framework serves a web-application on the users Wi-Fi, allowing
+anyone on the same Wi-Fi to access the specified folders with the content and stream videos from said web-application.
+The system installs a default folder structure and executable application, that together with a SQLite database lets the user register profiles and stream the content from them.
+The system also allows the user to add new folders or modify the existing default folders for categories of content.
 
 
+## Why
+Given the rising annoyance of streaming services' rising prices together with more ads implementations and
+since most of my projects are not made for public display, i decided to make this locally run streaming service.
+
+## How to use
+#### Installation
+I have designed an installer script that can be downloaded, which through automation creates the necessary folder-structure
+and installs the executable and assets in the default folders, together with the default SQLite database.
+
+#### Modification of the system
+From here the user has the option to specify a certain directory, if they please, or they can populate the 
+default folders with the videos they want. To add a image to a specific video, the user can place the video with the name (video.mp4) and in the same folder
+place a image with the exact same name as the video (video.jpg). From there the system will automatically update the backend to serve the video
+and place the cover of the video with the dedicated image to the frontend.
+
+#### Lost username and password
+The default Username and Password for the login, is username: Admin and password: admin. After initial login the user has the option and is encouraged to 
+change the username and password to what they desire. This is locally stored on their host computer, which means that the system does not send any data to anywhere, which means that if the username and password is lost,
+the user would have to follow the "retrieve username and password" guide, to fetch the lost username and password directly from the SQLite database.
+
+## Maintenance and contributions
+#### Github versions and Automatic update
+The prod system automatically searches for the latest version on Github versions, and automatically updates itself after comparing its own version to the newest version.
+The version control is maintained by me and contributions that are accepted will be implemented in newer versions of the system once i roll out a new version of the system to Github version. 
 
 <!-- Database Setup section -->
 
@@ -104,3 +139,8 @@ The system follows 3rd Normal Form (3NF) because each table stores only relevant
 08/10/2025
 
 <!-- Database Setup section END -->
+
+
+## Retreive username and password guide
+
+## Recent updates
