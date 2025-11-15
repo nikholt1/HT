@@ -10,6 +10,11 @@
 
 [![OS](https://img.shields.io/badge/OS-linux%2C%20windows%2C%20macOS-0078D4)](https://docs.abblix.com/docs/technical-requirements)
 [![getting started](https://img.shields.io/badge/getting_started-guide-1D76DB)](#getting-started)
+![Java](https://img.shields.io/badge/Java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white)
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white) 
+![CSS](https://img.shields.io/badge/css-%23E34F26.svg?style=for-the-badge&logo=css&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite-%234285F4.svg?style=for-the-badge&logo=sql&logoColor=white)
+
 
 
 **Read about the full development process here:
@@ -18,11 +23,17 @@
 * ##### Download the Installer: [Here](https://example.com)
 * [Go to Recent updates](#Recent-updates)
 
+## 🌐 Socials:
+[![Facebook](https://img.shields.io/badge/Facebook-%231877F2.svg?logo=Facebook&logoColor=white)](https://www.facebook.com/niklas.h.lau/) <br> [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/niklas-holt-l%C3%A4u-0b06542a4/)<br> [![email](https://img.shields.io/badge/Email-D14836?logo=gmail&logoColor=white)](mailto:niklas1997@live.dk)
+
+niklas1997@live.dk
+
 ## Table of contents
 * [Getting started](#Getting-started)
 * [Future implementations](#future-implementations)
 * [About](#about)
 * [Why](#why)
+* [SCRUM agile](#SCRUM-agile)
 * [Maintenance and Contribution](#maintenance-and-contributions)
 * [SWOT and Risk Analysis](https://github.com/nikholt1/HT/blob/master/analysis/HT%20SWOT%20analysis%20and%20Risk%20analysis.pdf)
 * [Feasibility Study](https://github.com/nikholt1/HT/blob/master/analysis/HT%20Feasibility%20Study.pdf)
@@ -49,6 +60,55 @@ The system also allows the user to add new folders or modify the existing defaul
 Given the rising annoyance of streaming services' rising prices together with more ads implementations and
 since most of my projects are not made for public display, i decided to make this locally run streaming service.
 
+## [SCRUM](https://www.scrum.org/) agile
+I worked using [SCRUM](https://www.scrum.org/) sprints. Through Github projects I created a backlog with the User stories that where derived from the functionality
+that I wanted the system to be capable of.
+After creating the backlog, I made a [Feasibility Study](https://github.com/nikholt1/HT/blob/master/analysis/HT%20Feasibility%20Study.pdf), where i concluded that the project
+might definitely was a "No-go" if I made the application paid for. Therefore, made the application free to use, which was intenden from the beginning.
+With the application being free to use and open source the program was a "GO".
+
+After the feasibility study I made a [SWOT Analysis](https://github.com/nikholt1/HT/blob/master/analysis/HT%20SWOT%20analysis%20and%20Risk%20analysis.pdf) thereafter i made a [Risk Analysis](https://github.com/nikholt1/HT/blob/master/analysis/HT%20SWOT%20analysis%20and%20Risk%20analysis.pdf)
+which gave me a good insight in the possible strength and opportunities this project could give me, while it forced me to determine the threads and weaknesses i had as a single developer.
+
+I worked using Github projects where i used the [SCRUM Board](https://github.com/users/nikholt1/projects/6) and [Issues](https://github.com/users/nikholt1/projects/6/views/7) to keep track of the progress of the project
+and to give me an oversight of what needed to be done, and what had been completed.
+![img.png](readmeImages/scrumboard.png)
+
+**Sprint 0: 1 week**
+* Project Backlog - what is the goal
+* Feasibility study - is the project a "GO"?
+* SWOT Analysis - gather information to determine the projects status
+* Risk Analysis - determine the most influential threads and weaknesses, and how to asses them
+
+**Sprint 1: 2 months**
+* Prioritization - What is need to have, and what is nice to have?
+* Markup - Write out the MVP (minimal viable product)
+* User stories - write down (at a minimum) the need to have User stories and categorize in Tasks and subtasks
+* Database layout
+* Project structure
+* Create images in Blender, Spline, Canva and Gimp
+* Data Access Object
+* Repository and service for MVP
+* Controller implementation for endpoints
+* Wireframe frontend layout
+* Make frontend in HTML CSS and as little JS as possible (thymeleaf)
+* Springboot security configurations
+* Code design refine
+* Cleanup
+* Installation script
+* Updating script
+* Version control
+* Documentation
+* Deploy
+
+
+<div style="background:rgba(17,49,22,0.58); border:1px solid #247624; color:#dfe7df; padding:12px 18px; border-radius:6px; font-family:Arial, sans-serif; font-size:12px;">
+  <strong>Sprint 2</strong> will be documented in here as soon as the backlog is <strong>Done</strong>
+</div>
+
+**Sprint 2:**
+see [Future implementations](#future-implementations)
+
 ## Maintenance and contributions
 ### Github versions and Automatic update
 The prod system automatically searches for the latest version on Github versions, and automatically updates itself after comparing its own version to the newest version.
@@ -56,8 +116,10 @@ The version control is maintained by me and contributions that are accepted will
 
 
 
-## Getting started
-
+## 💻 Getting started
+<div style="background:rgba(17,49,22,0.58); border:1px solid #247624; color:#dfe7df; padding:12px 18px; border-radius:6px; font-family:Arial, sans-serif; font-size:12px;">
+  <strong>The installation</strong> is a simple folder mkdir and structure script, that downloads the JAR file alongside it.
+</div>
 ## Installation
 I have designed an installer script that can be downloaded, which through automation creates the necessary folder-structure
 and installs the executable and assets in the default folders, together with the default SQLite database.
@@ -129,6 +191,9 @@ the user would have to follow the "retrieve username and password" guide, to fet
 
 
 ## Future Implementations
+<div style="background:rgba(17,49,22,0.58); border:1px solid #247624; color:#dfe7df; padding:12px 18px; border-radius:6px; font-family:Arial, sans-serif; font-size:12px;">
+  <strong>Sprint 2</strong> will be documented in here as soon as the backlog is <strong>Done</strong>
+</div>
 * Resume and see watched videos
   * I am currently working on the last table of the SQLite database, "unfinished_videos", The user should be able to resume a unfinished video, or the system should be able to recognize which movies have been watched.
 
@@ -136,6 +201,9 @@ the user would have to follow the "retrieve username and password" guide, to fet
   * The user should be able to, when creating a new profile, see the images that they can choose from
   * The user should be able to change profile picture and username for the profiles when they want to
 
+* Linux compatibility error
+  * On linux the images folders are incorrect, missing a "/"
+  * recogninze OS and fix the missing "/" for linux users
 ## notes
 - Implemented user_profile_picture_path varchar(255) into database for profile picture handling per user.
 08/10/2025
