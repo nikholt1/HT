@@ -7,7 +7,7 @@
 </h1>
 
 [![OS](https://img.shields.io/badge/OS-linux%2C%20windows%2C%20macOS-0078D4)](https://docs.abblix.com/docs/technical-requirements)
-[![getting started](https://img.shields.io/badge/getting_started-guide-1D76DB)](#getting-started)
+[![getting started](https://img.shields.io/badge/getting_started-guide-1D76DB)](#-getting-started)
 ![Java](https://img.shields.io/badge/Java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white)
 ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS](https://img.shields.io/badge/css-%23E34F26.svg?style=for-the-badge&logo=css&logoColor=white)
@@ -39,7 +39,7 @@
 </div>
 
 ## Table of contents
-* [Getting started](#Getting-started)
+* [Getting started](#-getting-started)
 * [Future implementations](#future-implementations)
 * [About](#about)
 * [Why](#why)
@@ -131,6 +131,7 @@ The version control is maintained by me and contributions that are accepted will
 <div style="background:rgba(17,49,22,0.58); border:1px solid #247624; color:#dfe7df; padding:12px 18px; border-radius:6px; font-family:Arial, sans-serif; font-size:12px;">
   <strong>The installation</strong> is a simple folder mkdir and structure script, that downloads the JAR file alongside it.
 </div>
+
 ## Installation
 I have designed an installer script that can be downloaded, which through automation creates the necessary folder-structure
 and installs the executable and assets in the default folders, together with the default SQLite database.
