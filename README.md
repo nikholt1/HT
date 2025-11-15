@@ -1,19 +1,27 @@
-
 <h1 align="center">
-  <br>
-  <a href=""><img src="https://raw.githubusercontent.com/nikholt1/HTasset/refs/heads/main/loginImage/logo.png" alt="Markdownify" width="200"></a>
-  <br>
-  Local Streaming made easy
-  <br>
-</h1>
 
+  <br>
+  <a href=""><img src="https://raw.githubusercontent.com/nikholt1/HTasset/refs/heads/main/storedAssets/R.png" alt="Markdownify" width="50"></a>
+  <br>
+  Streaming where you decide
+</h1>
 
 [![OS](https://img.shields.io/badge/OS-linux%2C%20windows%2C%20macOS-0078D4)](https://docs.abblix.com/docs/technical-requirements)
 [![getting started](https://img.shields.io/badge/getting_started-guide-1D76DB)](#getting-started)
 ![Java](https://img.shields.io/badge/Java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white)
-![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white) 
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS](https://img.shields.io/badge/css-%23E34F26.svg?style=for-the-badge&logo=css&logoColor=white)
 ![SQLite](https://img.shields.io/badge/SQLite-%234285F4.svg?style=for-the-badge&logo=sql&logoColor=white)
+
+
+<h1 align="center">
+  
+  <br>
+  <a href=""><img src="img.png" alt="Markdownify" width="800"></a>
+
+</h1>
+
+
 
 
 
@@ -24,9 +32,11 @@
 * [Go to Recent updates](#Recent-updates)
 
 ## 🌐 Socials:
-[![Facebook](https://img.shields.io/badge/Facebook-%231877F2.svg?logo=Facebook&logoColor=white)](https://www.facebook.com/niklas.h.lau/) <br> [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/niklas-holt-l%C3%A4u-0b06542a4/)<br> [![email](https://img.shields.io/badge/Email-D14836?logo=gmail&logoColor=white)](mailto:niklas1997@live.dk)
+[![Facebook](https://img.shields.io/badge/Facebook-%231877F2.svg?logo=Facebook&logoColor=white)](https://www.facebook.com/niklas.h.lau/) [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/niklas-holt-l%C3%A4u-0b06542a4/)[![email](https://img.shields.io/badge/Email-D14836?logo=gmail&logoColor=white)](mailto:niklas1997@live.dk)
 
-niklas1997@live.dk
+<div style="background:rgba(17,49,22,0.58); border:1px solid #247624; color:#dfe7df; padding:12px 18px; border-radius:6px; font-family:Arial, sans-serif; font-size:12px;">
+<strong>Contact me on</strong>: niklas1997@live.dk <strong>or here on Github:</strong> nikholt1
+</div>
 
 ## Table of contents
 * [Getting started](#Getting-started)
@@ -38,6 +48,7 @@ niklas1997@live.dk
 * [SWOT and Risk Analysis](https://github.com/nikholt1/HT/blob/master/analysis/HT%20SWOT%20analysis%20and%20Risk%20analysis.pdf)
 * [Feasibility Study](https://github.com/nikholt1/HT/blob/master/analysis/HT%20Feasibility%20Study.pdf)
 * [Go to Retrieve lost username and password guide](#Retreive-username-and-password-guide)
+* [UI/UX and wireframe](wireframe)
 * [Go to Database Setup](#database-setup)
 
 
@@ -190,9 +201,27 @@ the user would have to follow the "retrieve username and password" guide, to fet
 * If the database is present, we now know that the username and password should be there
 
 
-## Future Implementations
+## Wireframe
 <div style="background:rgba(17,49,22,0.58); border:1px solid #247624; color:#dfe7df; padding:12px 18px; border-radius:6px; font-family:Arial, sans-serif; font-size:12px;">
-  <strong>Sprint 2</strong> will be documented in here as soon as the backlog is <strong>Done</strong>
+  <strong>See the full wireframe <a href="https://github.com/nikholt1/HT/blob/master/analysis/wireframe.pdf" style="color:#dfe7df; text-decoration:underline;">here</a></strong>. 
+  Not all media elements are the final product in the wireframe.
+</div>
+
+
+I made the **UI/UX** following [Schneidermans Golden Rules](https://www.designprinciplesftw.com/collections/shneidermans-eight-golden-rules-of-interface-design) and [Jakob Nielsens Usability Heuristics](https://www.designprinciplesftw.com/collections/10-usability-heuristics-for-user-interface-design)
+Where i likewise utilize the [Gestalt Principles](https://www.interaction-design.org/literature/topics/gestalt-principles?srsltid=AfmBOootr4XUiaC1LDM_bY0vK9PFvcCBogdPZFA1AS5ttJ0bPWXnbxkI) to design the wireframe for the frontend of the webapplication.
+
+I made the choice to always have a "Help" button accessible, where the button takes the user to the build in help section under the settings endpoint.
+Most of the design is made with the four Gestalt Principles:
+
+![img_1.png](readmeImages/gestalt.png)
+
+
+See the [Wireframe Here](https://github.com/nikholt1/HT/blob/master/analysis/wireframe.pdf)
+
+## Future Implementations
+<div style="background:rgba(78,18,18,0.58); border:1px solid #ab2323; color:#dfe7df; padding:12px 18px; border-radius:6px; font-family:Arial, sans-serif; font-size:12px;">
+  <strong>Some</strong> of the implementations are <strong>Errors and brugs</strong> being fixed
 </div>
 * Resume and see watched videos
   * I am currently working on the last table of the SQLite database, "unfinished_videos", The user should be able to resume a unfinished video, or the system should be able to recognize which movies have been watched.
@@ -204,7 +233,12 @@ the user would have to follow the "retrieve username and password" guide, to fet
 * Linux compatibility error
   * On linux the images folders are incorrect, missing a "/"
   * recogninze OS and fix the missing "/" for linux users
+
+
 ## notes
+<div style="background:rgba(17,49,22,0.58); border:1px solid #247624; color:#dfe7df; padding:12px 18px; border-radius:6px; font-family:Arial, sans-serif; font-size:12px;">
+<strong>Notes</strong> will be updated dynamically, depending on system implementations.
+</div>
 - Implemented user_profile_picture_path varchar(255) into database for profile picture handling per user.
 08/10/2025
 
@@ -212,4 +246,4 @@ the user would have to follow the "retrieve username and password" guide, to fet
 
 
 ## Recent updates
-* [14/11/2025](https://example.com)sS
+* [14/11/2025](https://example.com)
