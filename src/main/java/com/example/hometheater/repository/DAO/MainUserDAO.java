@@ -1,4 +1,4 @@
-package com.example.hometheater.utils;
+package com.example.hometheater.repository.DAO;
 
 import com.example.hometheater.config.SecurityConfig;
 import com.example.hometheater.models.MainUser;
@@ -14,7 +14,7 @@ public class MainUserDAO {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
-    private MainUserService mainUserService;
+
 
 
     public MainUserDAO(JdbcTemplate jdbcTemplate) {

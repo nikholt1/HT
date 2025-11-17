@@ -2,8 +2,7 @@ package com.example.hometheater.service;
 
 import com.example.hometheater.models.ProfileUser;
 import com.example.hometheater.repository.UserRepository;
-import com.example.hometheater.utils.DataAccessObject;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.hometheater.repository.DAO.DataAccessObject;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;

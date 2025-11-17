@@ -1,4 +1,4 @@
-package com.example.hometheater.utils;
+package com.example.hometheater.repository.DAO;
 
 import com.example.hometheater.config.SecurityConfig;
 import com.example.hometheater.models.ProfileUser;

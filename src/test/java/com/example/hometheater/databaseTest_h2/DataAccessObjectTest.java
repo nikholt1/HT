@@ -21,7 +21,7 @@ package com.example.hometheater.databaseTest_h2;
 
 
 import com.example.hometheater.models.ProfileUser;
-import com.example.hometheater.utils.DataAccessObject;
+import com.example.hometheater.repository.DAO.DataAccessObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.context.ActiveProfiles;

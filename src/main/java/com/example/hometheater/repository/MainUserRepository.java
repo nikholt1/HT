@@ -3,9 +3,8 @@ package com.example.hometheater.repository;
 
 import com.example.hometheater.config.SecurityConfig;
 import com.example.hometheater.models.MainUser;
-import com.example.hometheater.utils.DataAccessObject;
-import com.example.hometheater.utils.MainUserDAO;
-import com.example.hometheater.utils.UserDAO;
+import com.example.hometheater.repository.DAO.DataAccessObject;
+import com.example.hometheater.repository.DAO.MainUserDAO;
 import org.springframework.stereotype.Repository;
 
 import java.sql.SQLException;

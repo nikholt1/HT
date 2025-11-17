@@ -1,8 +1,8 @@
 package com.example.hometheater.repository;
 
 import com.example.hometheater.models.ProfileUser;
-import com.example.hometheater.utils.DataAccessObject;
-import com.example.hometheater.utils.UserDAO;
+import com.example.hometheater.repository.DAO.DataAccessObject;
+import com.example.hometheater.repository.DAO.UserDAO;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;

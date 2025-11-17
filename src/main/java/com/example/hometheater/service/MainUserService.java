@@ -2,7 +2,7 @@ package com.example.hometheater.service;
 
 import com.example.hometheater.config.SecurityConfig;
 import com.example.hometheater.repository.MainUserRepository;
-import com.example.hometheater.utils.DataAccessObject;
+import com.example.hometheater.repository.DAO.DataAccessObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

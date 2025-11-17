@@ -1,6 +1,6 @@
 package com.example.hometheater.repository;
 
-import com.example.hometheater.utils.DataAccessObject;
+import com.example.hometheater.repository.DAO.DataAccessObject;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;

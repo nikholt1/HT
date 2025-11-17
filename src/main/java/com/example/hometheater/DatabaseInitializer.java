@@ -1,6 +1,6 @@
 package com.example.hometheater;
 
-import com.example.hometheater.utils.DataAccessObject;
+import com.example.hometheater.repository.DAO.DataAccessObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
@@ -80,6 +80,21 @@ public class DatabaseInitializer implements CommandLineRunner {
                             FOREIGN KEY(user_id) REFERENCES users(user_id) ON DELETE CASCADE
                         );
                     """);
+
+                    checkAndCreateTable(conn, stmt, "vpn_users", """
+                        CREATE TABLE vpn_users (
+                            vpn_user_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                            user_id INTEGER NOT NULL,
+                            ovpn_file_name VARCHAR(255) NOT NULL,
+                            created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                            active INTEGER NOT NULL DEFAULT 1,
+                            downloaded INTEGER NOT NULL DEFAULT 0,
+                            revoked_at DATETIME NULL,
+                            FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+                        );
+                    """);
+
+
                 }
             }
         } catch (SQLException e) {
