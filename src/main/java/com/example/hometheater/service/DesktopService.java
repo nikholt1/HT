@@ -80,9 +80,6 @@ public class DesktopService {
         return desktopRepository.getUserName();
     }
 
-    public boolean updateUserName(String newName) {
-        return desktopRepository.updateUserName(newName);
-    }
     public String getIpv4Address() {
         return desktopRepository.getIPv4Address();
     }

@@ -105,42 +105,6 @@ public class DataAccessObject {
     }
 
 
-
-//    public boolean mainUserFirstInitializer() {
-//        String sql = "INSERT INTO main_user (username, password_hash) VALUES (?, ?)";
-//
-//
-//        String sqlCheckForUser = "SELECT main_user_id FROM main_user";
-//
-//        boolean userThereCheck = false;
-//
-//        try {
-//            // Check if there is already a user
-//            Integer count = jdbcTemplate.queryForObject(sqlCheckForUser, Integer.class);
-//            if (count != null && count > 0) {
-//                userThereCheck = true;
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return false; // DB error
-//        }
-//
-//        if (!userThereCheck) {
-//            try {
-//                String encodedPsw = securityConfig.getPassword("admin");
-//
-//                int updated = jdbcTemplate.update(sql, "Admin", encodedPsw);
-//                System.out.println("[SYSTEM] Insert successful via JDBC");
-//                return updated > 0;
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//                return false;
-//            }
-//        }
-//        return false;
-//
-//    }
-
     // -----------------------------
     // ProfileUser methods
     // -----------------------------
@@ -222,12 +186,4 @@ public class DataAccessObject {
         jdbcTemplate.update(sql, newUsername);
     }
 
-    public String getMainUserPassword() {
-        MainUser mainUser = getMainUsers();
-        String username = mainUser.getUsername();
-        if (mainUser != null && mainUser.getUsername().equals(username)) {
-            return mainUser.getPassword_hash();
-        }
-        return null;
-    }
 }
