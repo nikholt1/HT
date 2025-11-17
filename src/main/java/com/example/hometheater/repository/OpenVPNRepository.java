@@ -50,5 +50,13 @@ public class OpenVPNRepository {
     public boolean deleteVPNUser(int vpnUserId) {
         return vpnUserDAO.deleteVPNUser(vpnUserId) > 0;
     }
+
+
+
+    ///  create read and update from the open vpn config files
+    ///  likewise install and configure open VPN
+    ///  generate user keys and give them to the VPNUsers, so the profiles can fetch depending on who they are connected to in the vpn users.
+
+
 }
 
