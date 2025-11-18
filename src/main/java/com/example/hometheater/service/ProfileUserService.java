@@ -10,8 +10,8 @@ import java.util.List;
 
 @Service
 public class ProfileUserService {
-    public DataAccessObject dataAccessObject;
-    public UserRepository userRepository;
+    private DataAccessObject dataAccessObject;
+    private UserRepository userRepository;
     public ProfileUserService(DataAccessObject dataAccessObject, UserRepository userRepository) {
         this.dataAccessObject = dataAccessObject;
         this.userRepository = userRepository;

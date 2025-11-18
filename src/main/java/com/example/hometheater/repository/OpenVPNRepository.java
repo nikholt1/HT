@@ -51,6 +51,10 @@ public class OpenVPNRepository {
         return vpnUserDAO.deleteVPNUser(vpnUserId) > 0;
     }
 
+    public List<VPNUser> getAllVPNUsers() {
+        return vpnUserDAO.getAllVPNUsers();
+    }
+
 
 
     ///  create read and update from the open vpn config files
