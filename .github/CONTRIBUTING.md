@@ -30,7 +30,7 @@ even better, create a **[Pull request!]()** so we can fix the problem even faste
 if you want to contribute, here is the tech stack out system uses
 
 >**Database**
-<a href="https://sqlite.org/" style="text-decoration:none;color:inherit;"><div class="profile" style="display:flex;align-items:center;font-family:sans-serif;"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAgMAAABinRfyAAAADFBMVEWoqKhQUHB4pJgAAABrHPlyAAAASUlEQVR4AWKQWrVqCUP9a0AHU20AMAzDdG9Pi2kun5Q1jIstThHJvoRummB+nuwn/al1OEcOTq953DrcpqG3Tu1u6zgc+sU9NQCdyC9md66v1AAAAABJRU5ErkJggg==" alt="Profile Photo" style="width:20px;height:20px;border-radius:50%;object-fit:cover;margin-right:10px;"><span>SQLite</span></div></a>
+><span>SQLite</span></div></a>
 >
 ><span>JDBC</span></div></a>
 >
