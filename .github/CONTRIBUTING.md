@@ -4,7 +4,7 @@
 
 
 *Pull requests, bug reports, and all other forms of contribution are welcomed and highly encouraged!*
-We would ❤️ it if you contributed to the project and helped make Amplication even better.
+I would ❤️ it if you contributed to the project and helped make Amplication even better.
 
 ## Table of Contents
 * [Questions?](#got-any-questions)
