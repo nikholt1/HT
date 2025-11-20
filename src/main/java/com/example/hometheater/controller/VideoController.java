@@ -32,12 +32,8 @@ public class VideoController {
         this.videoService = videoService;
         this.videoFolder = videoService.getFolderPath();
         this.updateChecker = updateChecker;
-        if (updateChecker.isUpdateAvailable()) {
-            System.out.println("[SYSTEM] A new version is available");
+        updateChecker.checkAndRunUpdater();
 
-        } else {
-            System.out.println("[SYSTEM] You are running the latest version");
-        }
     }
 
     @ModelAttribute("currentUser")
