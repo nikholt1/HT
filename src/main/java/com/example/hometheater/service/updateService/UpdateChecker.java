@@ -5,14 +5,10 @@ package com.example.hometheater.service.updateService;
 import com.example.hometheater.config.AppInfo;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 @Component
 public class UpdateChecker {
@@ -23,70 +19,70 @@ public class UpdateChecker {
         this.appInfo = appInfo;
     }
 
-    public String fetchLatestVersionFromGitHub() {
-        String apiUrl = "https://api.github.com/repos/<OWNER>/<REPO>/releases/latest";
-        try {
-            URL url = new URL(apiUrl);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
-            conn.setRequestProperty("Accept", "application/vnd.github.v3+json");
+    public void checkForUpdate() {
+        String currentVersion = appInfo.getVersion();
+        if (currentVersion == null) {
+            System.out.println("[ERROR] Current version is null");
+            return;
+        }
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            StringBuilder response = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                response.append(line);
-            }
-            reader.close();
+        // Fetch latest version from GitHub
+        String latestVersion = fetchLatestVersionFromGitHub("nikholt1", "HT"); // replace with your GitHub info
+        if (latestVersion == null) {
+            System.out.println("[ERROR] Could not fetch latest version from GitHub");
+            return;
+        }
 
-            // Parse JSON for "tag_name" (e.g., "v1.2.3")
-            String json = response.toString();
-            String tag = json.split("\"tag_name\":\"")[1].split("\"")[0];
-            return tag.startsWith("v") ? tag.substring(1) : tag; // Remove leading 'v' if present
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+        // Compare versions
+        if (isNewerVersion(currentVersion, latestVersion)) {
+            System.out.println("[SYSTEM] Newer version available: YOUR VERSION: " + currentVersion + " NEW VERSION: " + latestVersion);
+        } else {
+            System.out.println("[SYSTEM] System is at the current version: " + currentVersion);
         }
     }
 
-    public boolean isVersionNewer(String latest, String current) {
-        if (latest == null || current == null) return false;
-
-        String[] latestParts = latest.split("\\.");
+    // Simple numeric version comparison
+    private boolean isNewerVersion(String current, String latest) {
         String[] currentParts = current.split("\\.");
+        String[] latestParts = latest.split("\\.");
+        int length = Math.max(currentParts.length, latestParts.length);
 
-        int length = Math.max(latestParts.length, currentParts.length);
         for (int i = 0; i < length; i++) {
-            int latestNum = i < latestParts.length ? Integer.parseInt(latestParts[i]) : 0;
             int currentNum = i < currentParts.length ? Integer.parseInt(currentParts[i]) : 0;
+            int latestNum = i < latestParts.length ? Integer.parseInt(latestParts[i]) : 0;
 
             if (latestNum > currentNum) return true;
             if (latestNum < currentNum) return false;
         }
         return false; // versions are equal
     }
-    public void runUpdater() {
+
+    // Fetch latest release tag from GitHub
+    private String fetchLatestVersionFromGitHub(String owner, String repo) {
+        String apiUrl = "https://api.github.com/repos/" + owner + "/" + repo + "/releases/latest";
+
+        //conn.setRequestProperty("Authorization", "Bearer YOUR_GITHUB_TOKEN");
+        //conn.setRequestProperty("X-GitHub-Api-Version", "2022-11-28");
+        //conn.setRequestProperty("Accept", "application/vnd.github+json");
         try {
-            // Example for JAR updater
-            ProcessBuilder pb = new ProcessBuilder("java", "-jar", "Updater.jar");
-            pb.inheritIO(); // Optional: show updater console output
-            pb.start();
+            HttpURLConnection conn = (HttpURLConnection) new URL(apiUrl).openConnection();
+            conn.setRequestProperty("Accept", "application/vnd.github.v3+json");
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            StringBuilder json = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                json.append(line);
+            }
+            reader.close();
+
+            // Extract "tag_name", e.g., "v0.0.2"
+            String tag = json.toString().split("\"tag_name\":\"")[1].split("\"")[0];
+            return tag.startsWith("v") ? tag.substring(1) : tag;
+
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
     }
-    public void checkAndRunUpdater() {
-        String latestVersion = fetchLatestVersionFromGitHub();
-
-        if (isVersionNewer(latestVersion, appInfo.getVersion())) {
-            System.out.println("New version detected: " + latestVersion);
-            runUpdater();
-            System.exit(0); // Exit main app so updater can replace the JAR
-        } else {
-            System.out.println("App is up to date.");
-        }
-    }
-
-
-
 }

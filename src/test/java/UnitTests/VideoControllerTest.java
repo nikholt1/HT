@@ -46,7 +46,7 @@ public class VideoControllerTest {
     void setup() {
         when(videoService.getFolderPath()).thenReturn("videos");
         when(videoService.getUserName()).thenReturn("Alice");
-        when(updateChecker.isUpdateAvailable()).thenReturn(false);
+
     }
 
     @Test

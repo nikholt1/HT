@@ -32,7 +32,7 @@ public class VideoController {
         this.videoService = videoService;
         this.videoFolder = videoService.getFolderPath();
         this.updateChecker = updateChecker;
-        updateChecker.checkAndRunUpdater();
+        updateChecker.checkForUpdate();
 
     }
 
