@@ -1,4 +1,4 @@
-package com.example.hometheater.Maintenence;
+package com.example.hometheater.maintenence;
 
 
 import javax.imageio.ImageIO;
@@ -110,51 +110,29 @@ public class Installer extends JFrame {
             try {
                 publish("Starting installation...\n");
 
-                // Create base folder inside user-selected install path
-                Path baseDir = installPath.resolve("BaseFolder");
+                // Create base folder named "Refract"
+                Path baseDir = installPath.resolve("Refract");
                 publish("Creating base folder at: " + baseDir.toAbsolutePath() + "\n");
                 Files.createDirectories(baseDir);
 
-                // Define folder structure
-                Path dataFolder = baseDir.resolve("datafolder");
-                Path profileImages = dataFolder.resolve("profileImages");
-                Path videosFolder = dataFolder.resolve("videos");
-
-                String[] categories = {
-                        "Action", "Adventure", "Comedy", "Crime", "Documentary",
-                        "Drama", "Home-Videos", "Horror", "Reality", "Romance",
-                        "Sci-Fi", "Thriller"
-                };
-
-                // Create datafolder and subfolders
-                publish("Creating folder structure...\n");
-                Files.createDirectories(profileImages);
-                Files.createDirectories(videosFolder);
-                for (String category : categories) {
-                    Files.createDirectories(videosFolder.resolve(category));
-                }
+                // Create the data subfolder
+                Path dataFolder = baseDir.resolve("data");
+                publish("Creating data folder...\n");
+                Files.createDirectories(dataFolder);
                 setProgress(20);
 
-                // Download assets (currently commented)
-                publish("Downloading assets...\n");
-//        Path assetDest = profileImages.resolve("icon.png");
-//        downloadFile("https://example.com/assets/icon.png", assetDest);
-//        setProgress(60);
+                // Download main JAR
+                publish("Downloading main JAR...\n");
 
-                // Download main JAR (currently commented)
-//        publish("Downloading main JAR...\n");
-//        Path jarDest = baseDir.resolve("app.jar");
-//        downloadFile("https://example.com/app.jar", jarDest);
-//        setProgress(90);
+                // TODO: replace this with your jar file url
+                String jarUrl = "https://example.com/yourfile.jar";
 
-                // Launch application (currently commented)
-//        publish("Launching application...\n");
-//        ProcessBuilder pb = new ProcessBuilder("java", "-jar", jarDest.toString());
-//        pb.directory(baseDir.toFile());
-//        pb.start();
-//        setProgress(100);
+                Path jarDest = baseDir.resolve("Refract.jar");
+                downloadFile(jarUrl, jarDest);
+                setProgress(100);
 
                 publish("Installation complete!");
+
             } catch (Exception e) {
                 publish("Error: " + e.getMessage() + "\n");
                 e.printStackTrace();
