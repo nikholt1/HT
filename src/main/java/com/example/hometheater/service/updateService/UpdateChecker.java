@@ -61,9 +61,6 @@ public class UpdateChecker {
     private String fetchLatestVersionFromGitHub(String owner, String repo) {
         String apiUrl = "https://api.github.com/repos/" + owner + "/" + repo + "/releases/latest";
 
-        //conn.setRequestProperty("Authorization", "Bearer YOUR_GITHUB_TOKEN");
-        //conn.setRequestProperty("X-GitHub-Api-Version", "2022-11-28");
-        //conn.setRequestProperty("Accept", "application/vnd.github+json");
         try {
             HttpURLConnection conn = (HttpURLConnection) new URL(apiUrl).openConnection();
             conn.setRequestProperty("Accept", "application/vnd.github.v3+json");
