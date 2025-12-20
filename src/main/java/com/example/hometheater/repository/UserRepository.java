@@ -3,6 +3,7 @@ package com.example.hometheater.repository;
 import com.example.hometheater.models.ProfileUser;
 import com.example.hometheater.utils.DataAccessObject;
 import com.example.hometheater.utils.UserDAO;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
@@ -20,27 +21,12 @@ public class UserRepository {
         this.userDAO = userDAO;
     }
 
-    private final String filePath = "src/main/java/com/example/hometheater/repository/settings.conf";
+    @Value("${app.folder-path}")
+    private String folderPath;
 
 
     public String getUserName() {
-        try (Scanner scanner = new Scanner(new File(filePath))) {
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine().trim();
-                if (line.isEmpty() || line.startsWith("#")) continue;
-
-                if (line.startsWith("userName=")) {
-                    String value = line.substring("userName=".length()).trim();
-                    if (value.startsWith("\"") && value.endsWith("\"")) {
-                        value = value.substring(1, value.length() - 1);
-                    }
-                    return value;
-                }
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return "test";
     }
 
     public void addUser(ProfileUser profilerUser) {
