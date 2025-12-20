@@ -70,6 +70,7 @@ public class VideoController {
         List<String> items;
         Map<String, String> paths = new LinkedHashMap<>();
         try (var files = Files.list(folderPath)) {
+            System.out.println("[SYSTEM] folderPath = " + folderPath);
             items = files.map(p -> {
                 String name = p.getFileName().toString();
                 boolean isDir = Files.isDirectory(p);
