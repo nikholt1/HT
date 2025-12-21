@@ -62,8 +62,8 @@
 
     <!-- Video background -->
     <div th:if="${previewVideoPath != null}" class="hero-video-wrapper">
-        <video autoplay muted loop playsinline>
-            <source class="hero-video" th:src="@{/videos/stream(filePath=${previewVideoPath})}" type="video/mp4">
+        <video class="hero-video" autoplay muted loop playsinline>
+            <source th:src="@{/videos/stream(filePath=${previewVideoPath})}" type="video/mp4">
             Your browser does not support the video tag.
         </video>
         <div class="gradient-overlay"></div>
@@ -201,6 +201,13 @@
 
         // redirect to streaming page (replace with your desired URL)
         window.location.href = `/videos/stream?filePath=${encodeURIComponent(videoPath)}`;
+    }
+    const heroVideo = document.querySelector('.hero-video-wrapper video');
+
+    if (heroVideo) {
+        heroVideo.addEventListener('loadedmetadata', () => {
+            heroVideo.currentTime = heroVideo.duration * 0.5;
+        });
     }
 
     window['__onGCastApiAvailable'] = function(isAvailable) {
