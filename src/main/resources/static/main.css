@@ -514,7 +514,7 @@ html, body {
             to bottom,
             rgba(0,0,0,0) 60%,   /* transparent until halfway */ rgba(0, 0, 0, 0.48) 75%, /* fade builds up */ rgb(0, 0, 0) 100% /* solid dark at bottom */
     ),
-    url('https://raw.githubusercontent.com/nikholt1/HTasset/refs/heads/main/storedAssets/spaceCity.png');
+    url('https://raw.githubusercontent.com/nikholt1/HTasset/refs/heads/main/storedAssets/planetImage.jpg');
     background-size: cover;
 
     background-position: center;
@@ -664,7 +664,7 @@ html, body {
             rgba(0, 0, 0, 0.48) 75%,
             rgb(0, 0, 0) 100%
     ),
-    url('https://raw.githubusercontent.com/nikholt1/HTasset/refs/heads/main/storedAssets/spaceCity.png');
+    url('https://raw.githubusercontent.com/nikholt1/HTasset/refs/heads/main/storedAssets/planetImage.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

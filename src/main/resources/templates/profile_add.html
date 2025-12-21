@@ -12,6 +12,7 @@
 <body>
 <nav class="navbar">
     <div class="nav-left">
+        <a class="navItem" th:href="@{/}">Start</a>
         <a class="navItem" th:href="@{/profiles/manageAccount}">Manage Users</a>
         <a class="navItem" th:href="@{/profiles/add}">Add User</a>
 
@@ -43,7 +44,7 @@
 
         <form class="addNewUserForm" th:action="@{/profiles/addUser}" th:object="${user}" method="post">
             <h3>Username</h3>
-            <input type="text" id="username" th:field="*{username}" required placeholder="Change username"/>
+            <input type="text" id="username" th:field="*{username}" required placeholder="Username"/>
 
             <h3>Profile image</h3>
             <div class="chooseProfilePictureDiv">

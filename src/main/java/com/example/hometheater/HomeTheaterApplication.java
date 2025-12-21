@@ -6,26 +6,25 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import javax.swing.*;
-
 @SpringBootApplication
 public class HomeTheaterApplication {
 
     public static void main(String[] args) {
 
-        System.setProperty("java.awt.headless", "false");
-        // 1. Start Spring Boot on the main thread
-        ConfigurableApplicationContext context =
-                SpringApplication.run(HomeTheaterApplication.class, args);
+        // 1. Create SpringApplication instance
+        SpringApplication app = new SpringApplication(HomeTheaterApplication.class);
 
-        // 2. Then start Swing on EDT
+        // 2. Disable headless mode so Swing can show windows
+        app.setHeadless(false);
+
+        // 3. Start Spring Boot and get the context
+        ConfigurableApplicationContext context = app.run(args);
+
+        // 4. Start Swing GUI on the Event Dispatch Thread
         SwingUtilities.invokeLater(() -> {
             DesktopApplicationController.main(new String[]{}, context);
         });
     }
-
-        // Start Spring Boot server
-//        SpringApplication.run(HomeTheaterApplication.class, args);
-
 }
 
 //    public static void main(String[] args) {

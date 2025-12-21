@@ -91,7 +91,7 @@ public class DataAccessObject {
             try {
 
 
-                int updated = jdbcTemplate.update(sqlInsertNewMainUser, 1, "DefaultUser", "/images/profileImages/GirlCatProf.jpg");
+                int updated = jdbcTemplate.update(sqlInsertNewMainUser, 1, "DefaultUser", "GirlCatProf.jpg");
 
                 if (updated == 1) {
                     System.out.println("[SYSTEM] Insert of default user successful via JDBC");

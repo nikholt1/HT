@@ -42,11 +42,11 @@ public class DesktopApplicationController {
             frame.setLocationRelativeTo(null);
             frame.getContentPane().setBackground(Color.BLACK);
 
-            // --- Load window icon ---
+
             final URL iconUrl = DesktopApplicationController.class.getResource("/static/images/imagesTemplates/R.png");
             if (iconUrl != null) frame.setIconImage(new ImageIcon(iconUrl).getImage());
 
-            // --- System tray ---
+
             if (SystemTray.isSupported()) {
                 SystemTray tray = SystemTray.getSystemTray();
                 Image trayImage = Toolkit.getDefaultToolkit().getImage(
@@ -65,7 +65,7 @@ public class DesktopApplicationController {
                 try { tray.add(trayIcon); } catch (AWTException e) { e.printStackTrace(); }
             }
 
-            // --- Background Image for center panel ---
+
             final URL bgUrl = DesktopApplicationController.class.getResource("/static/images/imagesTemplates/remote.png");
             final Image backgroundImage = (bgUrl != null) ? new ImageIcon(bgUrl).getImage() : null;
 
@@ -87,7 +87,7 @@ public class DesktopApplicationController {
             };
             centerPanel.setBackground(Color.BLACK);
 
-            // --- Left Panel: Server controls + status ---
+
             JPanel leftPanel = new JPanel() {
                 @Override
                 protected void paintComponent(Graphics g) {
@@ -97,14 +97,14 @@ public class DesktopApplicationController {
                     int h = getHeight();
                     Color topColor = new Color(30, 30, 30);    // dark gray top
                     Color bottomColor = new Color(49, 78, 92, 255);
-                    // blue-ish bottom
+
                     GradientPaint gp = new GradientPaint(0, 0, topColor, 0, h, bottomColor);
                     g2.setPaint(gp);
                     g2.fillRect(0, 0, w, h);
                 }
             };
             leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
-            leftPanel.setOpaque(false); // optional, gradient paints entire panel
+            leftPanel.setOpaque(false);
             leftPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
             // Status dot
@@ -112,7 +112,7 @@ public class DesktopApplicationController {
                 private Color color = Color.ORANGE;
 
                 public StatusDot() {
-                    setOpaque(false); // very important! Makes the panel fully transparent
+                    setOpaque(false);
                 }
 
                 public void setDotColor(Color c) {
@@ -122,7 +122,7 @@ public class DesktopApplicationController {
 
                 @Override
                 protected void paintComponent(Graphics g) {
-                    super.paintComponent(g); // does NOT fill background because opaque=false
+                    super.paintComponent(g);
                     g.setColor(color);
                     g.fillOval(0, 0, getWidth(), getHeight());
                 }
@@ -144,7 +144,7 @@ public class DesktopApplicationController {
             leftPanel.add(statusPanel);
             leftPanel.add(Box.createVerticalStrut(20));
 
-            // Timer to update status dot every 2 seconds
+
             new Timer(2000, e -> {
                 if (context == null) {
                     SwingUtilities.invokeLater(() -> {
@@ -165,7 +165,7 @@ public class DesktopApplicationController {
                 });
             }).start();
 
-            // Server toggle button
+
             JButton serverToggleButton = new JButton("Kill Server");
             serverToggleButton.setBackground(Color.RED);
             serverToggleButton.setForeground(Color.WHITE);
@@ -184,14 +184,14 @@ public class DesktopApplicationController {
             });
             leftPanel.add(serverToggleButton);
 
-            // --- Right Panel: IP + folder + save ---
+
             JPanel rightPanel = new JPanel();
             rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
             rightPanel.setBackground(new Color(49, 78, 92, 255));
 
             rightPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-// Load the image
+
 
             class OffsetIcon extends ImageIcon {
                 private final int yOffset;
@@ -203,24 +203,24 @@ public class DesktopApplicationController {
 
                 @Override
                 public void paintIcon(Component c, Graphics g, int x, int y) {
-                    // Apply vertical shift
+
                     super.paintIcon(c, g, x, y + yOffset);
                 }
             }
 
-// Load the image
+
             URL imageUrl = DesktopApplicationController.class.getResource("/static/images/imagesTemplates/Refractio-removebg-preview.png");
             ImageIcon icon = null;
             if (imageUrl != null) {
                 ImageIcon baseIcon = new ImageIcon(imageUrl);
-                // Resize the icon if needed
+
                 Image img = baseIcon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
 
-                // Move icon up by 10px (use negative for up, positive for down)
+
                 icon = new OffsetIcon(img, -15);
             }
 
-// Create label with text on left, icon on right
+
             JLabel welcomeLabel = new JLabel("Welcome To", icon, JLabel.CENTER);
             welcomeLabel.setFont(new Font("Segoe UI", Font.BOLD, 25));
             welcomeLabel.setForeground(Color.WHITE);
@@ -234,7 +234,7 @@ public class DesktopApplicationController {
 
 
 
-            // IP Label
+
             String ipv4 = desktopService.getIpv4Address();
             String urlText = (ipv4 != null ? ipv4 : "Unavailable") + ":8080";
             JLabel ipLabel = new JLabel("<html>Streaming service: <a href=''>" + urlText + "</a></html>");
@@ -260,49 +260,14 @@ public class DesktopApplicationController {
 
 
 
-            // Folder label
-            JLabel folderLabel = new JLabel("Video Folder Path:");
-            folderLabel.setFont(new Font("Segoe UI", Font.BOLD, 14));
-            folderLabel.setForeground(Color.WHITE);
-            folderLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-            rightPanel.add(folderLabel);
-            rightPanel.add(Box.createVerticalStrut(5));
 
-            // Folder text field
-            JTextField folderField = new JTextField(desktopService.getFolderPath());
-            folderField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
-            folderField.setFont(new Font("Segoe UI", Font.BOLD, 14));
-            folderField.setAlignmentX(Component.LEFT_ALIGNMENT);
-            rightPanel.add(folderField);
-            rightPanel.add(Box.createVerticalStrut(10));
-
-            // Save button
-            JButton saveButton = new JButton("Save");
-            saveButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
-            saveButton.setForeground(Color.WHITE);
-            saveButton.setBackground(new Color(0, 120, 215));
-            saveButton.setFocusPainted(false);
-            saveButton.setAlignmentX(Component.LEFT_ALIGNMENT);
-            saveButton.addActionListener(e -> {
-                boolean success = desktopService.updateFolderPath(folderField.getText().trim());
-                JOptionPane.showMessageDialog(frame, success ? "Folder path updated successfully!" : "Invalid folder path.",
-                        "Info", success ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.ERROR_MESSAGE);
-            });
-            rightPanel.add(saveButton);
-
-
-
-
-
-
-            // --- Split panes ---
             JSplitPane leftSplit = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftPanel, centerPanel);
             leftSplit.setDividerLocation(200);
             leftSplit.setDividerSize(3);
             leftSplit.setOpaque(false);
 
             JSplitPane mainSplit = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftPanel, rightPanel);
-            mainSplit.setDividerLocation(180); // adjust width of left panel
+            mainSplit.setDividerLocation(180);
             mainSplit.setDividerSize(3);
             mainSplit.setOpaque(false);
 

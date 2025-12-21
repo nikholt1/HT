@@ -28,8 +28,7 @@ public class ProfilesController {
         this.securityConfig = securityConfig;
     }
 
-//    @Value("${login.background.url}")
-//    private String manage_accounts_background_url;
+
     @GetMapping("/")
     public String profile(Model model) throws SQLException {
         List<ProfileUser> users = profileUserService.getAllUsers();
@@ -48,7 +47,7 @@ public class ProfilesController {
         File folder = new File("../data/profileImages");
         String[] images = folder.list((dir, name) -> name.endsWith(".jpg") || name.endsWith(".png"));
 
-        // Print the found image paths
+
         if (images != null) {
             for (String image : images) {
                 System.out.println("Found image: " + folder.getAbsolutePath() + "/" + image);
@@ -65,8 +64,8 @@ public class ProfilesController {
 
     @PostMapping("/profiles/addUser")
     public String addProfile(@ModelAttribute ProfileUser user) throws SQLException {
-        profileUserService.addUser(user); // Save user in DB
-        return "redirect:/"; // redirect to profile selection page
+        profileUserService.addUser(user);
+        return "redirect:/";
     }
 
     @GetMapping("/profiles/select")

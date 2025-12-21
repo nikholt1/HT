@@ -4,6 +4,8 @@ import jakarta.annotation.PostConstruct;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
@@ -11,7 +13,6 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
 @Component
 @Profile("!test")
 public class DatafolderResourcesInitializer {
@@ -29,6 +30,9 @@ public class DatafolderResourcesInitializer {
             } else {
                 System.out.println("[SYSTEM] Folder already exists: " + profileImages.toAbsolutePath());
             }
+
+            // Copy all profile images from resources into data/profileImages
+            copyProfileImages(profileImages);
 
             // Ensure 'videos' folder exists
             Path videos = dataFolder.resolve("videos");
@@ -68,7 +72,7 @@ public class DatafolderResourcesInitializer {
                     System.out.println("[SYSTEM] No image found for category: " + category);
 
                     // Try to copy a template image from resources/static/images/imagesTemplates
-                    String templateFileName = category.toLowerCase() + ".png"; // you can also try .png
+                    String templateFileName = category.toLowerCase() + ".png";
                     Resource templateResource = new ClassPathResource("static/images/imagesTemplates/" + templateFileName);
 
                     if (templateResource.exists()) {
@@ -85,6 +89,36 @@ public class DatafolderResourcesInitializer {
                 }
             }
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Copies all images from resources/static/images/profileImages to the given target folder.
+     */
+    private void copyProfileImages(Path targetFolder) {
+        try {
+            // Get the resource folder inside the JAR / classpath
+            ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+            Resource[] resources = resolver.getResources("classpath:static/images/profileImages/*.*");
+
+            for (Resource resource : resources) {
+                if (resource.exists() && resource.isReadable()) {
+                    String filename = resource.getFilename();
+                    Path targetPath = targetFolder.resolve(filename);
+
+                    // Only copy if it doesn't exist already
+                    if (!Files.exists(targetPath)) {
+                        try (InputStream in = resource.getInputStream()) {
+                            Files.copy(in, targetPath);
+                            System.out.println("[SYSTEM] Copied profile image: " + targetPath.toAbsolutePath());
+                        }
+                    } else {
+                        System.out.println("[SYSTEM] Profile image already exists: " + targetPath.toAbsolutePath());
+                    }
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
