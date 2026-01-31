@@ -66,6 +66,8 @@ anyone on the same Wi-Fi to access the specified folders with the content and st
 The system installs a default folder structure and executable application, that together with a SQLite database lets the user register profiles and stream the content from them.
 The system also allows the user to add new folders or modify the existing default folders for categories of content.
 
+bear in mind that this is currently the first version, where the automatic updater is not included. This means that if there is a future update the user must install the new version themselves before the 
+automatic updater that will be implemented in the next release actually functions properly.
 
 ## Why
 Given the rising annoyance of streaming services' rising prices together with more ads implementations and
