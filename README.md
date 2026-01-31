@@ -28,7 +28,7 @@
 **Read about the full development process here:
 [Refract article](https://niklasholtlau.web.app/R.html)**
 
-* ##### Download the Installer: [Here](https://example.com)
+
 * [Go to Recent updates](#Recent-updates)
 
 ## 🌐 Socials:
@@ -133,10 +133,13 @@ The version control is maintained by me and contributions that are accepted will
 </div>
 
 ## Installation
-I have designed an installer script that can be downloaded, which through automation creates the necessary folder-structure
+Since the installer script has not yet been made, the program can for now be installed as a .exe file. So the program must simply be downloaded on to the desktop and double clicked to run.
+right now there is no shortcut being made automatically, so the user must either make a seperate shortcut themselves or simply use the .exe file.
+The .exe file should be placed inside a folder called whatever the user wants it to, but as a minimum the .exe file should be inside the folder.
+<!--I have designed an installer script that can be downloaded, which through automation creates the necessary folder-structure
 and installs the executable and assets in the default folders, together with the default SQLite database.
 
-<!-- fix -->
+ fix 
 * Download the installer
  * Download the installer: [Here](https://example.com)
  * Select the preferred _directory_ where you want the program to be installed
@@ -144,7 +147,7 @@ and installs the executable and assets in the default folders, together with the
  * Press finish
 
 Now the Refract should automatically launch, if not, search for it and launch it.
-
+-->
 ## Modification of the system
 From here the user has the option to specify a certain directory if they please, or they can populate the
 default folders with the videos they want. To add a image to a specific video, the user can place the video with the name (video.mp4) and in the same folder
